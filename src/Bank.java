@@ -139,7 +139,7 @@ public class Bank {
 
             // int id = 0; // 테스트용으로 사용자 0으로 로그인하여 시스템을 시연한다.
             loginUser = findUser(id);
-            if (!isValid(pw)) { // 유효하지 않은 로그인이면 다시 입력
+            if (!isValidLogin(pw)) { // 유효하지 않은 로그인이면 다시 입력
                 continue;
             }
 
@@ -151,7 +151,7 @@ public class Bank {
         }
     }
 
-    private boolean isValid(String pw) {
+    private boolean isValidLogin(String pw) {
         if (loginUser == null) {
             System.out.println("[시스템] 사용자를 찾을 수 없습니다.");
             return false;
