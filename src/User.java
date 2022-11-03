@@ -1,15 +1,21 @@
 import java.util.Scanner;
 
 public class User implements Manageable {
-    String code; // 아이디, 사용자를 구분하는
+    String id; // 사용자번호, 사용자를 구분하는
+    String password;
     String name;
     String birthDay;
     String phone;
     String email;
 
+    public boolean isSuperUser() {
+        return id.contentEquals("admin");
+    }
+
     @Override
     public void read(Scanner scan) {
-        code = scan.next();
+        id = scan.next();
+        password = scan.next();
         name = scan.next();
         birthDay = scan.next();
         phone = scan.next();
@@ -18,12 +24,12 @@ public class User implements Manageable {
 
     @Override
     public void print() {
-        // [회원] 김관식, 2000-03-23, 010-1234-5678, abc@abc.com
-        System.out.println("[회원] " + name + ", " + birthDay + ", " + phone + ", " + email + " " + code);
+        // [회원] 김관식, 2000-03-23, 010-1234-5678, abc@abc.com 1
+        System.out.println("[회원] " + name + ", " + birthDay + ", " + phone + ", " + email + " " + id);
     }
 
     @Override
     public boolean matches(String kwd) {
-        return kwd.equals(code);
+        return kwd.equals(id);
     }
 }

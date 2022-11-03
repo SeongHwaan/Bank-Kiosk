@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Account implements Manageable {
-    String code; // 사용자 아이디
+    String id; // 사용자 아이디
     String number; // 계좌번호
     int cash; // 계좌 금액
 
@@ -21,7 +21,7 @@ public class Account implements Manageable {
 
     @Override
     public void read(Scanner scan) {
-        code = scan.next();
+        id = scan.next();
         number = scan.next();
         cash = scan.nextInt();
     }
@@ -35,7 +35,7 @@ public class Account implements Manageable {
 
     @Override
     public boolean matches(String kwd) {
-        return kwd.equals(code) || kwd.equals(number);
+        return kwd.equals(id) || kwd.equals(number);
     }
 
     static class History implements Manageable {
