@@ -37,9 +37,13 @@ public class Bank {
                 }
                 case 3 -> transfer();
                 case 4 -> showHistory();
-                if (loginUser.isSuperUser()) {
-                    case 5 -> userMgr.printAll();
-                    case 6 -> accountMgr.printAll();
+                case 5 -> {
+                    if (loginUser.isSuperUser())
+                        userMgr.printAll();
+                }
+                case 6 -> {
+                    if (loginUser.isSuperUser())
+                        accountMgr.printAll();
                 }
             }
 
