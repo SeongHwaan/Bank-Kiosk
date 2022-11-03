@@ -3,11 +3,6 @@ import java.util.Scanner;
 public class Bank {
     Scanner scan = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        Bank bank = new Bank();
-        bank.run();
-    }
-
     static Manager<User> userMgr = new Manager<>(); // 사용자 매니저
     static Manager<Account> accountMgr = new Manager<>(); // 계좌 매니저
 
@@ -17,17 +12,21 @@ public class Bank {
 
     void run() {
         setDatabase();
-        login(0); // 테스트용으로 사용자 0으로 로그인하여 시스템을 시연한다.
+        login();
 
-        System.out.println("--- 뱅크 키오스, 환영합니다!");
+        System.out.println("--- 뱅크 키오스크, 환영합니다!");
         System.out.println(loginUser.name + "님으로 정상적으로 로그인됐습니다.");
 
-        do {
+        while (menu != 0) {
             System.out.println("-원하시는 메뉴를 입력해주세요.");
-            System.out.print("(0) 종료, (1) 현금입금, (2) 현금인출\n(3) 계좌이체 (4) 거래내역조회\n(8) 전체 데이터 조회 (9) 전체 계좌\n");
+            System.out.print("(1) 현금입금\t\t\t(2) 현금인출\n(3) 계좌이체\t\t\t(4) 거래내역조회\n");
+            if (loginUser.isSuperUser())
+                System.out.print("(5) 전체 데이터 조회\t(6) 전체 계좌\n");
+            System.out.print("(0) 종료 \n");
             menu = scan.nextInt();
 
             switch (menu) {
+                case 0 -> System.exit(0);
                 case 1 -> {
                     System.out.print("금액을 입력해주세요: ₩");
                     deposit();
@@ -38,15 +37,19 @@ public class Bank {
                 }
                 case 3 -> transfer();
                 case 4 -> showHistory();
-                case 8 -> userMgr.printAll();
-                case 9 -> accountMgr.printAll();
-                default -> {
+                case 5 -> {
+                    if (loginUser.isSuperUser())
+                        userMgr.printAll();
+                }
+                case 6 -> {
+                    if (loginUser.isSuperUser())
+                        accountMgr.printAll();
                 }
             }
 
             System.out.print("--- 이용해주셔서 감사합니다!\n\n");
 
-        } while (menu != 0);
+        }
 
     }
 
@@ -91,12 +94,12 @@ public class Bank {
                 break;
         }
 
-        if (account.code.equals(loginUser.code)) { // 자신 계좌번호를 입력했을경우 거부
+        if (account.id.equals(loginUser.id)) { // 자신 계좌번호를 입력했을경우 거부
             System.out.println("본인계좌에 계좌이체를 할 수 없습니다.");
             return;
         }
 
-        User user = findUser(account.code); // 해당 계좌를 사용하는 사용자 찾기
+        User user = findUser(account.id); // 해당 계좌를 사용하는 사용자 찾기
 
         if (user == null) {
             System.out.println("[시스템] 사용자를 찾을 수 없습니다.");
@@ -113,7 +116,7 @@ public class Bank {
 
     // 거래내역조회
     private void showHistory() {
-        Account account = findAccount(loginUser.code);
+        Account account = findAccount(loginUser.id);
         account.printHistory();
     }
 
@@ -127,13 +130,37 @@ public class Bank {
     }
 
     // 키오스크 이용자
-    private void login(int id) {
-        loginUser = userMgr.list.get(id);
-        loginAccount = findAccount(loginUser.code);
+    private void login() {
+        while (true) {
+            System.out.print("ID: ");
+            String id = scan.next();
+            System.out.print("PW: ");
+            String pw = scan.next();
 
-        if (loginAccount == null) {
-            System.out.println("[시스템] 계좌를 찾을 수 없습니다.");
+            // int id = 0; // 테스트용으로 사용자 0으로 로그인하여 시스템을 시연한다.
+            loginUser = findUser(id);
+            if (!isValidLogin(pw)) { // 유효하지 않은 로그인이면 다시 입력
+                continue;
+            }
+
+            loginAccount = findAccount(loginUser.id);
+            if (loginAccount == null) {
+                System.out.println("[시스템] 계좌를 찾을 수 없습니다.");
+            }
+            break;
         }
+    }
+
+    private boolean isValidLogin(String pw) {
+        if (loginUser == null) {
+            System.out.println("[시스템] 사용자를 찾을 수 없습니다.");
+            return false;
+        }
+        if (!loginUser.password.contentEquals(pw)) {
+            System.out.println("[시스템] 비밀번호가 잘못되었습니다.");
+            return false;
+        }
+        return true;
     }
 
     // 리스트에서 유저 찾기
@@ -143,7 +170,6 @@ public class Bank {
                 return user;
             }
         }
-
         return null;
     }
 
@@ -154,7 +180,11 @@ public class Bank {
                 return account;
             }
         }
-
         return null;
+    }
+
+    public static void main(String[] args) {
+        Bank bank = new Bank();
+        bank.run();
     }
 }
