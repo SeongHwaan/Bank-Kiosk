@@ -6,51 +6,62 @@ public class Bank {
     static Manager<User> userMgr = new Manager<>(); // 사용자 매니저
     static Manager<Account> accountMgr = new Manager<>(); // 계좌 매니저
 
-    int menu = -1; // 메인 메뉴
     User loginUser = new User(); // 은행 시스템을 이용할 회원
     Account loginAccount = new Account(); // 은행 시스템을 이용할 회원의 계과
 
     void run() {
         setDatabase();
-        login();
 
-        System.out.println("--- 뱅크 키오스크, 환영합니다!");
-        System.out.println(loginUser.name + "님으로 정상적으로 로그인됐습니다.");
+        while (true) {
+            System.out.println("(1) 로그인\t(2) 회원가입\t(0) 프로그램 종료");
+            int option = scan.nextInt();
 
-        while (menu != 0) {
-            System.out.println("-원하시는 메뉴를 입력해주세요.");
-            System.out.print("(1) 현금입금\t\t\t(2) 현금인출\n(3) 계좌이체\t\t\t(4) 거래내역조회\n");
-            if (loginUser.isSuperUser())
-                System.out.print("(5) 전체 데이터 조회\t(6) 전체 계좌\n");
-            System.out.print("(0) 종료 \n");
-            menu = scan.nextInt();
-
-            switch (menu) {
+            switch (option) {
                 case 0 -> System.exit(0);
                 case 1 -> {
-                    System.out.print("금액을 입력해주세요: ₩");
-                    deposit();
+                    if (!login())
+                        System.exit(0);
                 }
-                case 2 -> {
-                    System.out.print("금액을 입력해주세요: ₩");
-                    withdraw();
-                }
-                case 3 -> transfer();
-                case 4 -> showHistory();
-                case 5 -> {
-                    if (loginUser.isSuperUser())
-                        userMgr.printAll();
-                }
-                case 6 -> {
-                    if (loginUser.isSuperUser())
-                        accountMgr.printAll();
-                }
+                case 2 -> { continue; } // 현재 미구현
             }
 
-            System.out.print("--- 이용해주셔서 감사합니다!\n\n");
+            System.out.println("--- 뱅크 키오스크, 환영합니다!");
+            System.out.println(loginUser.name + "님으로 정상적으로 로그인됐습니다.");
 
+            while (true) {
+                System.out.println("-원하시는 메뉴를 입력해주세요.");
+                System.out.print("(1) 현금입금\t\t(2) 현금인출\n(3) 계좌이체\t\t(4) 거래내역조회\n");
+                if (loginUser.isSuperUser())
+                    System.out.print("(5) 전체회원조회\t(6) 전체계좌조회\n");
+                System.out.print("(0) 로그아웃 \n");
+                int menu = scan.nextInt();
+
+                switch (menu) {
+                    case 1 -> {
+                        System.out.print("금액을 입력해주세요: ₩");
+                        deposit();
+                    }
+                    case 2 -> {
+                        System.out.print("금액을 입력해주세요: ₩");
+                        withdraw();
+                    }
+                    case 3 -> transfer();
+                    case 4 -> showHistory();
+                    case 5 -> {
+                        if (loginUser.isSuperUser())
+                            userMgr.printAll();
+                    }
+                    case 6 -> {
+                        if (loginUser.isSuperUser())
+                            accountMgr.printAll();
+                    }
+                }
+
+                System.out.print("--- 이용해주셔서 감사합니다!\n\n");
+                if (menu == 0)
+                    break;
+            }
         }
-
     }
 
     // 현금 입금
@@ -130,8 +141,8 @@ public class Bank {
     }
 
     // 키오스크 이용자
-    private void login() {
-        while (true) {
+    private boolean login() {
+        for (int i = 0; i < 5; i++) {
             System.out.print("ID: ");
             String id = scan.next();
             System.out.print("PW: ");
@@ -140,6 +151,7 @@ public class Bank {
             // int id = 0; // 테스트용으로 사용자 0으로 로그인하여 시스템을 시연한다.
             loginUser = findUser(id);
             if (!isValidLogin(pw)) { // 유효하지 않은 로그인이면 다시 입력
+                System.out.format("로그인 5회 실패시, 프로그램이 종료됩니다. (%d/5)\n", i + 1);
                 continue;
             }
 
@@ -147,8 +159,9 @@ public class Bank {
             if (loginAccount == null) {
                 System.out.println("[시스템] 계좌를 찾을 수 없습니다.");
             }
-            break;
+            return true;
         }
+        return false;
     }
 
     private boolean isValidLogin(String pw) {
@@ -158,6 +171,7 @@ public class Bank {
         }
         if (!loginUser.password.contentEquals(pw)) {
             System.out.println("[시스템] 비밀번호가 잘못되었습니다.");
+            loginUser = null;
             return false;
         }
         return true;
