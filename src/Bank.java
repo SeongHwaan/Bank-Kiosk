@@ -22,7 +22,9 @@ public class Bank {
                     if (!login())
                         System.exit(0);
                 }
-                case 2 -> { continue; } // 현재 미구현
+                case 2 -> {
+                    continue;
+                } // 현재 미구현
             }
 
             System.out.println("--- 뱅크 키오스크, 환영합니다!");
@@ -127,8 +129,7 @@ public class Bank {
 
     // 거래내역조회
     private void showHistory() {
-        Account account = findAccount(loginUser.id);
-        account.printHistory();
+        findAccount(loginUser.id).printHistory();
     }
 
     // 데이터 마운트
