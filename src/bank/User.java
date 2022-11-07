@@ -1,3 +1,4 @@
+package bank;
 import java.util.Scanner;
 
 public class User implements Manageable {
@@ -32,4 +33,8 @@ public class User implements Manageable {
     public boolean matches(String kwd) {
         return kwd.equals(id);
     }
+    
+    public String[] getTexts() {
+		return new String[] {id, password, name, birthDay, phone, email};
+	}
 }

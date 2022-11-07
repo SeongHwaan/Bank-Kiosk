@@ -1,14 +1,18 @@
+package bank;
 import java.util.Scanner;
+
+import ui.Admin;
 
 public class Bank {
     Scanner scan = new Scanner(System.in);
 
-    static Manager<User> userMgr = new Manager<>(); // 사용자 매니저
-    static Manager<Account> accountMgr = new Manager<>(); // 계좌 매니저
+    public static Manager<User> userMgr = new Manager<>(); // 사용자 매니저
+    public static Manager<Account> accountMgr = new Manager<>(); // 계좌 매니저
 
     User loginUser = new User(); // 은행 시스템을 이용할 회원
     Account loginAccount = new Account(); // 은행 시스템을 이용할 회원의 계과
-
+    Admin admin;
+    
     void run() {
         setDatabase();
 
@@ -21,6 +25,8 @@ public class Bank {
                 case 1 -> {
                     if (!login())
                         System.exit(0);
+                    if (loginUser.isSuperUser())
+                    	admin = new Admin();
                 }
                 case 2 -> {
                     continue;
