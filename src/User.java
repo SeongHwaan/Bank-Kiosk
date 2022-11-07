@@ -24,8 +24,8 @@ public class User implements Manageable {
 
     @Override
     public void print() {
-        // [회원] 김관식, 2000-03-23, 010-1234-5678, abc@abc.com 1
-        System.out.println("[회원] " + name + ", " + birthDay + ", " + phone + ", " + email + " " + id);
+        // [회원] 김관식, 2000-03-23, 010-1234-5678, abc@abc.com
+        System.out.println("[회원] " + name + ", " + birthDay + ", " + phone + ", " + email);
     }
 
     @Override
