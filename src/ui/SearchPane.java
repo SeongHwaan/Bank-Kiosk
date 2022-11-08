@@ -9,8 +9,8 @@ import javax.swing.table.TableRowSorter;
 public class SearchPane extends JPanel {
 	JTable table;
 
-	public SearchPane(UserTable middle) {
-		table = middle.table;
+	public SearchPane(JTable midTable) {
+		table = midTable;
 	}
 
 	void init() {

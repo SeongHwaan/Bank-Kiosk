@@ -15,12 +15,12 @@ public class Admin extends JFrame {
 		JPanel pane = new JPanel();
 		pane.setLayout(new BorderLayout()); // 전체를 관리할 컨텐트팬
 
-		bottom = new BottomPane();
-		bottom.init();
 		middle = new UserTable();
 		middle.init();
-		top = new SearchPane(middle);
+		top = new SearchPane(middle.table);
 		top.init();
+		bottom = new BottomPane();
+		bottom.init();
 
 		// 상단 검색창
 		pane.add(top, BorderLayout.NORTH);
