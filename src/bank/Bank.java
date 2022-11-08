@@ -10,7 +10,7 @@ public class Bank {
     public static Manager<Account> accountMgr = new Manager<>(); // 계좌 매니저
 
     User loginUser = new User(); // 은행 시스템을 이용할 회원
-    Account loginAccount = new Account(); // 은행 시스템을 이용할 회원의 계과
+    Account loginAccount = new Account(); // 은행 시스템을 이용할 회원의 계좌
     Admin admin;
     
     void run() {
@@ -31,20 +31,25 @@ public class Bank {
                 case 2 -> {
                     continue;
                 } // 현재 미구현
+                default -> { continue; }
             }
 
             System.out.println("--- 뱅크 키오스크, 환영합니다!");
             System.out.println(loginUser.name + "님으로 정상적으로 로그인됐습니다.");
 
             while (true) {
-                System.out.println("-원하시는 메뉴를 입력해주세요.");
+                System.out.println("- 원하시는 메뉴를 입력해주세요.");
                 System.out.print("(1) 현금입금\t\t(2) 현금인출\n(3) 계좌이체\t\t(4) 거래내역조회\n");
                 if (loginUser.isSuperUser())
                     System.out.print("(5) 전체회원조회\t(6) 전체계좌조회\n");
-                System.out.print("(0) 로그아웃 \n");
+                System.out.print("(0) 로그아웃\n");
                 int menu = scan.nextInt();
 
                 switch (menu) {
+                    case 0 -> {
+                        loginUser = null;
+                        loginAccount = null;
+                    }
                     case 1 -> {
                         System.out.print("금액을 입력해주세요: ₩");
                         deposit();
@@ -56,18 +61,23 @@ public class Bank {
                     case 3 -> transfer();
                     case 4 -> showHistory();
                     case 5 -> {
-                        if (loginUser.isSuperUser())
-                            userMgr.printAll();
+                        if (loginUser.isSuperUser()) userMgr.printAll();
+                        else System.out.print("- 잘못된 입력입니다.\n\n");
+                        continue;
                     }
                     case 6 -> {
-                        if (loginUser.isSuperUser())
-                            accountMgr.printAll();
+                        if (loginUser.isSuperUser()) accountMgr.printAll();
+                        else System.out.print("- 잘못된 입력입니다.\n\n");
+                        continue;
+                    }
+                    default -> {
+                        System.out.print("- 잘못된 입력입니다.\n\n");
+                        continue;
                     }
                 }
 
                 System.out.print("--- 이용해주셔서 감사합니다!\n\n");
-                if (menu == 0)
-                    break;
+                if (menu == 0) break;
             }
         }
     }
@@ -102,7 +112,6 @@ public class Bank {
     // 이체, 타인 계좌에게 송금
     private void transfer() {
         System.out.println("송금할 계좌번호를 입력해주세요: ");
-
         Account account = findAccount(scan.next());
 
         while (account == null) {
@@ -163,9 +172,8 @@ public class Bank {
             }
 
             loginAccount = findAccount(loginUser.id);
-            if (loginAccount == null) {
+            if (loginAccount == null)
                 System.out.println("[시스템] 계좌를 찾을 수 없습니다.");
-            }
             return true;
         }
         return false;
@@ -186,21 +194,17 @@ public class Bank {
 
     // 리스트에서 유저 찾기
     public User findUser(String id) {
-        for (User user : userMgr.list) {
-            if (user.matches(id)) {
+        for (User user : userMgr.list)
+            if (user.matches(id))
                 return user;
-            }
-        }
         return null;
     }
 
     // 리스트에서 계좌 찾기
     public Account findAccount(String number) {
-        for (Account account : accountMgr.list) {
-            if (account.matches(number)) {
+        for (Account account : accountMgr.list)
+            if (account.matches(number))
                 return account;
-            }
-        }
         return null;
     }
 

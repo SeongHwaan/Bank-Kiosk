@@ -1,15 +1,17 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class SearchPane extends JPanel {
-	private static final long serialVersionUID = 1L;
+	JTable table;
+
+	public SearchPane(UserTable middle) {
+		table = middle.table;
+	}
 
 	void init() {
 		JPanel pane = new JPanel();
@@ -18,15 +20,14 @@ public class SearchPane extends JPanel {
 		JButton search = new JButton("검색");
 		pane.add(search, BorderLayout.EAST);
 
-		// 고객 찾기 미구현
-		search.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getActionCommand().equals("검색")) {
-
-				}
+		// 고객 찾기
+		search.addActionListener(e -> {
+			if (e.getActionCommand().equals("검색")) {
+				TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+				sorter.setRowFilter(RowFilter.regexFilter(kwdBox.getText()));
+				table.setRowSorter(sorter);
 			}
 		});
 		add(pane);
 	}
-
 }

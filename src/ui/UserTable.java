@@ -11,9 +11,6 @@ import javax.swing.table.DefaultTableModel;
 import bank.*;
 
 public class UserTable extends JPanel implements ListSelectionListener {
-
-	private static final long serialVersionUID = 1L;
-
 	JTable table;
 	DefaultTableModel tableModel;
 	int selectedIndex = -1;
@@ -43,5 +40,4 @@ public class UserTable extends JPanel implements ListSelectionListener {
 			Admin.bottom.fillDataToBox(rowTexts);
 		}
 	}
-
 }

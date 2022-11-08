@@ -10,16 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class BottomPane extends JPanel implements ActionListener {
-
-	private static final long serialVersionUID = 1L;
-	JTextField editBox[];
+	JTextField[] editBox;
 
 	void init() {
-
 		// 위아래 설정
 		editBox = new JTextField[6];
 		setLayout(new GridLayout(2, 1));
-
 		JPanel top = new JPanel();
 		top.setLayout(new FlowLayout());
 		for (int i = 0; i < 6; i++) {
@@ -37,34 +33,26 @@ public class BottomPane extends JPanel implements ActionListener {
 		// 하단 레이아웃 배치
 		JPanel bottom = new JPanel();
 		bottom.setLayout(new FlowLayout());
-		JButton buttons[] = new JButton[2];
-		String btnTexts[] = { "추가", "삭제" };
+		JButton[] buttons = new JButton[2];
+		String[] btnTexts = { "추가", "삭제" };
 		for (int i = 0; i < 2; i++) {
 			buttons[i] = new JButton(btnTexts[i]);
 			buttons[i].addActionListener(this);
 			bottom.add(buttons[i]);
 		}
 		add(bottom);
-		return;
 	}
 
 	// 튜플 클릭 시 하단 편집창에 데이터 표현
 	void fillDataToBox(String[] rowTexts) {
-		for (int i = 0; i < rowTexts.length; i++) {
+		for (int i = 0; i < rowTexts.length; i++)
 			editBox[i].setText(rowTexts[i]);
-		}
 	}
 
 	// 버튼 클릭 액션 미구현
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("수정")) {
-
-		}
-		if (e.getActionCommand().equals("추가")) {
-
-		}
-		if (e.getActionCommand().equals("삭제")) {
-
-		}
+		// if (e.getActionCommand().equals("수정")) { }
+		// if (e.getActionCommand().equals("추가")) { }
+		// if (e.getActionCommand().equals("삭제")) { }
 	}
 }

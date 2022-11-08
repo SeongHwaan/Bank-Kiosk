@@ -15,9 +15,8 @@ public class Account implements Manageable {
     }
 
     public void printHistory() {
-        for (History history : historyList) {
+        for (History history : historyList)
             history.print();
-        }
     }
 
     @Override
