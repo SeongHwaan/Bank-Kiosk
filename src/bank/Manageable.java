@@ -1,3 +1,4 @@
+package bank;
 import java.util.Scanner;
 
 public interface Manageable {

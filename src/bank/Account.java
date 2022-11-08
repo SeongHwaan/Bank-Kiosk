@@ -1,3 +1,4 @@
+package bank;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,9 +15,8 @@ public class Account implements Manageable {
     }
 
     public void printHistory() {
-        for (History history : historyList) {
+        for (History history : historyList)
             history.print();
-        }
     }
 
     @Override
