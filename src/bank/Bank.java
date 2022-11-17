@@ -31,15 +31,17 @@ public class Bank {
                         loginAccount = null;
                     }
                     case 1 -> {
-                        System.out.print("금액을 입력해주세요: ₩");
-                        deposit();
+                        // 입출금()
                     }
                     case 2 -> {
-                        System.out.print("금액을 입력해주세요: ₩");
-                        withdraw();
+                        // 계좌이체()
                     }
-                    case 3 -> transfer();
-                    case 4 -> showHistory();
+                    case 3 -> {
+                        // 자산관리(조성원)
+                    }
+                    case 4 -> {
+                        // 조회()
+                    }
                     default -> {
                         System.out.print("- 잘못된 입력입니다.\n\n");
                         continue;
@@ -92,12 +94,12 @@ public class Bank {
                 break;
         }
 
-        if (account.id.equals(loginUser.id)) { // 자신 계좌번호를 입력했을경우 거부
+        if (account.userId.equals(loginUser.id)) { // 자신 계좌번호를 입력했을경우 거부
             System.out.println("본인계좌에 계좌이체를 할 수 없습니다.");
             return;
         }
 
-        User user = findUser(account.id); // 해당 계좌를 사용하는 사용자 찾기
+        User user = findUser(account.userId); // 해당 계좌를 사용하는 사용자 찾기
 
         if (user == null) {
             System.out.println("[시스템] 사용자를 찾을 수 없습니다.");

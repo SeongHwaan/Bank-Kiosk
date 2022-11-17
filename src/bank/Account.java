@@ -3,8 +3,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Account implements Manageable {
-    String id; // 사용자 아이디
+    int type; // 계좌유형
+    String interestType; // 이자구분
+    int rate; // 이자율
     String number; // 계좌번호
+    String userId; // 사용자 아이디
     int cash; // 계좌 금액
 
     ArrayList<History> historyList = new ArrayList<>();
@@ -21,21 +24,40 @@ public class Account implements Manageable {
 
     @Override
     public void read(Scanner scan) {
-        id = scan.next();
+        type = scan.nextInt();
         number = scan.next();
+        userId = scan.next();
         cash = scan.nextInt();
+        setInterest();
+    }
+
+    public void setInterest() {
+        switch (type) {
+            case 1 -> {
+                // 단리 %
+            }
+            case 2 -> {
+                // 단리 %
+            }
+            case 3 -> {
+                // 복리 %
+            }
+            case 4 -> {
+                // 복리 %
+            }
+        }
     }
 
     @Override
     public void print() {
         // [계좌] 3799672866, 100000
-        System.out.printf("[계좌] %s, %d\n", number, cash);
+        System.out.format("[계좌: %d] %s %d %s %d%% %d원\n", type, number, interestType, rate, cash);
         printHistory();
     }
 
     @Override
     public boolean matches(String kwd) {
-        return kwd.equals(id) || kwd.equals(number);
+        return kwd.equals(userId) || kwd.equals(number);
     }
 
     static class History implements Manageable {
