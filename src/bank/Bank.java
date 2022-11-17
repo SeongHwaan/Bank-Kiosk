@@ -41,6 +41,8 @@ public class Bank {
                     }
                     case 4 -> {
                         // 조회()
+                        loginAccount.print();
+                        showHistory();
                     }
                     default -> {
                         System.out.print("- 잘못된 입력입니다.\n\n");

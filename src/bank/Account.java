@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Account implements Manageable {
     int type; // 계좌유형
-    String interestType; // 이자구분
+    boolean isCompound; // 이자구분 (true면 복리, false면 단리)
     int rate; // 이자율
     String number; // 계좌번호
     String userId; // 사용자 아이디
@@ -34,16 +34,24 @@ public class Account implements Manageable {
     public void setInterest() {
         switch (type) {
             case 1 -> {
-                // 단리 %
+                // 단리 3%
+                isCompound = false;
+                rate = 3;
             }
             case 2 -> {
-                // 단리 %
+                // 단리 5%
+                isCompound = false;
+                rate = 5;
             }
             case 3 -> {
-                // 복리 %
+                // 복리 3%
+                isCompound = true;
+                rate = 3;
             }
             case 4 -> {
-                // 복리 %
+                // 복리 5%
+                isCompound = true;
+                rate = 5;
             }
         }
     }
@@ -51,7 +59,7 @@ public class Account implements Manageable {
     @Override
     public void print() {
         // [계좌] 3799672866, 100000
-        System.out.format("[계좌: %d] %s %d %s %d%% %d원\n", type, number, interestType, rate, cash);
+        System.out.format("[계좌: %d] %s %s %d%% %d원\n", type, number, isCompound ? "복리" : "단리", rate, cash);
         printHistory();
     }
 
