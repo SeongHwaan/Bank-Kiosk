@@ -1,15 +1,17 @@
 package bank;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bank {
     Scanner scan = new Scanner(System.in);
 
     public static Manager<User> userMgr = new Manager<>(); // 사용자 매니저
-    public static Manager<Account> accountMgr = new Manager<>(); // 계좌 매니저
+    public static Manager<Savings> accountMgr = new Manager<>(); // 계좌 매니저
 
     User loginUser = new User(); // 은행 시스템을 이용할 회원
-    Account loginAccount = new Account(); // 은행 시스템을 이용할 회원의 계좌
-    
+    ArrayList<Savings> loginAccountList = new ArrayList<>(); // 로그인 회원 계좌 리스트
+
     void run() {
         setDatabase();
 
@@ -22,28 +24,39 @@ public class Bank {
 
             while (true) {
                 System.out.println("- 원하시는 메뉴를 입력해주세요.");
-                System.out.print("(1) 입출금\t\t(2) 계좌이체\n(3) 자산관리\t\t(4) 조회\n(0) 로그아웃\n");
+                System.out.println("(1) 입출금\t\t(2) 계좌이체\n(3) 자산관리\t\t(4) 조회\n(5) 개설\n(0) 로그아웃");
                 int menu = scan.nextInt();
 
                 switch (menu) {
                     case 0 -> {
                         loginUser = null;
-                        loginAccount = null;
                     }
+
                     case 1 -> {
                         // 입출금()
                     }
+
                     case 2 -> {
                         // 계좌이체()
                     }
+
                     case 3 -> {
                         // 자산관리(조성원)
                     }
+
                     case 4 -> {
                         // 조회()
-                        loginAccount.print();
-                        showHistory();
+                        for (Savings savings : loginAccountList) {
+                            savings.print();
+                            savings.printHistory();
+                        }
                     }
+
+                    case 5 -> {
+                        // 계좌 개설
+                        createAccount();
+                    }
+
                     default -> {
                         System.out.print("- 잘못된 입력입니다.\n\n");
                         continue;
@@ -51,34 +64,94 @@ public class Bank {
                 }
 
                 System.out.print("--- 이용해주셔서 감사합니다!\n\n");
-                if (menu == 0) break;
+                if (menu == 0)
+                    break;
+            }
+        }
+    }
+
+    // 계좌 개설
+    private void createAccount() {
+        while (true) {
+            System.out.println("- 원하시는 계좌상품을 입력해주세요.");
+            System.out.println("(1) 예금\t\t(2) 단리적금\n(3) 복리적금");
+            int menu = scan.nextInt();
+
+            switch (menu) {
+                // 예금
+                case 1 -> {
+                    Savings savings = new Savings();
+                    loginAccountList.add(savings);
+                }
+                // 단리적금 개설
+                case 2 -> {
+                    Savings savings = new Savings();
+                    loginAccountList.add(savings);
+                }
+                // 복리 적금
+                case 3 -> {
+                    Savings savings = new Savings();
+                    loginAccountList.add(savings);
+                }
+            }
+
+            System.out.print("--- 이용해주셔서 감사합니다!\n\n");
+            if (menu == 0)
+                break;
+        }
+    }
+
+    // 여러 계좌에서 하나 선택
+    private Savings selectAccount() {
+        final int n = loginAccountList.size() + 1;
+        int menu = 0;
+
+        while (true) {
+            System.out.println("- 사용하실 계좌를 선택해주세요.");
+
+            // 로그인 계좌 리스트에서 계좌 구분하여 출력하는
+            for (int i = 1; i < n; i++) {
+                System.out.print("(" + i + ")");
+            }
+
+            menu = scan.nextInt();
+
+            // 정상적인 인덱스를 입력했을 경우 리턴
+            if (menu <= n && menu > 0) {
+                System.out.print("--- 이용해주셔서 감사합니다!\n\n");
+                return loginAccountList.get(menu);
             }
         }
     }
 
     // 현금 입금
     private void deposit() {
+        final Savings useAccunt = selectAccount();
+
         int cash = scan.nextInt();
         cash = Math.abs(cash); // 현금 입금은 음수가 될 수 없으므로 보정
 
-        loginAccount.cash += cash;
-        loginAccount.createHistory(1, "*Today", "-", cash); // 거래내역 생성
-        System.out.println("거래 후 잔고: " + loginAccount.cash);
+        useAccunt.cash += cash;
+        useAccunt.createHistory(1, "*Today", "-", cash); // 거래내역 생성
+        System.out.println("거래 후 잔고: " + useAccunt.cash);
     }
 
     // 현금 출금
     private int withdraw() {
+        final Savings useAccunt = selectAccount();
+
         int cash = scan.nextInt();
 
-        while (cash > loginAccount.cash) { // 본인 잔고 확인
-            System.out.println("계좌 잔고가 부족합니다. " + (loginAccount.cash - cash) + "원 부족.");
+        // 본인 잔고 확인하여, 정상적으로 입력 됐을 경우 패쓰
+        while (cash > useAccunt.cash) {
+            System.out.println("계좌 잔고가 부족합니다. " + (useAccunt.cash - cash) + "원 부족.");
             System.out.print("금액을 입력해주세요: ₩");
             cash = scan.nextInt();
         }
 
-        loginAccount.cash -= cash;
-        loginAccount.createHistory(2, "*Today", "-", cash); // 거래내역 생성
-        System.out.println("거래 후 잔고: " + loginAccount.cash);
+        useAccunt.cash -= cash;
+        useAccunt.createHistory(2, "*Today", "-", cash); // 거래내역 생성
+        System.out.println("거래 후 잔고: " + useAccunt.cash);
 
         return cash; // 메서드 재사용 하기 위해 인출은 리턴값을 가진다.
     }
@@ -86,8 +159,9 @@ public class Bank {
     // 이체, 타인 계좌에게 송금
     private void transfer() {
         System.out.println("송금할 계좌번호를 입력해주세요: ");
-        Account account = findAccount(scan.next());
+        Savings account = findAccount(scan.next());
 
+        // 데이터베이스에 있는 계좌를 입력받을 떄까지 다시 입력
         while (account == null) {
             System.out.println("알 수 없는 계좌번호입니다. 다시입력해주세요.");
             account = findAccount(scan.next());
@@ -96,12 +170,14 @@ public class Bank {
                 break;
         }
 
-        if (account.userId.equals(loginUser.id)) { // 자신 계좌번호를 입력했을경우 거부
+        // 자신 계좌를 입력했을경우
+        if (account.userId.equals(loginUser.id)) {
             System.out.println("본인계좌에 계좌이체를 할 수 없습니다.");
             return;
         }
 
-        User user = findUser(account.userId); // 해당 계좌를 사용하는 사용자 찾기
+        // 해당 계좌를 사용하는 유저 찾기
+        User user = findUser(account.userId);
 
         if (user == null) {
             System.out.println("[시스템] 사용자를 찾을 수 없습니다.");
@@ -116,26 +192,12 @@ public class Bank {
         account.createHistory(1, "*Today", loginUser.name, cash); // 상대 거래내역 생성
     }
 
-    // 거래내역조회
-    private void showHistory() {
-        findAccount(loginUser.id).printHistory();
-    }
-
-    // 데이터 마운트
-    private void setDatabase() {
-        // 사용자 데이터 불러오기
-        userMgr.readAll("src/input/user.txt", User::new);
-
-        // 계좌 데이터 불러오기
-        accountMgr.readAll("src/input/account.txt", Account::new);
-    }
-
     // 키오스크 이용자
     private boolean login() {
         for (int i = 0; i < 5; i++) {
             System.out.print("ID: ");
             String id = scan.next();
-            if (id.contentEquals("quit"))   //id에 quit 입력 시 프로그램 종료
+            if (id.contentEquals("quit")) // id에 quit 입력 시 프로그램 종료
                 System.exit(0);
 
             System.out.print("PW: ");
@@ -148,11 +210,9 @@ public class Bank {
                 continue;
             }
 
-            loginAccount = findAccount(loginUser.id);
-            if (loginAccount == null)
-                System.out.println("[시스템] 계좌를 찾을 수 없습니다.");
             return true;
         }
+
         return false;
     }
 
@@ -178,11 +238,17 @@ public class Bank {
     }
 
     // 리스트에서 계좌 찾기
-    public Account findAccount(String number) {
-        for (Account account : accountMgr.list)
+    public Savings findAccount(String number) {
+        for (Savings account : accountMgr.list)
             if (account.matches(number))
                 return account;
         return null;
+    }
+
+    // 데이터 마운트
+    private void setDatabase() {
+        userMgr.readAll("src/input/user.txt", User::new); // 사용자 데이터 불러오기
+        accountMgr.readAll("src/input/account.txt", Savings::new); // 계좌 데이터 불러오기
     }
 
     public static void main(String[] args) {
