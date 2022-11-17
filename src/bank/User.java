@@ -9,10 +9,6 @@ public class User implements Manageable {
     String phone;
     String email;
 
-    public boolean isSuperUser() {
-        return id.contentEquals("admin");
-    }
-
     @Override
     public void read(Scanner scan) {
         id = scan.next();

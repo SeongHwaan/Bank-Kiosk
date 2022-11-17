@@ -1,8 +1,6 @@
 package bank;
 import java.util.Scanner;
 
-import ui.Admin;
-
 public class Bank {
     Scanner scan = new Scanner(System.in);
 
@@ -11,38 +9,20 @@ public class Bank {
 
     User loginUser = new User(); // 은행 시스템을 이용할 회원
     Account loginAccount = new Account(); // 은행 시스템을 이용할 회원의 계좌
-    Admin admin;
     
     void run() {
         setDatabase();
 
         while (true) {
-            System.out.println("(1) 로그인\t(2) 회원가입\t(0) 프로그램 종료");
-            int option = scan.nextInt();
-
-            switch (option) {
-                case 0 -> System.exit(0);
-                case 1 -> {
-                    if (!login())
-                        System.exit(0);
-                    if (loginUser.isSuperUser())
-                    	admin = new Admin();
-                }
-                case 2 -> {
-                    continue;
-                } // 현재 미구현
-                default -> { continue; }
-            }
+            if (!login())
+                System.exit(0);
 
             System.out.println("--- 뱅크 키오스크, 환영합니다!");
             System.out.println(loginUser.name + "님으로 정상적으로 로그인됐습니다.");
 
             while (true) {
                 System.out.println("- 원하시는 메뉴를 입력해주세요.");
-                System.out.print("(1) 현금입금\t\t(2) 현금인출\n(3) 계좌이체\t\t(4) 거래내역조회\n");
-                if (loginUser.isSuperUser())
-                    System.out.print("(5) 전체회원조회\t(6) 전체계좌조회\n");
-                System.out.print("(0) 로그아웃\n");
+                System.out.print("(1) 입출금\t\t(2) 계좌이체\n(3) 자산관리\t\t(4) 조회\n(0) 로그아웃\n");
                 int menu = scan.nextInt();
 
                 switch (menu) {
@@ -60,16 +40,6 @@ public class Bank {
                     }
                     case 3 -> transfer();
                     case 4 -> showHistory();
-                    case 5 -> {
-                        if (loginUser.isSuperUser()) userMgr.printAll();
-                        else System.out.print("- 잘못된 입력입니다.\n\n");
-                        continue;
-                    }
-                    case 6 -> {
-                        if (loginUser.isSuperUser()) accountMgr.printAll();
-                        else System.out.print("- 잘못된 입력입니다.\n\n");
-                        continue;
-                    }
                     default -> {
                         System.out.print("- 잘못된 입력입니다.\n\n");
                         continue;
@@ -161,6 +131,9 @@ public class Bank {
         for (int i = 0; i < 5; i++) {
             System.out.print("ID: ");
             String id = scan.next();
+            if (id.contentEquals("quit"))   //id에 quit 입력 시 프로그램 종료
+                System.exit(0);
+
             System.out.print("PW: ");
             String pw = scan.next();
 
