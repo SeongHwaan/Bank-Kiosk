@@ -119,7 +119,7 @@ public class Bank {
 
     // 이용할 계좌 선택 *
     private Savings selectAccount() {
-        final int n = loginAccountList.size() + 1;
+        final int n = loginAccountList.size();
         int menu = 0;
 
         while (true) {
@@ -129,15 +129,15 @@ public class Bank {
             // (1) 비상금
             // (2) 주택청약적금
             // (3) 비상금
-            for (int i = 1; i < n; i++) {
-                System.out.println("(" + i + ") " + loginAccountList.get(n).name);
+            for (int i = 0; i < n; i++) {
+                System.out.println("(" + (i + 1) + ") " + loginAccountList.get(i).name);
             }
 
             menu = scan.nextInt();
 
             // 정상적인 인덱스를 입력했을 경우 리턴
-            if (menu < n && menu > 0) {
-                return loginAccountList.get(menu);
+            if (menu <= n && menu > 0) {
+                return loginAccountList.get(menu - 1);
             }
         }
     }
@@ -147,6 +147,7 @@ public class Bank {
     private void deposit() {
         final Savings useAccunt = selectAccount();
 
+        System.out.print("금액: ");
         int cash = scan.nextInt();
         cash = Math.abs(cash); // 현금 입금은 음수가 될 수 없으므로 보정
 
