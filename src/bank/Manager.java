@@ -1,4 +1,5 @@
 package bank;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,5 +35,13 @@ public class Manager<T extends Manageable> {
         }
 
         fileIn.close();
+    }
+
+    boolean matches(String kwd) {
+        for (T t : list) {
+            if (t.matches(kwd))
+                return true;
+        }
+        return false;
     }
 }
