@@ -30,19 +30,14 @@ public class Bank {
                 switch (menu) {
                     case 0 -> { // 로그아웃
                         loginUser = null;
+                        loginAccountList.clear();
                     }
 
-                    case 1 -> { // 입금
-                        deposit();
-                    }
+                    case 1 -> deposit();    // 입금
 
-                    case 2 -> { // 이체
-                        transfer();
-                    }
+                    case 2 -> transfer();   // 이체
 
-                    case 3 -> { // 자산관리
-                        manageAsset();
-                    }
+                    case 3 -> manageAsset();    // 자산관리
 
                     case 4 -> {
                         // 조회()
@@ -52,10 +47,7 @@ public class Bank {
                         }
                     }
 
-                    case 5 -> {
-                        // 계좌 개설
-                        createAccount();
-                    }
+                    case 5 -> createAccount();  // 계좌개설
 
                     default -> {
                         System.out.print("- 잘못된 입력입니다.\n\n");
@@ -80,7 +72,7 @@ public class Bank {
     private void createAccount() {
         System.out.print("계좌 별칭: ");
         String name = scan.next();
-        Savings newAccount = null;
+        Savings newAccount;
 
         while (true) {
             System.out.println("- 원하시는 계좌상품을 입력해주세요.");
@@ -112,6 +104,7 @@ public class Bank {
 
             // 로그인 회원, 계좌리스트에 추가
             loginAccountList.add(newAccount);
+            accountMgr.list.add(newAccount);
             System.out.print("--- 이용해주셔서 감사합니다!\n\n");
             return;
         }
@@ -120,7 +113,7 @@ public class Bank {
     // 이용할 계좌 선택 *
     private Savings selectAccount() {
         final int n = loginAccountList.size();
-        int menu = 0;
+        int menu;
 
         while (true) {
             System.out.println("- 이용하실 계좌를 선택해주세요.");
@@ -179,7 +172,7 @@ public class Bank {
 
     // 이체, 타인 계좌에게 송금 *
     private void transfer() {
-        Savings account = null;
+        Savings account;
 
         // 정상적인 계좌를 입력 받을 때 까지
         while (true) {
