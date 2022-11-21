@@ -28,20 +28,20 @@ public class Bank {
                 int menu = scan.nextInt();
 
                 switch (menu) {
-                    case 0 -> {
+                    case 0 -> { // 로그아웃
                         loginUser = null;
                     }
 
-                    case 1 -> {
-                        // 입출금()
+                    case 1 -> { // 입금
+                        deposit();
                     }
 
-                    case 2 -> {
-                        // 계좌이체()
+                    case 2 -> { // 이체
+                        transfer();
                     }
 
-                    case 3 -> {
-                        // 자산관리(조성원)
+                    case 3 -> { // 자산관리
+                        manageAsset();
                     }
 
                     case 4 -> {
@@ -70,8 +70,18 @@ public class Bank {
         }
     }
 
-    // 계좌 개설
+    // 혜택조회 *
+    private void manageAsset() {
+        final Savings useAccunt = selectAccount(); // 조회할 계좌 선택하면
+        useAccunt.printInfo(); // 해당 계좌의 혜택을 출력
+    }
+
+    // 계좌 개설 *, 현재 rate 고정으로 되어 있음
     private void createAccount() {
+        System.out.print("계좌 별칭: ");
+        String name = scan.next();
+        Savings newAccount = null;
+
         while (true) {
             System.out.println("- 원하시는 계좌상품을 입력해주세요.");
             System.out.println("(1) 예금\t\t(2) 단리적금\n(3) 복리적금");
@@ -80,69 +90,80 @@ public class Bank {
             switch (menu) {
                 // 예금
                 case 1 -> {
-                    Savings savings = new Savings();
-                    loginAccountList.add(savings);
+                    newAccount = new Savings();
+                    newAccount.setSavings(name, loginUser.id);
                 }
                 // 단리적금 개설
                 case 2 -> {
-                    Savings savings = new Savings();
-                    loginAccountList.add(savings);
+                    newAccount = new InstallmentSavings();
+                    ((InstallmentSavings) newAccount).setInstallmentSavings(1, 3, name, loginUser.id);
                 }
                 // 복리 적금
                 case 3 -> {
-                    Savings savings = new Savings();
-                    loginAccountList.add(savings);
+                    newAccount = new InstallmentSavings();
+                    ((InstallmentSavings) newAccount).setInstallmentSavings(1, 3, name, loginUser.id);
+                }
+
+                default -> {
+                    System.out.println("- 잘못된 입력입니다.");
+                    continue;
                 }
             }
 
+            // 로그인 회원, 계좌리스트에 추가
+            loginAccountList.add(newAccount);
             System.out.print("--- 이용해주셔서 감사합니다!\n\n");
-            if (menu == 0)
-                break;
+            return;
         }
     }
 
-    // 여러 계좌에서 하나 선택
+    // 이용할 계좌 선택 *
     private Savings selectAccount() {
-        final int n = loginAccountList.size() + 1;
+        final int n = loginAccountList.size();
         int menu = 0;
 
         while (true) {
-            System.out.println("- 사용하실 계좌를 선택해주세요.");
+            System.out.println("- 이용하실 계좌를 선택해주세요.");
 
             // 로그인 계좌 리스트에서 계좌 구분하여 출력하는
-            for (int i = 1; i < n; i++) {
-                System.out.print("(" + i + ")");
+            // (1) 비상금
+            // (2) 주택청약적금
+            // (3) 비상금
+            for (int i = 0; i < n; i++) {
+                System.out.println("(" + (i + 1) + ") " + loginAccountList.get(i).name);
             }
 
             menu = scan.nextInt();
 
             // 정상적인 인덱스를 입력했을 경우 리턴
             if (menu <= n && menu > 0) {
-                System.out.print("--- 이용해주셔서 감사합니다!\n\n");
-                return loginAccountList.get(menu);
+                return loginAccountList.get(menu - 1);
             }
         }
     }
 
-    // 현금 입금
+    // 현금 입금 *
+    // Today 처리 구현해야함
     private void deposit() {
         final Savings useAccunt = selectAccount();
 
+        System.out.print("금액: ");
         int cash = scan.nextInt();
         cash = Math.abs(cash); // 현금 입금은 음수가 될 수 없으므로 보정
 
         useAccunt.cash += cash;
-        useAccunt.createHistory(1, "*Today", "-", cash); // 거래내역 생성
+        useAccunt.createHistory(1, "*today", "-", cash); // 거래내역 생성
         System.out.println("거래 후 잔고: " + useAccunt.cash);
     }
 
-    // 현금 출금
+    // 현금 출금 *
+    // Today 처리 구현해야함
     private int withdraw() {
         final Savings useAccunt = selectAccount();
 
         int cash = scan.nextInt();
 
-        // 본인 잔고 확인하여, 정상적으로 입력 됐을 경우 패쓰
+        // 본인 잔고 확인하여, 정상적으로 입력 됐을 경우 패스
         while (cash > useAccunt.cash) {
             System.out.println("계좌 잔고가 부족합니다. " + (useAccunt.cash - cash) + "원 부족.");
             System.out.print("금액을 입력해주세요: ₩");
@@ -150,27 +171,29 @@ public class Bank {
         }
 
         useAccunt.cash -= cash;
-        useAccunt.createHistory(2, "*Today", "-", cash); // 거래내역 생성
+        useAccunt.createHistory(2, "*today", "-", cash); // 거래내역 생성
         System.out.println("거래 후 잔고: " + useAccunt.cash);
 
         return cash; // 메서드 재사용 하기 위해 인출은 리턴값을 가진다.
     }
 
-    // 이체, 타인 계좌에게 송금
+    // 이체, 타인 계좌에게 송금 *
     private void transfer() {
-        System.out.println("송금할 계좌번호를 입력해주세요: ");
-        Savings account = findAccount(scan.next());
+        Savings account = null;
 
-        // 데이터베이스에 있는 계좌를 입력받을 떄까지 다시 입력
-        while (account == null) {
-            System.out.println("알 수 없는 계좌번호입니다. 다시입력해주세요.");
-            account = findAccount(scan.next());
+        // 정상적인 계좌를 입력 받을 때 까지
+        while (true) {
+            System.out.println("계좌번호를 입력해주세요: ");
+            account = findAccount(scan.next()); // 데이터베이스에서 계좌번호 찾기
 
-            if (account != null) // 계좌가 정상적으로 조회됐을경우
+            // 계좌가 정상적으로 조회됐을경우 탈출
+            if (account != null)
                 break;
+
+            System.out.println("확인할 수 없는 계좌번호입니다. 다시입력해주세요.");
         }
 
-        // 자신 계좌를 입력했을경우
+        // 자신 계좌를 입력했을 경우 탈출
         if (account.userId.equals(loginUser.id)) {
             System.out.println("본인계좌에 계좌이체를 할 수 없습니다.");
             return;
@@ -179,12 +202,13 @@ public class Bank {
         // 해당 계좌를 사용하는 유저 찾기
         User user = findUser(account.userId);
 
+        // 찾을 수 없으면 삭제
         if (user == null) {
             System.out.println("[시스템] 사용자를 찾을 수 없습니다.");
             return;
         }
 
-        System.out.printf("예금주: %s\n", user.name);
+        System.out.format("예금주: %s\n", user.name);
         System.out.print("금액을 입력해주세요: ₩");
 
         int cash = withdraw(); // 본인 계좌에서 인출 후
@@ -247,8 +271,8 @@ public class Bank {
 
     // 데이터 마운트
     private void setDatabase() {
-        userMgr.readAll("src/input/user.txt", User::new); // 사용자 데이터 불러오기
-        accountMgr.readAll("src/input/account.txt", Savings::new); // 계좌 데이터 불러오기
+        userMgr.readAll("src/input/user.txt", User::new); // 사용자 데이터
+        accountMgr.readAll("src/input/account.txt", Savings::new); // 계좌 데이터
     }
 
     public static void main(String[] args) {
