@@ -51,7 +51,7 @@ public class Savings implements Manageable {
     }
 
     @Override
-    public void printInfo() {
+    public void printInfo(Scanner scan) {
         System.out.format("[예금] 입출금 무이자");
     }
 

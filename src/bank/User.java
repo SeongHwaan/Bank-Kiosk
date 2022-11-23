@@ -36,6 +36,6 @@ public class User implements Manageable {
     }
 
     @Override
-    public void printInfo() {
+    public void printInfo(Scanner scan) {
     }
 }

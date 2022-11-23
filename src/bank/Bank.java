@@ -63,7 +63,7 @@ public class Bank {
     // 혜택조회 *
     private void manageAsset() {
         final Savings useAccunt = selectAccount(); // 조회할 계좌 선택하면
-        useAccunt.printInfo(); // 해당 계좌의 혜택을 출력
+        useAccunt.printInfo(scan); // 해당 계좌의 혜택을 출력
     }
 
     // 계좌 개설 *, 현재 rate 고정으로 되어 있음
@@ -93,14 +93,14 @@ public class Bank {
 
             // 로그인 회원, 계좌리스트에 추가
             accountMgr.list.add(newAccount);
-            loadLoginAccount();
+            loginAccountList.add(newAccount);
             return;
         }
     }
 
     public void loadLoginAccount() {
         for (Savings account : accountMgr.list)
-            if (account.matches(loginUser.name))
+            if (account.matches(loginUser.id))
                 loginAccountList.add(account);
     }
 
@@ -146,20 +146,21 @@ public class Bank {
     // 현금 출금 *
     // Today 처리 구현해야함
     private int withdraw() {
-        final Savings useAccunt = selectAccount();
+        final Savings useAccount = selectAccount();
 
+        System.out.print("금액을 입력해주세요: ₩");
         int cash = scan.nextInt();
 
         // 본인 잔고 확인하여, 정상적으로 입력 됐을 경우 패스
-        while (cash > useAccunt.cash) {
-            System.out.println("계좌 잔고가 부족합니다. " + (useAccunt.cash - cash) + "원 부족.");
+        while (cash > useAccount.cash) {
+            System.out.println("계좌 잔고가 부족합니다. " + (useAccount.cash - cash) + "원 부족.");
             System.out.print("금액을 입력해주세요: ₩");
             cash = scan.nextInt();
         }
 
-        useAccunt.cash -= cash;
-        useAccunt.createHistory(2, "*today", "-", cash); // 거래내역 생성
-        System.out.println("거래 후 잔고: " + useAccunt.cash);
+        useAccount.cash -= cash;
+        useAccount.createHistory(2, "*today", "-", cash); // 거래내역 생성
+        System.out.println("거래 후 잔고: " + useAccount.cash);
 
         return cash; // 메서드 재사용 하기 위해 인출은 리턴값을 가진다.
     }
@@ -196,7 +197,6 @@ public class Bank {
         }
 
         System.out.format("예금주: %s\n", user.name);
-        System.out.print("금액을 입력해주세요: ₩");
 
         int cash = withdraw(); // 본인 계좌에서 인출 후
         account.cash += cash; // 상대 계좌로 전달

@@ -9,5 +9,5 @@ public interface Manageable {
 
     boolean matches(String kwd);
 
-    void printInfo();
+    void printInfo(Scanner scan);
 }
