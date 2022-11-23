@@ -3,12 +3,11 @@ package bank;
 import java.util.Scanner;
 
 public class InstallmentSavings extends Savings {
-    final int type = 2;
     int calcType; // 1: 단리, 2: 복리
     int rate;
 
-    public void setInstallmentSavings(int calcType, int rate, String name, String userId) {
-        super.setSavings(name, userId);
+    public InstallmentSavings(int calcType, int rate, String name, String userId) {
+        super(name, userId);
         this.calcType = calcType;
         this.rate = rate;
     }

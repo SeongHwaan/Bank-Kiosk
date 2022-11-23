@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Savings implements Manageable {
-    final int type = 1;
     String name; // 별칭
     String number; // 계좌번호
     String userId; // 사용자 아이디
@@ -12,7 +11,7 @@ public class Savings implements Manageable {
 
     ArrayList<History> historyList = new ArrayList<>();
 
-    public void setSavings(String name, String userId) {
+    public Savings(String name, String userId) {
         this.name = name;
         generateNumber();
         this.userId = userId;
@@ -38,6 +37,7 @@ public class Savings implements Manageable {
 
     @Override
     public void read(Scanner scan) {
+        name = scan.next();
         number = scan.next();
         userId = scan.next();
         cash = scan.nextInt();
@@ -73,13 +73,6 @@ public class Savings implements Manageable {
             this.cash = cash;
         }
 
-        public void read(Scanner scan) {
-            type = scan.nextInt();
-            day = scan.next();
-            desc = scan.next();
-            cash = scan.nextInt();
-        }
-
         public void print() {
             // [입금] 2022-10-30, 김관식, 100원
             if (type == 1)
@@ -88,10 +81,6 @@ public class Savings implements Manageable {
                 System.out.print("\t[출금] ");
 
             System.out.println(day + ", " + desc + ", " + cash + "원");
-        }
-
-        public boolean matches(String kwd) {
-            return false;
         }
     }
 }

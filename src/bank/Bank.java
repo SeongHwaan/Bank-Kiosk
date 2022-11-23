@@ -41,10 +41,8 @@ public class Bank {
 
                     case 4 -> {
                         // 조회()
-                        for (Savings savings : loginAccountList) {
+                        for (Savings savings : loginAccountList)
                             savings.print();
-                            savings.printHistory();
-                        }
                     }
 
                     case 5 -> createAccount();  // 계좌개설
@@ -81,20 +79,11 @@ public class Bank {
 
             switch (menu) {
                 // 예금
-                case 1 -> {
-                    newAccount = new Savings();
-                    newAccount.setSavings(name, loginUser.id);
-                }
+                case 1 -> newAccount = new Savings(name, loginUser.id);
                 // 단리적금 개설
-                case 2 -> {
-                    newAccount = new InstallmentSavings();
-                    ((InstallmentSavings) newAccount).setInstallmentSavings(1, 3, name, loginUser.id);
-                }
+                case 2 -> newAccount = new InstallmentSavings(1, 3, name, loginUser.id);
                 // 복리 적금
-                case 3 -> {
-                    newAccount = new InstallmentSavings();
-                    ((InstallmentSavings) newAccount).setInstallmentSavings(1, 3, name, loginUser.id);
-                }
+                case 3 -> newAccount = new InstallmentSavings(1, 5, name, loginUser.id);
 
                 default -> {
                     System.out.println("- 잘못된 입력입니다.");
@@ -103,11 +92,16 @@ public class Bank {
             }
 
             // 로그인 회원, 계좌리스트에 추가
-            loginAccountList.add(newAccount);
             accountMgr.list.add(newAccount);
-            System.out.print("--- 이용해주셔서 감사합니다!\n\n");
+            loadLoginAccount();
             return;
         }
+    }
+
+    public void loadLoginAccount() {
+        for (Savings account : accountMgr.list)
+            if (account.matches(loginUser.name))
+                loginAccountList.add(account);
     }
 
     // 이용할 계좌 선택 *
@@ -227,6 +221,7 @@ public class Bank {
                 continue;
             }
 
+            loadLoginAccount();
             return true;
         }
 
@@ -265,7 +260,7 @@ public class Bank {
     // 데이터 마운트
     private void setDatabase() {
         userMgr.readAll("src/input/user.txt", User::new); // 사용자 데이터
-        accountMgr.readAll("src/input/account.txt", Savings::new); // 계좌 데이터
+        accountMgr.readAll("src/input/account.txt", () -> new Savings(null, null)); // 계좌 데이터
     }
 
     public static void main(String[] args) {
