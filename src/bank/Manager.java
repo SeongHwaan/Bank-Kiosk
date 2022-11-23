@@ -35,4 +35,12 @@ public class Manager<T extends Manageable> {
 
         fileIn.close();
     }
+
+    boolean matches(String kwd) {
+        for (T t : list) {
+            if (t.matches(kwd))
+                return true;
+        }
+        return false;
+    }
 }
