@@ -81,9 +81,9 @@ public class Bank {
                 // 예금
                 case 1 -> newAccount = new Savings(name, loginUser.id);
                 // 단리적금 개설
-                case 2 -> newAccount = new InstallmentSavings(1, 3, name, loginUser.id);
+                case 2 -> newAccount = new InstallmentSavings(name, loginUser.id, 1, 3);
                 // 복리 적금
-                case 3 -> newAccount = new InstallmentSavings(1, 5, name, loginUser.id);
+                case 3 -> newAccount = new InstallmentSavings(name, loginUser.id, 2, 3);
 
                 default -> {
                     System.out.println("- 잘못된 입력입니다.");
@@ -259,8 +259,9 @@ public class Bank {
 
     // 데이터 마운트
     private void setDatabase() {
-        userMgr.readAll("src/input/user.txt", User::new); // 사용자 데이터
-        accountMgr.readAll("src/input/account.txt", () -> new Savings(null, null)); // 계좌 데이터
+        userMgr.readAll("src/input/users.txt", User::new); // 사용자 데이터
+        accountMgr.readAll("src/input/savings.txt", () -> new Savings(null, null)); // 예금 계좌 데이터
+        accountMgr.readAll("src/input/installmentsavings.txt", () -> new InstallmentSavings(null, null, 0, 0)); // 적금 계좌 데이터
     }
 
     public static void main(String[] args) {

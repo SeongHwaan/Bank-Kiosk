@@ -6,7 +6,7 @@ public class InstallmentSavings extends Savings {
     int calcType; // 1: 단리, 2: 복리
     int rate;
 
-    public InstallmentSavings(int calcType, int rate, String name, String userId) {
+    public InstallmentSavings(String name, String userId, int calcType, int rate) {
         super(name, userId);
         this.calcType = calcType;
         this.rate = rate;
@@ -15,7 +15,15 @@ public class InstallmentSavings extends Savings {
     @Override
     public void read(Scanner scan) {
         super.read(scan);
+        calcType = scan.nextInt();
         rate = scan.nextInt();
+    }
+
+    @Override
+    public void print() {
+        // [계좌] 3799672866, 100000,
+        System.out.format("[%s적금 %d%%] %s, %d원\n", calcType == 1 ? "단리" : "복리", rate, number, cash);
+        printHistory();
     }
 
     @Override

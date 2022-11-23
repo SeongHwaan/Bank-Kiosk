@@ -46,7 +46,7 @@ public class Savings implements Manageable {
     @Override
     public void print() {
         // [계좌] 3799672866, 100000
-        System.out.format("[계좌] %s, %d원\n", number, cash);
+        System.out.format("[예금] %s, %d원\n", number, cash);
         printHistory();
     }
 
