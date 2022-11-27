@@ -2,7 +2,7 @@ package bank;
 import java.util.Scanner;
 
 public class User implements Manageable {
-    String id; // 사용자번호, 사용자를 구분하는
+    public String id; // 사용자번호, 사용자를 구분하는
     public String password;
     public String name;
     String birthDay;

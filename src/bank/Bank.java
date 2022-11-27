@@ -3,6 +3,11 @@ package bank;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import bank.InstallmentSavings;
+import bank.Manager;
+import bank.Savings;
+import bank.User;
+
 public class Bank {
 	Scanner scan = new Scanner(System.in);
 
@@ -160,6 +165,8 @@ public class Bank {
 		productList.add(one);
 		productList.add(two);
 		productList.add(three);
+		
+		
 	}
 
 	public static void main(String[] args) {

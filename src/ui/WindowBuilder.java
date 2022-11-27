@@ -126,14 +126,23 @@ public class WindowBuilder {
 	public static void main(String[] args) {
 		bank = new Bank();
 		bank.run();
-		startGUI();
+		startLogin();
 	}
 
-	public static void startGUI() {
+	public static void startLogin() {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				LoginFrame login = new LoginFrame();
 				login.LoginFrame();
+			}
+		});
+	}
+	
+	public static void startGUI() {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				WindowBuilder main = new WindowBuilder();
+				main.createAndShowMain();
 			}
 		});
 	}
