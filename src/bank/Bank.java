@@ -13,9 +13,9 @@ public class Bank {
 	User loginUser = new User(); // 은행 시스템을 이용할 회원
 	ArrayList<Savings> loginAccountList = new ArrayList<>(); // 로그인 회원 계좌 리스트
 	
-	Savings one = new Savings();
-	InstallmentSavings two = new InstallmentSavings();
-	InstallmentSavings three = new InstallmentSavings();
+	Savings one;
+	InstallmentSavings two;
+	InstallmentSavings three;
 	
 	public void run() {
 		setDatabase();
@@ -23,32 +23,33 @@ public class Bank {
 	
 	// 계좌 개설
 	private void createAccount() {
+		System.out.print("계좌 별칭: ");
+		String name = scan.next();
+		Savings newAccount;
+
 		while (true) {
 			System.out.println("- 원하시는 계좌상품을 입력해주세요.");
 			System.out.println("(1) 예금\t\t(2) 단리적금\n(3) 복리적금");
 			int menu = scan.nextInt();
 
 			switch (menu) {
-			// 예금
-			case 1 -> {
-				Savings savings = new Savings();
-				loginAccountList.add(savings);
-			}
-			// 단리적금 개설
-			case 2 -> {
-				Savings savings = new Savings();
-				loginAccountList.add(savings);
-			}
-			// 복리 적금
-			case 3 -> {
-				Savings savings = new Savings();
-				loginAccountList.add(savings);
-			}
+				// 예금
+				case 1 -> newAccount = new Savings(name, loginUser.id);
+				// 단리적금 개설
+				case 2 -> newAccount = new InstallmentSavings(name, loginUser.id, 1, 3);
+				// 복리 적금
+				case 3 -> newAccount = new InstallmentSavings(name, loginUser.id, 2, 3);
+
+				default -> {
+					System.out.println("- 잘못된 입력입니다.");
+					continue;
+				}
 			}
 
-			System.out.print("--- 이용해주셔서 감사합니다!\n\n");
-			if (menu == 0)
-				break;
+			// 로그인 회원, 계좌리스트에 추가
+			accountMgr.list.add(newAccount);
+			loginAccountList.add(newAccount);
+			return;
 		}
 	}
 
@@ -163,17 +164,13 @@ public class Bank {
 
 	// 데이터 마운트
 	private void setDatabase() {
-		userMgr.readAll("src/input/user.txt", User::new); // 사용자 데이터 불러오기
-		accountMgr.readAll("src/input/account.txt", Savings::new); // 계좌 데이터 불러오기
+		userMgr.readAll("src/input/users.txt", User::new); // 사용자 데이터
+		accountMgr.readAll("src/input/savings.txt", () -> new Savings(null, null)); // 예금 계좌 데이터
+		accountMgr.readAll("src/input/installmentsavings.txt", () -> new InstallmentSavings(null, null, 0, 0)); // 적금 계좌 데이터
 		
-		
-		one = new Savings();
-		two = new InstallmentSavings();
-		three = new InstallmentSavings();
-		
-		one.setSavings("일반예금");
-		two.setInstallmentSavings("단리적금", 1, 5.0);
-		three.setInstallmentSavings("복리적금", 2, 3.0);
+		one = new Savings("일반예금", null);
+		two = new InstallmentSavings("단리적금", null, 1, 5.0);
+		three = new InstallmentSavings("복리적금", null, 2, 3.0);
 		
 		productList.add(one);
 		productList.add(two);

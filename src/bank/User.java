@@ -10,6 +10,18 @@ public class User implements Manageable {
     public String email;
 
     @Override
+    public String getInfo() {
+        return null;
+    }
+    @Override
+    public String getName() {
+        return null;
+    }
+    public String[] getTexts() {
+        return new String[] {id, password, name, birthDay, phone, email};
+    }
+
+    @Override
     public void read(Scanner scan) {
         id = scan.next();
         password = scan.next();
@@ -29,21 +41,8 @@ public class User implements Manageable {
     public boolean matches(String kwd) {
         return kwd.equals(id);
     }
-    
-    public String[] getTexts() {
-		return new String[] {id, password, name, birthDay, phone, email};
-	}
 
-	@Override
-	public String printInfo() {
-		return null;
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void printInfo(Scanner scan) {
+    }
 }

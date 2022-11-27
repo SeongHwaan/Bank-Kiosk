@@ -9,7 +9,9 @@ public interface Manageable {
 
     boolean matches(String kwd);
 
-	String printInfo();
+    void printInfo(Scanner scan);
+
+	String getInfo();
 	
 	String getName();
 }
