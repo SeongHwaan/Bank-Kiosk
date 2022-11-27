@@ -31,7 +31,10 @@ public class GUIMain {
 
 	MyAccountList myAccount = new MyAccountList();
 	
-	// MyAccountList2 a = new MyAccountList2();
+//<<<<<<< Updated upstream
+//	// MyAccountList2 a = new MyAccountList2();
+//=======
+//>>>>>>> Stashed changes
 	
 //	private void createAndShowMain() {
 //

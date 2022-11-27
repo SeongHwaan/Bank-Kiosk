@@ -26,9 +26,6 @@ public class HistoryTable extends AccountTable {
 				return false;
 			}
 		};
-		loadData();
-		for (Savings.History h : account.historyList)
-			tableModel.addRow(h.getTexts());
 	}
 	
 	@Override
