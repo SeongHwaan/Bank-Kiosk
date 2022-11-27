@@ -1,10 +1,7 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
+import javax.swing.*;
+import java.awt.*;
 import bank.Bank;
 
 public class WindowBuilder {
@@ -13,23 +10,21 @@ public class WindowBuilder {
 	static JPanel bankingPane;
 	static CardLayout card;
 
-	TopBarPanel topBar;
-	BottomBarPanel bottomBar;
+	TopBarPanel topBar = new TopBarPanel();
+	BottomBarPanel bottomBar = new BottomBarPanel();
 
-	MyAccountList myAccount = new MyAccountList(); // 자산화면
-	AccountTable accountTable = new AccountTable();
+	MyAccountList myAccount = new MyAccountList();
+//	AccountTable = new AccountTable();
 	AccountManage check = new AccountManage();
 	BankProduct product = new BankProduct();
 	AccountTransferPanel t = new AccountTransferPanel();
 	DepositWithdrawalPanel d = new DepositWithdrawalPanel();
+	SetupPanel setupPanel = new SetupPanel();
 
 	private void createAndShowMain() {
 		mainFrame = new JFrame("경기뱅크");
 		mainFrame.getContentPane().setLayout(new BorderLayout());
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		topBar = new TopBarPanel();
-		bottomBar = new BottomBarPanel();
 
 		setBankingPane();
 
@@ -53,6 +48,7 @@ public class WindowBuilder {
 		bankingPane.add(product, "은행상품");
 		bankingPane.add(d, "입출금");
 		bankingPane.add(t, "송금");
+		bankingPane.add(setupPanel, "설정");
 	}
 
 	public static void main(String[] args) {
@@ -62,11 +58,9 @@ public class WindowBuilder {
 	}
 
 	public static void startGUI() {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				WindowBuilder main = new WindowBuilder();
-				main.createAndShowMain();
-			}
+		javax.swing.SwingUtilities.invokeLater(() -> {
+			WindowBuilder main = new WindowBuilder();
+			main.createAndShowMain();
 		});
 	}
 }

@@ -9,23 +9,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class TopBarPanel extends JPanel {
-	JLabel name;
-	JButton bankIcon;
-	JButton logout;
-	JButton mainButton;
+//	JLabel name;
+//	JButton bankIcon;
+//	JButton logout;
+	JButton mainButton = new JButton("Logo");
+	JPanel rightPane = new JPanel();
+	JLabel userName = new JLabel("홍길동");
 
 	// ImageIcon bankLogo = new ImageIcon("src/images/bankLogo.png");
 
 	TopBarPanel() {
-
-		// 왼쪽
-		mainButton = new JButton("main");
-
-		// 오른쪽
-		JPanel rightPane = new JPanel();
-		JLabel userName = new JLabel("홍길동");
-
 		setLayout(new BorderLayout(0, 0));
+
 		add(mainButton, BorderLayout.WEST);
 		add(rightPane, BorderLayout.EAST);
 
@@ -33,12 +28,7 @@ public class TopBarPanel extends JPanel {
 
 		// setBackground(new Color(32, 32, 44));
 
-		mainButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면");
-			}
-		});
+		mainButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면"));
 
 		// Image img = bankLogo.getImage();
 		// Image changeImg = img.getScaledInstance(50,50, Image.SCALE_SMOOTH);

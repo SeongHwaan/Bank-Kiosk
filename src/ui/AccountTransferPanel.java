@@ -1,29 +1,18 @@
 package ui;
 
-import java.awt.GridBagLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.GridBagConstraints;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 import bank.Bank;
 import bank.Savings;
 import bank.User;
 
 public class AccountTransferPanel extends JPanel implements ActionListener {
-	GridBagConstraints[] gbc = new GridBagConstraints[7];
+	GridBagConstraints[] gbc = new GridBagConstraints[9];
 
-	JPanel bottomPane;
-	JPanel textPane;
-	JPanel buttonPane;
+	JPanel gblAccount = new JPanel();
 
 	JTextField accountInput;
 	JTextField cashInput;
@@ -39,8 +28,9 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 
 	public AccountTransferPanel() {
 		setLayout(new GridBagLayout());
+		gblAccount.setLayout(new GridBagLayout());
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 9; i++) {
 			gbc[i] = new GridBagConstraints();
 		}
 
@@ -56,43 +46,50 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		checkAccount = new JButton("계좌확인");
 		transfer = new JButton("이체");
 
-		gbc[0].gridx = 0;
-		gbc[0].gridy = 0;
-		gbc[0].gridwidth = 2;
-		gbc[0].fill = GridBagConstraints.BOTH;
-		add(title, gbc[0]);
-
 		gbc[1].gridx = 0;
 		gbc[1].gridy = 1;
-		add(name, gbc[1]);
+		gblAccount.add(name, gbc[1]);
 
 		gbc[2].gridx = 1;
 		gbc[2].gridy = 1;
 		gbc[2].weightx = 1;
 		gbc[2].fill = GridBagConstraints.BOTH;
-		add(accountInput, gbc[2]);
+		gblAccount.add(accountInput, gbc[2]);
 
 		gbc[3].gridx = 0;
 		gbc[3].gridy = 2;
-		add(amount, gbc[3]);
+		gblAccount.add(amount, gbc[3]);
 
 		gbc[4].gridx = 1;
 		gbc[4].gridy = 2;
 		gbc[4].weightx = 1;
 		gbc[4].fill = GridBagConstraints.BOTH;
-		add(cashInput, gbc[4]);
+		gblAccount.add(cashInput, gbc[4]);
 
 		gbc[5].gridx = 0;
 		gbc[5].gridy = 3;
 		gbc[5].weightx = 1;
 		gbc[5].fill = GridBagConstraints.BOTH;
-		add(checkAccount, gbc[5]);
+		gblAccount.add(checkAccount, gbc[5]);
 
 		gbc[6].gridx = 1;
 		gbc[6].gridy = 3;
 		gbc[6].weightx = 1;
 		gbc[6].fill = GridBagConstraints.BOTH;
-		add(transfer, gbc[6]);
+		gblAccount.add(transfer, gbc[6]);
+
+		gbc[0].gridx = 0;
+		gbc[0].gridy = 0;
+		gbc[0].weightx = 1;
+		gbc[0].fill = GridBagConstraints.BOTH;
+		add(title, gbc[0]);
+
+		gbc[7].gridx = 0;
+		gbc[7].gridy = 1;
+		gbc[7].weightx = 1;
+		gbc[7].weighty = 2;
+		gbc[7].fill = GridBagConstraints.BOTH;
+		add(gblAccount, gbc[7]);
 
 	}
 

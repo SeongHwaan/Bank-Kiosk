@@ -1,17 +1,7 @@
 package ui;
 
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import java.awt.GridLayout;
-
+import javax.swing.*;
+import java.awt.*;
 import bank.Bank;
 import bank.Savings;
 
@@ -89,21 +79,8 @@ public class AccountManage extends JPanel {
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(bottom, gbc[2]);
 
-		depwith.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				WindowBuilder.card.show(WindowBuilder.bankingPane, "입출금");
-
-			}
-		});
-
-		transfer.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				WindowBuilder.card.show(WindowBuilder.bankingPane, "송금");
-
-			}
-		});
+		depwith.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "입출금"));
+		transfer.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "송금"));
 
 	}
 

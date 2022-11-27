@@ -1,17 +1,7 @@
 package ui;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
@@ -19,26 +9,15 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
 import bank.Bank;
 import bank.Savings;
-import java.awt.GridLayout;
 
 public class MyAccountList extends JPanel {
-	ArrayList<Savings> myAccount = new ArrayList<>();
+	ArrayList<Savings> myAccount = Bank.accountMgr.list;
 	static int selectedIndex = -1;
-	static Savings account;
-	DefaultListModel model;
-	JList accountList;
+//	static Savings account;
+	DefaultListModel model = new DefaultListModel();
+	JList accountList = new JList(model);
 
 	public MyAccountList() {
 		setLayout(new GridBagLayout());
@@ -49,14 +28,10 @@ public class MyAccountList extends JPanel {
 			gbc[i] = new GridBagConstraints();
 		}
 
-		myAccount = Bank.accountMgr.list;
-
 		JLabel title = new JLabel("자산");
 		title.setFont(new Font("", Font.BOLD, 28));
 
-		model = new DefaultListModel();
 		setList();
-		accountList = new JList(model);
 		accountList.setCellRenderer(new CustomListRenderer(accountList));
 		accountList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		accountList.setBackground(new Color(255, 255, 255));
@@ -86,8 +61,8 @@ public class MyAccountList extends JPanel {
 		}
 	}
 
-	class CustomListRenderer extends DefaultListCellRenderer {
-		private CustomLabel renderer;
+	static class CustomListRenderer extends DefaultListCellRenderer {
+		private final CustomLabel renderer;
 
 		public CustomListRenderer(final JList list) {
 			super();
@@ -155,10 +130,10 @@ public class MyAccountList extends JPanel {
 					g2d.fill(new Ellipse2D.Double(2, 2, 32, 32));
 				}
 
-				g2d.setPaint(data.geticonColor());
+				g2d.setPaint(data.getIconColor());
 				g2d.fill(new Ellipse2D.Double(5, 5, 26, 26));
-				// g2d.drawImage ( tipIcon.getImage (), 5 + 13 - tipIcon.getIconWidth () / 2, 5
-				// + 13 - tipIcon.getIconHeight () / 2, null );
+//				g2d.drawImage ( tipIcon.getImage (), 5 + 13 - tipIcon.getIconWidth () / 2, 5
+//				+ 13 - tipIcon.getIconHeight () / 2, null );
 
 				super.paintComponent(g);
 			}
@@ -181,7 +156,7 @@ public class MyAccountList extends JPanel {
 			this.name = name;
 		}
 
-		private Color geticonColor() {
+		private Color getIconColor() {
 			return iconColor;
 		}
 

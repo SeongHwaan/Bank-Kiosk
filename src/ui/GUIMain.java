@@ -31,7 +31,7 @@ public class GUIMain {
 
 	MyAccountList myAccount = new MyAccountList();
 	
-	MyAccountList2 a = new MyAccountList2();
+//	MyAccountList2 a = new MyAccountList2();
 	
 //	private void createAndShowMain() {
 //
