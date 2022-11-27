@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 import bank.Bank;
 import bank.Savings;
@@ -25,8 +26,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 	
 	JTextField accountInput;
 	JTextField cashInput;
-	
-	JButton checkAccount;
+
 	JButton transfer;
 
 	JLabel name;
@@ -50,10 +50,8 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		accountInput = new JTextField("",10);
 		cashInput = new JTextField("", 10);
 
-		checkAccount = new JButton("계좌확인");
 		transfer = new JButton("이체");
 
-		checkAccount.addActionListener(this);
 		transfer.addActionListener(this);
 
 		textPane.add(name);
@@ -61,7 +59,6 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		textPane.add(accountInput);
 		textPane.add(cashInput);
 
-		buttonPane.add(checkAccount);
 		buttonPane.add(transfer);
 
 		bottomPane.add(textPane, BorderLayout.WEST);
@@ -76,26 +73,35 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("이체")) {
 			Savings selectedAccount = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
-			try {
-				WindowBuilder.bank.transfer(selectedAccount, transferAccount, cashInput.getText());
-				accountInput.setText("");
-				cashInput.setText("");
-				AccountManage.update();
-					
-			}catch (Exception e1){
-				System.out.println("계좌 확인 및 금액을 입력해주세요.");
-			}
-		}
 
-		if (e.getActionCommand().equals("계좌확인")) {
 			try {
 				transferAccount = WindowBuilder.bank.findAccount(accountInput.getText());
 				transferUser = WindowBuilder.bank.findUser(transferAccount.userId);
-				//dialog로 사용자 이름 출력 기능 추가 
-				
 			} catch (NullPointerException e1) {
-				System.out.println("알 수 없는 계좌번호 또는 사용자를 찾을 수 없습니다. 다시 입력해주세요.");
-			} 
+				JOptionPane.showMessageDialog(null,
+						"계좌번호 또는 사용자를 찾을 수 없습니다.",
+						"오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			if (transferAccount == selectedAccount) {
+				JOptionPane.showMessageDialog(null,
+						"출금계좌와 동일한 계좌를 입력했습니다.",
+						"오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			if (cashInput.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null,
+						"금액을 입력해주세요.",
+						"오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			WindowBuilder.bank.transfer(selectedAccount, transferAccount, cashInput.getText());
+			accountInput.setText("");
+			cashInput.setText("");
+			AccountManage.update();
 		}
 	}
 }

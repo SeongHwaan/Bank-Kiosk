@@ -103,7 +103,6 @@ public class WindowBuilder {
 		bottomPane.add(productButton);
 		bottomPane.add(createButton);
 		
-		
 		card =  (CardLayout) bankingPane.getLayout();
 		
 		manageButton.addActionListener(new ActionListener() {
@@ -111,7 +110,6 @@ public class WindowBuilder {
 			public void actionPerformed(ActionEvent e) {
 				if(MyAccountList.selectedIndex != -1)
 					card.show(bankingPane, "계좌관리");
-
 			}
 		});
 		

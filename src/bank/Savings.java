@@ -101,7 +101,7 @@ public class Savings implements Manageable {
 		}
 
 		public String[] getTexts() {
-			return new String[] { "" + type, day, "" + cash };
+			return new String[] { "" + (type == 1 ? "입금" : "출금"), day, "" + cash };
 		}
 
 		public void print() {
