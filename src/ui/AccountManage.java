@@ -59,6 +59,10 @@ public class AccountManage extends JPanel {
 		transfer = new JButton("송금");
 		transfer.setBounds(207, 156, 139, 45);
 		add(transfer);
+		
+		account = Bank.accountMgr.list.get(0);
+		textArea.append(account.number);
+		textArea_1.append("" + account.cash);
 
 		historyTable = new HistoryTable();
 		JScrollPane bottom = new JScrollPane(historyTable.table);

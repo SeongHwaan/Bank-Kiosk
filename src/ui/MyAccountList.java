@@ -35,7 +35,7 @@ import bank.Savings;
 public class MyAccountList extends JPanel {
 
 	ArrayList<Savings> myAccount = new ArrayList<>();
-	static int selectedIndex = -1;
+	static int selectedIndex = 0;
 	static Savings account;
 	DefaultListModel model;
 	JList accountList;
@@ -73,7 +73,9 @@ public class MyAccountList extends JPanel {
 		public CustomListRenderer(final JList list) {
 			super();
 			renderer = new CustomLabel();
-
+			list.setSelectedIndex(0);
+			
+			
 			list.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseReleased(MouseEvent e) {
