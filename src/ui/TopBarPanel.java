@@ -17,7 +17,7 @@ public class TopBarPanel extends JPanel {
 
 	// ImageIcon bankLogo = new ImageIcon("src/images/bankLogo.png");
 
-	void setup() {
+	TopBarPanel() {
 
 		// 왼쪽
 		mainButton = new JButton("main");

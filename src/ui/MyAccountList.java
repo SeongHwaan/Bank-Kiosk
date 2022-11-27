@@ -28,23 +28,23 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
-
 import bank.Bank;
 import bank.Savings;
+import java.awt.GridLayout;
 
 public class MyAccountList extends JPanel {
-
 	ArrayList<Savings> myAccount = new ArrayList<>();
 	static int selectedIndex = -1;
 	static Savings account;
 	DefaultListModel model;
 	JList accountList;
 
-	public MyAccountList() {
+	JLabel title = new JLabel("자산");
 
+	public MyAccountList() {
 		myAccount = Bank.accountMgr.list;
 
-		setLayout(null);
+		setLayout(new GridLayout(1, 0));
 		model = new DefaultListModel();
 		setList();
 		accountList = new JList(model);
@@ -53,8 +53,8 @@ public class MyAccountList extends JPanel {
 		accountList.setBackground(new Color(255, 255, 255));
 
 		JScrollPane sp = new JScrollPane(accountList);
-		sp.setBounds(12, 37, 361, 493);
 
+		// add(title);
 		add(sp);
 
 		// setBackground(new Color(32, 32, 44));
@@ -156,7 +156,6 @@ public class MyAccountList extends JPanel {
 		private String name;
 
 		public AccountData(String name) {
-
 			this.name = name;
 		}
 
