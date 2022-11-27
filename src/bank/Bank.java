@@ -115,10 +115,10 @@ public class Bank {
 	}
 
 	// 키오스크 이용자
-	public boolean login(String usertext, String passwordtext) {
-		loginUser = findUser(usertext);
+	public boolean login(String id, String pw) {
+		loginUser = findUser(id);
 		// 유효하지 않은 로그인이면 다시 입력
-		return isValidLogin(passwordtext);
+		return isValidLogin(pw);
 	}
 
 	public void loadLoginAccount() {
