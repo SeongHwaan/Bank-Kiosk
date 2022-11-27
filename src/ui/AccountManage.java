@@ -68,6 +68,10 @@ public class AccountManage extends JPanel {
 		gbc[1].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[1]); // 부모 패널에 추가
 
+		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+		textArea.setText(account.number);
+		textArea_1.setText("" + account.cash);
+
 		historyTable = new HistoryTable();
 		JScrollPane bottom = new JScrollPane(historyTable.table);
 		bottom.setBounds(0, 274, 385, 295);
@@ -81,12 +85,11 @@ public class AccountManage extends JPanel {
 
 		depwith.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "입출금"));
 		transfer.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "송금"));
-
 	}
 
 	public static void update() {
 		try {
-			account = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
+			account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 			textArea.setText("");
 			textArea.append(account.number);
 			textArea_1.setText("");

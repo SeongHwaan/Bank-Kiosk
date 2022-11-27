@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -91,8 +90,8 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 					product = Bank.productList.get(selectedIndex);
 					int c = Integer.parseInt(cashInput.getText());
 					int m = Integer.parseInt(monthInput.getText());
-					String interest = Integer.toString(product.calcInterest(c, m));
-					String amount = Integer.toString(product.calcEstimatedAmount(c, m));
+					String interest = Integer.toString(product.calcInterest(m));
+					String amount = Integer.toString(product.calcEstimatedAmount(m));
 					answer.setText("");
 					answer.append("이자: " + interest + "예상 금액: " + amount); 
 				}catch(NumberFormatException e1){
@@ -125,7 +124,7 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 			if (!lsm.isSelectionEmpty()) {
 				selectedIndex = lsm.getMinSelectionIndex();
 			}
-			info = Bank.productList.get(selectedIndex).printInfo();
+			info = Bank.productList.get(selectedIndex).getInfo();
 			description.append(info);
 		}
 	}

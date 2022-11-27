@@ -43,12 +43,13 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		amount = new JLabel("이체금액");
 		cashInput = new JTextField("", 10);
 
-		checkAccount = new JButton("계좌확인");
 		transfer = new JButton("이체");
 
 		gbc[1].gridx = 0;
 		gbc[1].gridy = 1;
 		gblAccount.add(name, gbc[1]);
+
+		transfer.addActionListener(this);
 
 		gbc[2].gridx = 1;
 		gbc[2].gridy = 1;
@@ -96,27 +97,36 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("이체")) {
-			Savings selectedAccount = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
-			try {
-				WindowBuilder.bank.transfer(selectedAccount, transferAccount, cashInput.getText());
-				accountInput.setText("");
-				cashInput.setText("");
-				AccountManage.update();
+			Savings selectedAccount = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 
-			} catch (Exception e1) {
-				System.out.println("계좌 확인 및 금액을 입력해주세요.");
-			}
-		}
-
-		if (e.getActionCommand().equals("계좌확인")) {
 			try {
 				transferAccount = WindowBuilder.bank.findAccount(accountInput.getText());
 				transferUser = WindowBuilder.bank.findUser(transferAccount.userId);
-				// dialog로 사용자 이름 출력 기능 추가
-
 			} catch (NullPointerException e1) {
-				System.out.println("알 수 없는 계좌번호 또는 사용자를 찾을 수 없습니다. 다시 입력해주세요.");
+				JOptionPane.showMessageDialog(null,
+						"계좌번호 또는 사용자를 찾을 수 없습니다.",
+						"오류", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
+
+			if (transferAccount == selectedAccount) {
+				JOptionPane.showMessageDialog(null,
+						"출금계좌와 동일한 계좌를 입력했습니다.",
+						"오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			if (cashInput.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null,
+						"금액을 입력해주세요.",
+						"오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			WindowBuilder.bank.transfer(selectedAccount, transferAccount, cashInput.getText());
+			accountInput.setText("");
+			cashInput.setText("");
+			AccountManage.update();
 		}
 	}
 }

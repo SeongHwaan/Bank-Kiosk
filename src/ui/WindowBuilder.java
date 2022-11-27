@@ -10,11 +10,12 @@ public class WindowBuilder {
 	static JPanel bankingPane;
 	static CardLayout card;
 
-	TopBarPanel topBar = new TopBarPanel();
+	TopBarPanel topBar = new TopBarPanel(Bank.loginUser.name);
 	BottomBarPanel bottomBar = new BottomBarPanel();
-
 	MyAccountList myAccount = new MyAccountList();
-//	AccountTable = new AccountTable();
+
+	AccountTable accountTable = new AccountTable();
+
 	AccountManage check = new AccountManage();
 	BankProduct product = new BankProduct();
 	AccountTransferPanel t = new AccountTransferPanel();
@@ -54,7 +55,15 @@ public class WindowBuilder {
 	public static void main(String[] args) {
 		bank = new Bank();
 		bank.run();
-		startGUI();
+		startLogin();
+	}
+
+	public static void startLogin() {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				LoginFrame.main();
+			}
+		});
 	}
 
 	public static void startGUI() {

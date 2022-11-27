@@ -1,6 +1,5 @@
 package ui;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +17,7 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 	JButton withdrawal = new JButton("출금");
 
 	public DepositWithdrawalPanel() {
-		setLayout(new BorderLayout(20,20));
+		setLayout(new BorderLayout(20, 20));
 
 		buttonPanel.add(deposit);
 		buttonPanel.add(withdrawal);

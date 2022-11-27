@@ -2,12 +2,21 @@ package bank;
 import java.util.Scanner;
 
 public class User implements Manageable {
-    String id; // 사용자번호, 사용자를 구분하는
-    String password;
+    public String id; // 사용자번호, 사용자를 구분하는
+    public String password;
     public String name;
     String birthDay;
     String phone;
     public String email;
+
+    @Override
+    public String getInfo() {
+        return null;
+    }
+    @Override
+    public String getName() {
+        return null;
+    }
 
     @Override
     public void read(Scanner scan) {
@@ -29,21 +38,8 @@ public class User implements Manageable {
     public boolean matches(String kwd) {
         return kwd.equals(id);
     }
-    
-    public String[] getTexts() {
-		return new String[] {id, password, name, birthDay, phone, email};
-	}
 
-	@Override
-	public String printInfo() {
-		return null;
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void printInfo(Scanner scan) {
+    }
 }

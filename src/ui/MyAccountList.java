@@ -13,9 +13,9 @@ import bank.Bank;
 import bank.Savings;
 
 public class MyAccountList extends JPanel {
-	ArrayList<Savings> myAccount = Bank.accountMgr.list;
-	static int selectedIndex = -1;
-//	static Savings account;
+	ArrayList<Savings> myAccount = Bank.loginAccountList;
+	static int selectedIndex = 0;
+	// static Savings account;
 	DefaultListModel model = new DefaultListModel();
 	JList accountList = new JList(model);
 
@@ -67,6 +67,7 @@ public class MyAccountList extends JPanel {
 		public CustomListRenderer(final JList list) {
 			super();
 			renderer = new CustomLabel();
+			list.setSelectedIndex(0);
 
 			list.addMouseListener(new MouseAdapter() {
 				@Override
@@ -132,8 +133,8 @@ public class MyAccountList extends JPanel {
 
 				g2d.setPaint(data.getIconColor());
 				g2d.fill(new Ellipse2D.Double(5, 5, 26, 26));
-//				g2d.drawImage ( tipIcon.getImage (), 5 + 13 - tipIcon.getIconWidth () / 2, 5
-//				+ 13 - tipIcon.getIconHeight () / 2, null );
+				// g2d.drawImage ( tipIcon.getImage (), 5 + 13 - tipIcon.getIconWidth () / 2, 5
+				// + 13 - tipIcon.getIconHeight () / 2, null );
 
 				super.paintComponent(g);
 			}

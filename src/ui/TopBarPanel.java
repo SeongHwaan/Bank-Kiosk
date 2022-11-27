@@ -1,24 +1,22 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class TopBarPanel extends JPanel {
-//	JLabel name;
-//	JButton bankIcon;
-//	JButton logout;
+	// JLabel name;
+	// JButton bankIcon;
+	// JButton logout;
 	JButton mainButton = new JButton("Logo");
 	JPanel rightPane = new JPanel();
 	JLabel userName = new JLabel("홍길동");
 
-	// ImageIcon bankLogo = new ImageIcon("src/images/bankLogo.png");
+	TopBarPanel(String name) {
 
-	TopBarPanel() {
+		mainButton = new JButton("Logo");
+		JPanel rightPane = new JPanel();
+		JLabel userName = new JLabel(name);
+
 		setLayout(new BorderLayout(0, 0));
 
 		add(mainButton, BorderLayout.WEST);

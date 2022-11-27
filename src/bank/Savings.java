@@ -6,27 +6,36 @@ import java.util.Scanner;
 public class Savings implements Manageable {
 
 	public String name;
-	public int type;
+	int calcType; // 0: 무이자 1: 단리, 2: 복리
 	public String number; // 계좌번호
 	public String userId; // 사용자 아이디
 	public int cash; // 계좌 금액
 	public double rate;
-
-	public String info = "일반예금";
+	public String info;
 
 	public ArrayList<History> historyList = new ArrayList<>();
 
-	// 은행 상품 등록용
-	public void setSavings(String name) {
-		this.name = name;
-		this.rate = 0;
-	}
-
-	public void setSavings(String name, String userId) {
+	public Savings(String name, String userId) {
 		this.name = name;
 		generateNumber();
 		this.userId = userId;
+		this.calcType = 0;
 		this.cash = 0;
+		this.info = "일반예금";
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public String getInfo() {
+		return info;
+	}
+
+	public String[] getTexts() {
+		return new String[] { "" + number, "" + cash };
 	}
 
 	public void generateNumber() {
@@ -48,7 +57,7 @@ public class Savings implements Manageable {
 
 	@Override
 	public void read(Scanner scan) {
-		type = scan.nextInt();
+		name = scan.next();
 		number = scan.next();
 		userId = scan.next();
 		cash = scan.nextInt();
@@ -57,8 +66,13 @@ public class Savings implements Manageable {
 	@Override
 	public void print() {
 		// [계좌] 3799672866, 100000
-		System.out.format("[계좌] %s, %d원\n", number, cash);
+		System.out.format("[예금] %s, %d원\n", number, cash);
 		printHistory();
+	}
+
+	@Override
+	public void printInfo(Scanner scan) {
+		System.out.format("[예금] 입출금 무이자");
 	}
 
 	@Override
@@ -66,16 +80,16 @@ public class Savings implements Manageable {
 		return kwd.equals(userId) || kwd.equals(number);
 	}
 
-	public String printInfo() {
-		return info;
+	public int calcInterest(int m) {
+		return 0;
 	}
 
-	public String[] getTexts() {
-		return new String[] { "" + type, number, "" + cash };
+	public int calcEstimatedAmount(int m) {
+		return 0;
 	}
 
 	public static class History {
-		int type; // 거래 구분 1 :입금 2: 출금
+		int type; // 거래 구분 1: 입금 2: 출금
 		public String day; // 거래일자, 2022-10-30
 		String desc;// 거래내역
 		int cash; // 거래금
@@ -87,11 +101,8 @@ public class Savings implements Manageable {
 			this.cash = cash;
 		}
 
-		public void read(Scanner scan) {
-			type = scan.nextInt();
-			day = scan.next();
-			desc = scan.next();
-			cash = scan.nextInt();
+		public String[] getTexts() {
+			return new String[] { "" + (type == 1 ? "입금" : "출금"), day, "" + cash };
 		}
 
 		public void print() {
@@ -103,30 +114,5 @@ public class Savings implements Manageable {
 
 			System.out.println(day + ", " + desc + ", " + cash + "원");
 		}
-
-		public boolean matches(String kwd) {
-			return false;
-		}
-
-		public String[] getTexts() {
-			return new String[] { "" + type, day, "" + cash };
-		}
-
 	}
-
-	public int calcInterest(int c, int m) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int calcEstimatedAmount(int c, int m) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
 }
