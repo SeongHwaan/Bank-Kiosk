@@ -1,7 +1,10 @@
 package ui;
 
+<<<<<<< HEAD
 import bank.Bank;
 
+=======
+>>>>>>> GUI
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,11 +12,14 @@ import java.awt.event.ActionListener;
 public class LoginFrame extends JFrame{
     JTextField userText;
     JPasswordField passwordText;
+<<<<<<< HEAD
     
     public static void main(String[] args) {
     	LoginFrame a = new LoginFrame();
     	a.LoginFrame();
     }
+=======
+>>>>>>> GUI
 
     public void LoginFrame(){
         JFrame LoginFrame = new JFrame("로그인");
@@ -45,6 +51,7 @@ public class LoginFrame extends JFrame{
         LoginPanel.add(success);
         success.setText(null);
 
+<<<<<<< HEAD
         //button.addActionListener(new ActionListener() {
             //@Override
             //public void actionPerformed(ActionEvent e) {
@@ -61,6 +68,28 @@ public class LoginFrame extends JFrame{
 
             //}
         //});
+=======
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String usertext = userText.getText();
+                String passwordtext = String.valueOf(passwordText.getPassword());
+                if (!WindowBuilder.bank.login(usertext, passwordtext)) {
+                    if (WindowBuilder.bank.loginUser == null)
+                        success.setText("[시스템] 사용자를 찾을 수 없습니다.");
+                    if (!WindowBuilder.bank.loginUser.password.contentEquals(passwordtext)) {
+                        success.setText("[시스템] 비밀번호가 잘못되었습니다.");
+                        WindowBuilder.bank.loginUser = null;
+                    }
+                }
+                else {
+                    WindowBuilder main = new WindowBuilder();
+                    main.createAndShowMain();
+                }
+            }
+        });
+
+>>>>>>> GUI
         LoginPanel.add(button);
         LoginFrame.setVisible(true);
     }
