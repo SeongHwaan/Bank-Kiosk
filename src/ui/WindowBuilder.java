@@ -36,7 +36,7 @@ public class WindowBuilder {
 
 	MyAccountList myAccount = new MyAccountList();
 	
-	private void createAndShowMain() {
+	void createAndShowMain() {
 		mainFrame = new JFrame("경기은행");
 		mainFrame.getContentPane().setLayout(new BorderLayout());
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,8 +133,8 @@ public class WindowBuilder {
 	public static void startGUI() {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				WindowBuilder main = new WindowBuilder();
-				main.createAndShowMain();
+				LoginFrame login = new LoginFrame();
+				login.LoginFrame();
 			}
 		});
 	}

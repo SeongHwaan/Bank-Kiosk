@@ -10,7 +10,7 @@ public class Bank {
 	public static Manager<Savings> accountMgr = new Manager<>(); // 계좌 매니저
 	public static ArrayList<Savings> productList = new ArrayList<>();
 	
-	User loginUser = new User(); // 은행 시스템을 이용할 회원
+	public User loginUser = new User(); // 은행 시스템을 이용할 회원
 	ArrayList<Savings> loginAccountList = new ArrayList<>(); // 로그인 회원 계좌 리스트
 	
 	Savings one;
@@ -110,39 +110,17 @@ public class Bank {
 	}
 
 	// 키오스크 이용자
-	private boolean login() {
-		for (int i = 0; i < 5; i++) {
-			System.out.print("ID: ");
-			String id = scan.next();
-			if (id.contentEquals("quit")) // id에 quit 입력 시 프로그램 종료
-				System.exit(0);
-
-			System.out.print("PW: ");
-			String pw = scan.next();
-
-			// int id = 0; // 테스트용으로 사용자 0으로 로그인하여 시스템을 시연한다.
-			loginUser = findUser(id);
-			if (!isValidLogin(pw)) { // 유효하지 않은 로그인이면 다시 입력
-				System.out.format("로그인 5회 실패시, 프로그램이 종료됩니다. (%d/5)\n", i + 1);
-				continue;
-			}
-
-			return true;
-		}
-
-		return false;
+	public boolean login(String usertext, String passwordtext) {
+		loginUser = findUser(usertext);
+		// 유효하지 않은 로그인이면 다시 입력
+		return isValidLogin(passwordtext);
 	}
 
 	private boolean isValidLogin(String pw) {
-		if (loginUser == null) {
-			System.out.println("[시스템] 사용자를 찾을 수 없습니다.");
+		if (loginUser == null)
 			return false;
-		}
-		if (!loginUser.password.contentEquals(pw)) {
-			System.out.println("[시스템] 비밀번호가 잘못되었습니다.");
-			loginUser = null;
+		if (!loginUser.password.contentEquals(pw))
 			return false;
-		}
 		return true;
 	}
 
