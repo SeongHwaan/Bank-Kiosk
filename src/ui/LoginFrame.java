@@ -85,6 +85,7 @@ public class LoginFrame extends JFrame{
                 else {
                     WindowBuilder main = new WindowBuilder();
                     main.createAndShowMain();
+                    dispose();
                 }
             }
         });
