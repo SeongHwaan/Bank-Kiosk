@@ -60,9 +60,9 @@ public class AccountManage extends JPanel {
 		transfer.setBounds(207, 156, 139, 45);
 		add(transfer);
 		
-		account = Bank.accountMgr.list.get(0);
-		textArea.append(account.number);
-		textArea_1.append("" + account.cash);
+		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+		textArea.setText(account.number);
+		textArea_1.setText("" + account.cash);
 
 		historyTable = new HistoryTable();
 		JScrollPane bottom = new JScrollPane(historyTable.table);
@@ -86,7 +86,6 @@ public class AccountManage extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					WindowBuilder.card.show(WindowBuilder.bankingPane, "송금");
-
 			}
 		});
 
@@ -94,7 +93,7 @@ public class AccountManage extends JPanel {
 
 	public static void update() {
 		try {
-			account = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
+			account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 			textArea.setText("");
 			textArea.append(account.number);
 			textArea_1.setText("");

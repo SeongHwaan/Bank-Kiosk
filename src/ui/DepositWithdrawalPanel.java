@@ -52,7 +52,7 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("입금")) {
 			try {
-				Savings selectedAccount = (Savings) Bank.accountMgr.list.get(MyAccountList.selectedIndex);
+				Savings selectedAccount = (Savings) Bank.loginAccountList.get(MyAccountList.selectedIndex);
 				WindowBuilder.bank.deposit(selectedAccount, cashInput.getText());
 				cashInput.setText("");
 				AccountManage.update();
@@ -62,7 +62,7 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 		}
 		if (e.getActionCommand().equals("출금")) {
 			try {
-				Savings selectedAccount = (Savings) Bank.accountMgr.list.get(MyAccountList.selectedIndex);
+				Savings selectedAccount = (Savings) Bank.loginAccountList.get(MyAccountList.selectedIndex);
 				WindowBuilder.bank.withdraw(selectedAccount, cashInput.getText());
 				cashInput.setText("");
 				AccountManage.update();

@@ -95,7 +95,7 @@ public class Bank {
 		int cash = Integer.parseInt(kwd);
 		// 본인 잔고 확인하여, 정상적으로 입력 됐을 경우 패쓰
 		try {
-			if(cash > useAccount.cash)
+			if (cash > useAccount.cash)
 				throw new Exception();
 			useAccount.cash -= cash;
 			useAccount.createHistory(2, "*Today", "-", cash); // 거래내역 생성

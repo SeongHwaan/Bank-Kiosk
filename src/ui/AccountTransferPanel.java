@@ -72,7 +72,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("이체")) {
-			Savings selectedAccount = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
+			Savings selectedAccount = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 
 			try {
 				transferAccount = WindowBuilder.bank.findAccount(accountInput.getText());

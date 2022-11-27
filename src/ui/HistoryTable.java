@@ -20,12 +20,15 @@ public class HistoryTable extends AccountTable {
 
 	@Override
 	public void setModel() {
+		loadData();
 		columnNames = new String[] { "거래구분", "거래일자", "금액" };
 		tableModel = new DefaultTableModel(columnNames, 0) {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
+		for (Savings.History h : account.historyList)
+			tableModel.addRow(h.getTexts());
 	}
 	
 	@Override
@@ -37,6 +40,6 @@ public class HistoryTable extends AccountTable {
 	}
 	
 	void loadData() {
-		account = Bank.accountMgr.list.get(selectedIndex);
+		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 	}
 }

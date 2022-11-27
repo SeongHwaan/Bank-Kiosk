@@ -88,7 +88,7 @@ public class Savings implements Manageable {
 	}
 
 	public static class History{
-		int type; // 거래 구분 1 :입금 2: 출금
+		int type; // 거래 구분 1: 입금 2: 출금
 		public String day; // 거래일자, 2022-10-30
 		String desc;// 거래내역
 		int cash; // 거래금
