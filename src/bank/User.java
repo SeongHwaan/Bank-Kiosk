@@ -17,9 +17,6 @@ public class User implements Manageable {
     public String getName() {
         return null;
     }
-    public String[] getTexts() {
-        return new String[] {id, password, name, birthDay, phone, email};
-    }
 
     @Override
     public void read(Scanner scan) {

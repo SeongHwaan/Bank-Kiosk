@@ -99,7 +99,6 @@ public class BankProduct extends JPanel {
 	}
 
 	class ProductList extends MyAccountList {
-
 		static int productIndex;
 
 		@Override
@@ -108,6 +107,5 @@ public class BankProduct extends JPanel {
 				model.addElement(new AccountData(p.info));
 			}
 		}
-
 	}
 }

@@ -3,11 +3,6 @@ package bank;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import bank.InstallmentSavings;
-import bank.Manager;
-import bank.Savings;
-import bank.User;
-
 public class Bank {
 	Scanner scan = new Scanner(System.in);
 
@@ -58,40 +53,16 @@ public class Bank {
 		}
 	}
 
-	// 여러 계좌에서 하나 선택
-	private Savings selectAccount() {
-		final int n = loginAccountList.size() + 1;
-		int menu = 0;
-
-		while (true) {
-			System.out.println("- 사용하실 계좌를 선택해주세요.");
-
-			// 로그인 계좌 리스트에서 계좌 구분하여 출력하는
-			for (int i = 1; i < n; i++) {
-				System.out.print("(" + i + ")");
-			}
-
-			menu = scan.nextInt();
-
-			// 정상적인 인덱스를 입력했을 경우 리턴
-			if (menu <= n && menu > 0) {
-				System.out.print("--- 이용해주셔서 감사합니다!\n\n");
-				return loginAccountList.get(menu);
-			}
-		}
-	}
-
 	// 현금 입금
 	public void deposit(Savings useAccount, String kwd) {
 
 		int cash = Math.abs(Integer.parseInt(kwd)); // 현금 입금은 음수가 될 수 없으므로 보정
 		useAccount.cash += cash;
 		useAccount.createHistory(1, "*Today", "-", cash); // 거래내역 생성
-		System.out.println("거래 후 잔고: " + useAccount.cash);
 	}
 
 	// 현금 출금
-	public int withdraw(Savings useAccount, String kwd) {
+	public void withdraw(Savings useAccount, String kwd) {
 		int cash = Integer.parseInt(kwd);
 		// 본인 잔고 확인하여, 정상적으로 입력 됐을 경우 패쓰
 		try {
@@ -99,11 +70,9 @@ public class Bank {
 				throw new Exception();
 			useAccount.cash -= cash;
 			useAccount.createHistory(2, "*Today", "-", cash); // 거래내역 생성
-			System.out.println("거래 후 잔고: " + useAccount.cash);
 		} catch (Exception e) {
-			System.out.println("no money계좌 잔고가 부족합니다. " + (useAccount.cash - cash) + "원 부족.");
+			System.out.println("no money 계좌 잔고가 부족합니다. " + (useAccount.cash - cash) + "원 부족.");
 		}
-		return cash; // 메서드 재사용 하기 위해 인출은 리턴값을 가진다.
 	}
 
 	// 이체, 타인 계좌에게 송금

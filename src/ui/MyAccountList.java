@@ -1,14 +1,10 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
@@ -21,8 +17,6 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -41,7 +35,6 @@ public class MyAccountList extends JPanel {
 	JList accountList;
 	
 	public MyAccountList() {
-		
 		myAccount = Bank.loginAccountList;
 
 		setLayout(null);
@@ -137,7 +130,7 @@ public class MyAccountList extends JPanel {
 					g2d.fill(new Ellipse2D.Double(2, 2, 32, 32));
 				}
 
-				g2d.setPaint(data.geticonColor());
+				g2d.setPaint(data.getIconColor());
 				g2d.fill(new Ellipse2D.Double(5, 5, 26, 26));
 				// g2d.drawImage ( tipIcon.getImage (), 5 + 13 - tipIcon.getIconWidth () / 2, 5
 				// + 13 - tipIcon.getIconHeight () / 2, null );
@@ -164,7 +157,7 @@ public class MyAccountList extends JPanel {
 			this.name = name;
 		}
 
-		private Color geticonColor() {
+		private Color getIconColor() {
 			return iconColor;
 		}
 
