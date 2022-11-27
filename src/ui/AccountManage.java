@@ -1,22 +1,12 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
+import javax.swing.*;
+import java.awt.*;
 import bank.Bank;
 import bank.Savings;
 
 public class AccountManage extends JPanel {
+	static JPanel infoPanel = new JPanel();
 
 	static HistoryTable historyTable;
 	JButton check;
@@ -30,36 +20,54 @@ public class AccountManage extends JPanel {
 	static Savings account;
 
 	public AccountManage() {
-		setLayout(null);
+		setLayout(new GridBagLayout());
+		infoPanel.setLayout(new GridLayout(0, 2));
+		GridBagConstraints[] gbc = new GridBagConstraints[3];
 
-		textArea.setBounds(114, 65, 200, 21);
-		textArea.setColumns(10);
-		textArea.setEditable(false);
-		textArea.setBorder(null);
-		textArea_1.setBounds(114, 105, 200, 21);
-		textArea_1.setColumns(10);
-		textArea_1.setEditable(false);
-		textArea_1.setBorder(null);
+		for (int i = 0; i < 3; i++) {
+			/* GridBagConstraints 초기화 */
+			gbc[i] = new GridBagConstraints();
+		}
 
-		add(textArea);
-		add(textArea_1);
+		JLabel title = new JLabel("통장");
+		title.setFont(new Font("", Font.BOLD, 28));
 
 		JLabel lblNewLabel = new JLabel("계좌번호");
 		lblNewLabel.setBounds(39, 59, 127, 26);
-		add(lblNewLabel);
+
+		textArea.setEditable(false);
 
 		JLabel lblNewLabel_1 = new JLabel("금액");
 		lblNewLabel_1.setBounds(39, 95, 127, 39);
-		add(lblNewLabel_1);
+
+		textArea_1.setEditable(false);
 
 		depwith = new JButton("입출금");
 		depwith.setBounds(39, 156, 139, 45);
-		add(depwith);
 
 		transfer = new JButton("송금");
 		transfer.setBounds(207, 156, 139, 45);
-		add(transfer);
-		
+
+		infoPanel.add(lblNewLabel);
+		infoPanel.add(textArea);
+		infoPanel.add(lblNewLabel_1);
+		infoPanel.add(textArea_1);
+		infoPanel.add(depwith);
+		infoPanel.add(transfer);
+
+		gbc[0].gridx = 0;
+		gbc[0].gridy = 0;
+		gbc[0].weightx = 1;
+		gbc[0].fill = GridBagConstraints.BOTH;
+		add(title, gbc[0]);
+
+		gbc[1].gridx = 0;
+		gbc[1].gridy = 1;
+		gbc[1].weightx = 1;
+		gbc[1].weighty = 1;
+		gbc[1].fill = GridBagConstraints.BOTH;
+		add(infoPanel, gbc[1]); // 부모 패널에 추가
+
 		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 		textArea.setText(account.number);
 		textArea_1.setText("" + account.cash);
@@ -67,28 +75,16 @@ public class AccountManage extends JPanel {
 		historyTable = new HistoryTable();
 		JScrollPane bottom = new JScrollPane(historyTable.table);
 		bottom.setBounds(0, 274, 385, 295);
-		add(bottom);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(12, 234, 51, 26);
-		add(comboBox);
-		
+		gbc[2].gridx = 0;
+		gbc[2].gridy = 2;
+		gbc[2].weightx = 1;
+		gbc[2].weighty = 3;
+		gbc[2].fill = GridBagConstraints.BOTH;
+		add(bottom, gbc[2]);
 
-		depwith.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-					WindowBuilder.card.show(WindowBuilder.bankingPane, "입출금");
-
-			}
-		});
-		
-		transfer.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-					WindowBuilder.card.show(WindowBuilder.bankingPane, "송금");
-			}
-		});
-
+		depwith.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "입출금"));
+		transfer.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "송금"));
 	}
 
 	public static void update() {

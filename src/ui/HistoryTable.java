@@ -1,11 +1,5 @@
 package ui;
 
-import java.awt.Dimension;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import bank.*;
@@ -30,7 +24,7 @@ public class HistoryTable extends AccountTable {
 		for (Savings.History h : account.historyList)
 			tableModel.addRow(h.getTexts());
 	}
-	
+
 	@Override
 	public void update() {
 		loadData();
@@ -38,7 +32,7 @@ public class HistoryTable extends AccountTable {
 		for (Savings.History h : account.historyList)
 			tableModel.addRow(h.getTexts());
 	}
-	
+
 	void loadData() {
 		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 	}

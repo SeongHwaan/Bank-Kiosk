@@ -4,46 +4,47 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Savings implements Manageable {
-	
+
 	public String name;
 	int calcType; // 0: 무이자 1: 단리, 2: 복리
 	public String number; // 계좌번호
 	public String userId; // 사용자 아이디
 	public int cash; // 계좌 금액
 	public double rate;
-	
 	public String info;
-	
+
 	public ArrayList<History> historyList = new ArrayList<>();
 
 	public Savings(String name, String userId) {
-        this.name = name;
-        generateNumber();
-        this.userId = userId;
+		this.name = name;
+		generateNumber();
+		this.userId = userId;
 		this.calcType = 0;
-        this.cash = 0;
+		this.cash = 0;
 		this.info = "일반예금";
-    }
+	}
 
 	@Override
 	public String getName() {
 		return name;
 	}
+
 	@Override
 	public String getInfo() {
 		return info;
 	}
+
 	public String[] getTexts() {
 		return new String[] { "" + number, "" + cash };
 	}
 
-    public void generateNumber() {
-        number = String.valueOf(Math.random());
-        number = number.substring(8);
-        if (Bank.accountMgr.matches(number))
-            generateNumber();
-    }
-	
+	public void generateNumber() {
+		number = String.valueOf(Math.random());
+		number = number.substring(8);
+		if (Bank.accountMgr.matches(number))
+			generateNumber();
+	}
+
 	public void createHistory(int type, String day, String desc, int cash) {
 		History history = new History(type, day, desc, cash);
 		historyList.add(history);
@@ -87,7 +88,7 @@ public class Savings implements Manageable {
 		return 0;
 	}
 
-	public static class History{
+	public static class History {
 		int type; // 거래 구분 1: 입금 2: 출금
 		public String day; // 거래일자, 2022-10-30
 		String desc;// 거래내역

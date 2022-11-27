@@ -1,23 +1,8 @@
 package ui;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
+import javax.swing.*;
 import bank.Bank;
 import bank.Savings;
-import ui.MyAccountList.AccountData;
 
 public class BankProduct extends JPanel {
 
@@ -36,7 +21,6 @@ public class BankProduct extends JPanel {
 	static Savings product;
 
 	public BankProduct() {
-
 		btnNewButton_2.setBounds(114, 305, 200, 50);
 		textArea_2.setBounds(114, 237, 200, 21);
 		textArea_2.setColumns(10);
