@@ -108,7 +108,6 @@ public class WindowBuilder {
 		manageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(MyAccountList.selectedIndex != -1)
 					card.show(bankingPane, "계좌관리");
 			}
 		});
