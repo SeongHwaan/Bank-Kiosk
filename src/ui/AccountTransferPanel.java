@@ -44,12 +44,11 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		cashInput = new JTextField("", 10);
 
 		transfer = new JButton("이체");
+		transfer.addActionListener(this);
 
 		gbc[1].gridx = 0;
 		gbc[1].gridy = 1;
 		gblAccount.add(name, gbc[1]);
-
-		transfer.addActionListener(this);
 
 		gbc[2].gridx = 1;
 		gbc[2].gridy = 1;
@@ -67,11 +66,11 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		gbc[4].fill = GridBagConstraints.BOTH;
 		gblAccount.add(cashInput, gbc[4]);
 
-		gbc[5].gridx = 0;
-		gbc[5].gridy = 3;
-		gbc[5].weightx = 1;
-		gbc[5].fill = GridBagConstraints.BOTH;
-		gblAccount.add(checkAccount, gbc[5]);
+		// gbc[5].gridx = 0;
+		// gbc[5].gridy = 3;
+		// gbc[5].weightx = 1;
+		// gbc[5].fill = GridBagConstraints.BOTH;
+		// gblAccount.add(checkAccount, gbc[5]);
 
 		gbc[6].gridx = 1;
 		gbc[6].gridy = 3;

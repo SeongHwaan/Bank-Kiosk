@@ -91,15 +91,5 @@ public class BankProduct extends JPanel {
 				model.addElement(new AccountData(p.info));
 			}
 		}
-<<<<<<< HEAD
-
-		class ListRenderer extends CustomListRenderer {
-
-			public ListRenderer(JList list) {
-				super(list);
-			}
-		}
-=======
->>>>>>> refs/remotes/origin/GUI
 	}
 }
