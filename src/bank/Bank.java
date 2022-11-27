@@ -10,8 +10,8 @@ public class Bank {
 	public static Manager<Savings> accountMgr = new Manager<>(); // 계좌 매니저
 	public static ArrayList<Savings> productList = new ArrayList<>();
 	
-	public User loginUser = new User(); // 은행 시스템을 이용할 회원
-	ArrayList<Savings> loginAccountList = new ArrayList<>(); // 로그인 회원 계좌 리스트
+	public static User loginUser = new User(); // 은행 시스템을 이용할 회원
+	public static ArrayList<Savings> loginAccountList = new ArrayList<>(); // 로그인 회원 계좌 리스트
 	
 	Savings one;
 	InstallmentSavings two;
@@ -116,11 +116,18 @@ public class Bank {
 		return isValidLogin(passwordtext);
 	}
 
+	public void loadLoginAccount() {
+		for (Savings account : accountMgr.list)
+			if (account.matches(loginUser.id))
+				loginAccountList.add(account);
+	}
+
 	private boolean isValidLogin(String pw) {
 		if (loginUser == null)
 			return false;
 		if (!loginUser.password.contentEquals(pw))
 			return false;
+		loadLoginAccount();
 		return true;
 	}
 

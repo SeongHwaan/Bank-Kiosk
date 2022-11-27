@@ -27,12 +27,12 @@ public class TopBarPanel extends JPanel {
 	
 	ImageIcon bankLogo = new ImageIcon("src/images/bankLogo.png");
 
-    void setupTopBarPanel() {
+    void setupTopBarPanel(String name) {
 
     	mainButton = new JButton("main");
     	logoutButton = new JButton("로그아웃");
     	JPanel rightPane = new JPanel();
-    	JLabel userName = new JLabel("홍길동");
+    	JLabel userName = new JLabel(name);
     	
  
 		setLayout(new BorderLayout(0, 0));
