@@ -1,7 +1,5 @@
 package ui;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import bank.Bank;
 import bank.User;
 
 public class TopBarPanel extends JPanel {
@@ -54,6 +53,17 @@ public class TopBarPanel extends JPanel {
 					WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면");
 			}
 		});
+
+		logoutButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				WindowBuilder.mainFrame.setVisible(false);
+				Bank.loginUser = null;
+				Bank.loginAccountList.clear();
+				LoginFrame.main();
+			}
+		});
+
 		
 //    	Image img = bankLogo.getImage();
 //    	Image changeImg = img.getScaledInstance(50,50, Image.SCALE_SMOOTH);

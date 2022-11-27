@@ -8,17 +8,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginFrame extends JFrame{
-    JTextField userText;
-    JPasswordField passwordText;
+    static JTextField userText;
+    static JPasswordField passwordText;
 
     
-    public static void main(String[] args) {
-    	LoginFrame a = new LoginFrame();
-    	a.LoginFrame();
+    public static void main() {
+    	new LoginFrame();
     }
 
 
-    public void LoginFrame(){
+    public LoginFrame(){
         JFrame LoginFrame = new JFrame("로그인");
         JPanel LoginPanel = new JPanel(null);
 
@@ -54,11 +53,11 @@ public class LoginFrame extends JFrame{
                 String usertext = userText.getText();
                 String passwordtext = String.valueOf(passwordText.getPassword());
                 if (!WindowBuilder.bank.login(usertext, passwordtext)) {
-                    if (WindowBuilder.bank.loginUser == null)
+                    if (Bank.loginUser == null)
                         success.setText("[시스템] 사용자를 찾을 수 없습니다.");
-                    if (!WindowBuilder.bank.loginUser.password.contentEquals(passwordtext)) {
+                    if (!Bank.loginUser.password.contentEquals(passwordtext)) {
                         success.setText("[시스템] 비밀번호가 잘못되었습니다.");
-                        WindowBuilder.bank.loginUser = null;
+                        Bank.loginUser = null;
                     }
                 }
                 else {

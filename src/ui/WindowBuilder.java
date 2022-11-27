@@ -132,8 +132,7 @@ public class WindowBuilder {
 	public static void startLogin() {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				LoginFrame login = new LoginFrame();
-				login.LoginFrame();
+				LoginFrame.main();
 			}
 		});
 	}
