@@ -1,6 +1,7 @@
 package ui;
 
-import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -39,12 +40,20 @@ public class MyAccountList extends JPanel {
 	DefaultListModel model;
 	JList accountList;
 
-	JLabel title = new JLabel("자산");
-
 	public MyAccountList() {
+		setLayout(new GridBagLayout());
+		GridBagConstraints[] gbc = new GridBagConstraints[2];
+
+		for (int i = 0; i < 2; i++) {
+			/* GridBagConstraints 초기화 */
+			gbc[i] = new GridBagConstraints();
+		}
+
 		myAccount = Bank.accountMgr.list;
 
-		setLayout(new GridLayout(1, 0));
+		JLabel title = new JLabel("자산");
+		title.setFont(new Font("", Font.BOLD, 28));
+
 		model = new DefaultListModel();
 		setList();
 		accountList = new JList(model);
@@ -54,8 +63,18 @@ public class MyAccountList extends JPanel {
 
 		JScrollPane sp = new JScrollPane(accountList);
 
-		// add(title);
-		add(sp);
+		gbc[0].gridx = 0;
+		gbc[0].gridy = 0;
+		gbc[0].weightx = 1;
+		gbc[0].fill = GridBagConstraints.BOTH;
+		add(title, gbc[0]);
+
+		gbc[1].gridx = 0;
+		gbc[1].gridy = 1;
+		gbc[1].weightx = 1;
+		gbc[1].weighty = 2;
+		gbc[1].fill = GridBagConstraints.BOTH;
+		add(sp, gbc[1]);
 
 		// setBackground(new Color(32, 32, 44));
 		setBorder(null);
@@ -81,9 +100,12 @@ public class MyAccountList extends JPanel {
 						selectedIndex = list.getSelectedIndex();
 						AccountManage.update();
 						int index = list.locationToIndex(e.getPoint());
+
 						if (index != -1 && list.isSelectedIndex(index)) {
 							Rectangle rect = list.getCellBounds(index, index);
 						}
+
+						WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌관리");
 					}
 				}
 			});

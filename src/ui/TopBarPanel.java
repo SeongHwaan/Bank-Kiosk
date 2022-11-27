@@ -13,7 +13,6 @@ public class TopBarPanel extends JPanel {
 	JButton bankIcon;
 	JButton logout;
 	JButton mainButton;
-	JButton logoutButton;
 
 	// ImageIcon bankLogo = new ImageIcon("src/images/bankLogo.png");
 
@@ -25,14 +24,12 @@ public class TopBarPanel extends JPanel {
 		// 오른쪽
 		JPanel rightPane = new JPanel();
 		JLabel userName = new JLabel("홍길동");
-		logoutButton = new JButton("로그아웃");
 
 		setLayout(new BorderLayout(0, 0));
 		add(mainButton, BorderLayout.WEST);
 		add(rightPane, BorderLayout.EAST);
 
 		rightPane.add(userName);
-		rightPane.add(logoutButton);
 
 		// setBackground(new Color(32, 32, 44));
 

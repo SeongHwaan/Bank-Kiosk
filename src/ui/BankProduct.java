@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Constructor;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
@@ -36,7 +37,6 @@ public class BankProduct extends JPanel {
 	static Savings product;
 
 	public BankProduct() {
-
 		btnNewButton_2.setBounds(114, 305, 200, 50);
 		textArea_2.setBounds(114, 237, 200, 21);
 		textArea_2.setColumns(10);
@@ -99,7 +99,6 @@ public class BankProduct extends JPanel {
 	}
 
 	class ProductList extends MyAccountList {
-
 		static int productIndex;
 
 		@Override
@@ -113,20 +112,6 @@ public class BankProduct extends JPanel {
 
 			public ListRenderer(JList list) {
 				super(list);
-
-				list.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						if (SwingUtilities.isLeftMouseButton(e)) {
-							productIndex = list.getSelectedIndex();
-							BankProduct.update();
-							int index = list.locationToIndex(e.getPoint());
-							if (index != -1 && list.isSelectedIndex(index)) {
-								Rectangle rect = list.getCellBounds(index, index);
-							}
-						}
-					}
-				});
 			}
 		}
 	}
