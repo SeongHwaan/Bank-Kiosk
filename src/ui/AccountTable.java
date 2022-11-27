@@ -21,7 +21,7 @@ public class AccountTable extends JPanel implements ListSelectionListener {
 	public AccountTable() {
 		setModel();
 		table = new JTable(tableModel);
-		table.setPreferredScrollableViewportSize(new Dimension(700, 250));
+		table.setPreferredScrollableViewportSize(new Dimension(150, 250));
 		table.setFillsViewportHeight(true); // 속성 크기 고정
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // 한 개의 튜플만 선택
 		ListSelectionModel rowSM = table.getSelectionModel();

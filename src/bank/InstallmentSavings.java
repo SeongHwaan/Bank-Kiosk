@@ -5,13 +5,17 @@ import java.util.Scanner;
 public class InstallmentSavings extends Savings {
     final int type = 2;
     int calcType; // 1: 단리, 2: 복리
-    double rate;
 
     //은행상품등록용
     public void setInstallmentSavings(String name, int calcType, double rate) {
         super.setSavings(name);
         this.calcType = calcType;
         this.rate = rate;
+        if(calcType == 1)
+        	info = "단리예금";
+        else
+        	info = "복리예금";
+        
     }
     
     public void setInstallmentSavings(int calcType, double rate, String name, String userId) {

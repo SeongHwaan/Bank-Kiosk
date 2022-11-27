@@ -58,8 +58,8 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 		textAreaPanel = new JPanel(new BorderLayout());
 		inputPanel = new JPanel(new FlowLayout());
 
-		description = new JTextArea(10, 50);
-		answer = new JTextArea(10, 50);
+		description = new JTextArea(10, 10);
+		answer = new JTextArea(10, 10);
 
 		amount = new JLabel("원금");
 		month = new JLabel("기간");
@@ -75,10 +75,10 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 
 		inputPanel.add(amount);
 		inputPanel.add(cashInput);
-		inputPanel.add(month);
-		inputPanel.add(monthInput);
-		inputPanel.add(create);
-		inputPanel.add(calculate);
+//		inputPanel.add(month);
+//		inputPanel.add(monthInput);
+//		inputPanel.add(create);
+//		inputPanel.add(calculate);
 
 		add(textAreaPanel, BorderLayout.CENTER);
 		add(inputPanel, BorderLayout.SOUTH);

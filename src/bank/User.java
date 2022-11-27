@@ -7,7 +7,7 @@ public class User implements Manageable {
     public String name;
     String birthDay;
     String phone;
-    String email;
+    public String email;
 
     @Override
     public void read(Scanner scan) {
@@ -39,5 +39,11 @@ public class User implements Manageable {
 		return null;
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

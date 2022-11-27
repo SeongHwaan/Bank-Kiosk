@@ -8,15 +8,15 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class AccountCheckPanel extends JPanel {
+public class ManageAccount extends JPanel {
 	
 	HistoryTable historyTable;
 	JButton check = new JButton("조회");
 	
-	
-	public AccountCheckPanel() {
+	public ManageAccount() {
 
 		setLayout(new BorderLayout());
+		
 		historyTable = new HistoryTable();
 		JScrollPane bottom = new JScrollPane(historyTable.table);
 		add(bottom, BorderLayout.CENTER);

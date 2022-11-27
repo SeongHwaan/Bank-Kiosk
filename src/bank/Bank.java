@@ -166,6 +166,7 @@ public class Bank {
 		userMgr.readAll("src/input/user.txt", User::new); // 사용자 데이터 불러오기
 		accountMgr.readAll("src/input/account.txt", Savings::new); // 계좌 데이터 불러오기
 		
+		
 		one = new Savings();
 		two = new InstallmentSavings();
 		three = new InstallmentSavings();

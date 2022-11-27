@@ -25,8 +25,6 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 	
 	JTextField accountInput;
 	JTextField cashInput;
-
-	AccountTable accountTable;
 	
 	JButton checkAccount;
 	JButton transfer;
@@ -37,7 +35,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 	User transferUser;
 	Savings transferAccount;
 	
-	public AccountTransferPanel(AccountTable accountTable) {
+	public AccountTransferPanel() {
 
 		setLayout(new BorderLayout());
 
@@ -45,13 +43,12 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		textPane = new JPanel(new GridLayout(2,1));// 테스트
 		buttonPane = new JPanel(new FlowLayout());
 
-		this.accountTable = accountTable;
 		
 		name = new JLabel("계좌명");
 		amount = new JLabel("이체금액");
 		
-		accountInput = new JTextField("", 25);
-		cashInput = new JTextField("", 25);
+		accountInput = new JTextField("",10);
+		cashInput = new JTextField("", 10);
 
 		checkAccount = new JButton("계좌확인");
 		transfer = new JButton("이체");
@@ -74,15 +71,16 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		
 	}
 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("이체")) {
-			Savings selectedAccount = Bank.accountMgr.list.get(AccountTable.selectedIndex);
+			Savings selectedAccount = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
 			try {
-				GUIMain.bank.transfer(selectedAccount, transferAccount, cashInput.getText());
+				WindowBuilder.bank.transfer(selectedAccount, transferAccount, cashInput.getText());
 				accountInput.setText("");
 				cashInput.setText("");
-				accountTable.update();
+				AccountManage.update();
 					
 			}catch (Exception e1){
 				System.out.println("계좌 확인 및 금액을 입력해주세요.");
@@ -91,12 +89,12 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 
 		if (e.getActionCommand().equals("계좌확인")) {
 			try {
-				transferAccount = GUIMain.bank.findAccount(accountInput.getText());
-				transferUser = GUIMain.bank.findUser(transferAccount.userId);
+				transferAccount = WindowBuilder.bank.findAccount(accountInput.getText());
+				transferUser = WindowBuilder.bank.findUser(transferAccount.userId);
 				//dialog로 사용자 이름 출력 기능 추가 
 				
 			} catch (NullPointerException e1) {
-				System.out.println("can't find알 수 없는 계좌번호 또는 사용자를 찾을 수 없습니다. 다시 입력해주세요.");
+				System.out.println("알 수 없는 계좌번호 또는 사용자를 찾을 수 없습니다. 다시 입력해주세요.");
 			} 
 		}
 	}

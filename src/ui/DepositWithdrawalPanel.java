@@ -18,20 +18,18 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 
 	JPanel bottomPane;
 	JPanel buttonPanel;
-	AccountTable accountTable;
 	JTextField cashInput;
 	JButton deposit;
 	JButton withdrawal;
 
-	public DepositWithdrawalPanel(AccountTable accountTable) {
+	public DepositWithdrawalPanel() {
 
-		setLayout(new BorderLayout());
+		setLayout(new BorderLayout(20,20));
 
 		bottomPane = new JPanel(new BorderLayout());
 
-		this.accountTable = accountTable;
 
-		cashInput = new JTextField("", 50);
+		cashInput = new JTextField("", 20);
 		deposit = new JButton("입금");
 		withdrawal = new JButton("출금");
 
@@ -54,20 +52,20 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("입금")) {
 			try {
-				Savings selectedAccount = Bank.accountMgr.list.get(AccountTable.selectedIndex);
-				GUIMain.bank.deposit(selectedAccount, cashInput.getText());
+				Savings selectedAccount = (Savings) Bank.accountMgr.list.get(MyAccountList.selectedIndex);
+				WindowBuilder.bank.deposit(selectedAccount, cashInput.getText());
 				cashInput.setText("");
-				accountTable.update();
+				AccountManage.update();
 			} catch (Exception e1) {
 				System.out.print("계좌를 선택 및 금액을 입력하세요");
 			}
 		}
 		if (e.getActionCommand().equals("출금")) {
 			try {
-				Savings selectedAccount = Bank.accountMgr.list.get(AccountTable.selectedIndex);
-				GUIMain.bank.withdraw(selectedAccount, cashInput.getText());
+				Savings selectedAccount = (Savings) Bank.accountMgr.list.get(MyAccountList.selectedIndex);
+				WindowBuilder.bank.withdraw(selectedAccount, cashInput.getText());
 				cashInput.setText("");
-				accountTable.update();
+				AccountManage.update();
 			} catch (Exception e2) {
 				System.out.print("계좌 선택 및 금액을 입력하세요");
 			}

@@ -10,4 +10,6 @@ public interface Manageable {
     boolean matches(String kwd);
 
 	String printInfo();
+	
+	String getName();
 }
