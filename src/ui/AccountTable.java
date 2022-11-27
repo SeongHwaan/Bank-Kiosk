@@ -42,13 +42,13 @@ public class AccountTable extends JPanel implements ListSelectionListener {
 				return false;
 			}
 		};
-		for (Savings s : Bank.accountMgr.list)
+		for (Savings s : Bank.loginAccountList)
 			tableModel.addRow(s.getTexts());
 	}
 	
 	public void update() {
 		tableModel.setRowCount(0);
-		for (Savings s : Bank.accountMgr.list)
+		for (Savings s : Bank.loginAccountList)
 			tableModel.addRow(s.getTexts());
 	}
 }

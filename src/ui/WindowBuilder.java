@@ -45,7 +45,7 @@ public class WindowBuilder {
 		top = new TopBarPanel();
 		bottomPane = new JPanel();
 		
-		setupTopBarPane();
+		setupTopBarPane(bank.loginUser.name);
 		setupBankingPane();
 		setBottomPane();
 
@@ -60,12 +60,11 @@ public class WindowBuilder {
 		//mainFrame.pack();
 	}
 
-	private void setupTopBarPane() {
-		top.setupTopBarPanel();
+	private void setupTopBarPane(String name) {
+		top.setupTopBarPanel(name);
         top.mainButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
 //        	WindowBuilder.card.show(bankingPane, "메인화면");
-        		
            }
         });
 	}

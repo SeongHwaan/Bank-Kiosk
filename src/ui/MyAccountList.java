@@ -42,7 +42,7 @@ public class MyAccountList extends JPanel {
 	
 	public MyAccountList() {
 		
-		myAccount = Bank.accountMgr.list;
+		myAccount = Bank.loginAccountList;
 
 		setLayout(null);
 		model = new DefaultListModel();
