@@ -39,9 +39,9 @@ public class MyAccountList extends JPanel {
 	static Savings account;
 	DefaultListModel model;
 	JList accountList;
-	
+
 	public MyAccountList() {
-		
+
 		myAccount = Bank.accountMgr.list;
 
 		setLayout(null);
@@ -53,14 +53,14 @@ public class MyAccountList extends JPanel {
 		accountList.setBackground(new Color(255, 255, 255));
 
 		JScrollPane sp = new JScrollPane(accountList);
-		sp.setBounds(12,37,361,493);
-		
+		sp.setBounds(12, 37, 361, 493);
+
 		add(sp);
-		
-		//setBackground(new Color(32, 32, 44));
+
+		// setBackground(new Color(32, 32, 44));
 		setBorder(null);
 	}
-	
+
 	void setList() {
 		for (Savings s : myAccount) {
 			model.addElement(new AccountData(s.number));
@@ -89,7 +89,6 @@ public class MyAccountList extends JPanel {
 			});
 		}
 
-
 		@Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
 				boolean cellHasFocus) {
@@ -97,7 +96,6 @@ public class MyAccountList extends JPanel {
 			renderer.setData((AccountData) value);
 			return renderer;
 		}
-
 
 		public static class CustomLabel extends JLabel {
 			private static final Color selectionColor = new Color(182, 128, 22);
