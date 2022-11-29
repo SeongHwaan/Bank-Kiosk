@@ -36,25 +36,25 @@ public class LoginFrame extends JFrame{
         LoginPanel.add(logoLabel);
 
         JLabel userLabel = new JLabel("아이디");
-        userLabel.setBounds(140, 400, 80, 40);
+        userLabel.setBounds(86, 400, 80, 40);
         userLabel.setFont(new Font("", Font.PLAIN, 16));
         LoginPanel.add(userLabel);
 
         userText = new JTextField();
-        userText.setBounds(200, 400, 150, 40);
+        userText.setBounds(146, 400, 150, 40);
         LoginPanel.add(userText);
 
         JLabel passwordLabel = new JLabel("비밀번호");
-        passwordLabel.setBounds(140, 440, 80, 40);
+        passwordLabel.setBounds(86, 440, 80, 40);
         passwordLabel.setFont(new Font("", Font.PLAIN, 16));
         LoginPanel.add(passwordLabel);
 
         passwordText = new JPasswordField();
-        passwordText.setBounds(200, 440, 150, 40);
+        passwordText.setBounds(146, 440, 150, 40);
         LoginPanel.add(passwordText);
 
         JButton button = new JButton("로그인");
-        button.setBounds(135, 480, 215, 52);
+        button.setBounds(300, 400, 100, 81);
         button.setFont(new Font("", Font.BOLD, 16));
 
         button.addActionListener(e -> {
