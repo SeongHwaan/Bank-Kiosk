@@ -28,6 +28,13 @@ public class LoginFrame extends JFrame{
         this.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2); // 화면 중앙
 
         LoginFrame.add(LoginPanel);
+
+        Image logo = new ImageIcon("src/images/logo.png").getImage();
+        ImageIcon logoIcon = new ImageIcon(logo);
+        JLabel logoLabel = new JLabel(logoIcon);
+        logoLabel.setBounds(0, 120, 480, 144);
+        LoginPanel.add(logoLabel);
+
         JLabel userLabel = new JLabel("아이디");
         userLabel.setBounds(86, 400, 80, 40);
         userLabel.setFont(new Font("", Font.PLAIN, 16));
