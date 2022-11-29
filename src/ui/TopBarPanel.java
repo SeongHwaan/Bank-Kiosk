@@ -13,7 +13,7 @@ public class TopBarPanel extends JPanel {
 
 	TopBarPanel(String name) {
 
-		mainButton = new JButton("Logo");
+		mainButton = new JButton("KGU");
 		JPanel rightPane = new JPanel();
 		JLabel userName = new JLabel(name);
 
