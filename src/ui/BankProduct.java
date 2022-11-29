@@ -121,7 +121,6 @@ public class BankProduct extends JPanel {
 
 	static class ProductList extends JPanel {
 		static int productIndex;
-		static int selectedIndex = 0;
 		DefaultListModel model = new DefaultListModel();
 		JList accountList = new JList(model);
 
@@ -163,7 +162,7 @@ public class BankProduct extends JPanel {
 					@Override
 					public void mouseReleased(MouseEvent e) {
 						if (SwingUtilities.isLeftMouseButton(e)) {
-							selectedIndex = list.getSelectedIndex();
+							productIndex = list.getSelectedIndex();
 							BankProduct.update();
 							int index = list.locationToIndex(e.getPoint());
 

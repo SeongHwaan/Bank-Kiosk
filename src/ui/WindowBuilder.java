@@ -32,7 +32,7 @@ public class WindowBuilder {
 		mainFrame.getContentPane().add(bankingPane, BorderLayout.CENTER);
 		mainFrame.getContentPane().add(bottomBar, BorderLayout.SOUTH);
 
-		mainFrame.setLocationRelativeTo(bankingPane);
+		mainFrame.setLocationRelativeTo(bankingPane);	
 
 		mainFrame.setSize(480, 720); // 2:3 비율
 		mainFrame.setResizable(false);
