@@ -16,8 +16,8 @@ public class MyAccountList extends JPanel {
 	ArrayList<Savings> myAccount = Bank.loginAccountList;
 	static int selectedIndex = 0;
 	// static Savings account;
-	DefaultListModel model = new DefaultListModel();
-	JList accountList = new JList(model);
+	DefaultListModel<AccountData> model = new DefaultListModel<>();
+	JList<AccountData> accountList = new JList<>(model);
 
 	public MyAccountList() {
 		setLayout(new GridBagLayout());
@@ -56,6 +56,7 @@ public class MyAccountList extends JPanel {
 
 	void setList() {
 		model.clear();
+
 		for (Savings s : myAccount) {
 			model.addElement(new AccountData(s.number));
 		}
@@ -69,7 +70,7 @@ public class MyAccountList extends JPanel {
 	static class CustomListRenderer extends DefaultListCellRenderer {
 		private final CustomLabel renderer;
 
-		public CustomListRenderer(final JList list) {
+		public CustomListRenderer(final JList<AccountData> list) {
 			super();
 			renderer = new CustomLabel();
 			list.setSelectedIndex(0);
@@ -156,7 +157,7 @@ public class MyAccountList extends JPanel {
 
 	static class AccountData {
 		private Color iconColor;
-		private String name;
+		private final String name;
 
 		public AccountData(String name) {
 			this.name = name;

@@ -93,9 +93,7 @@ public class BankProduct extends JPanel {
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[2]);
 
-		btnNewButton.addActionListener(e -> {
-			WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설");
-		});
+		btnNewButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
 
 		btnNewButton_1.addActionListener(e -> {
 			try {
@@ -140,8 +138,8 @@ public class BankProduct extends JPanel {
 
 	static class ProductList extends JPanel {
 
-		DefaultListModel model = new DefaultListModel();
-		JList accountList = new JList(model);
+		DefaultListModel<AccountData> model = new DefaultListModel<>();
+		JList<AccountData> accountList = new JList<>(model);
 
 		public ProductList() {
 			setLayout(new GridBagLayout());

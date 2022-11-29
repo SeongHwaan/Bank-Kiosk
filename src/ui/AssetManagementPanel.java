@@ -2,8 +2,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -22,7 +20,7 @@ import bank.Savings;
 
 public class AssetManagementPanel extends JPanel implements ListSelectionListener {
 
-	JList productList;
+	JList<String> productList;
 
 	JTextArea description;
 	JTextArea answer;
@@ -43,7 +41,7 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 
 	Savings product;
 
-	DefaultListModel listModel;
+	DefaultListModel<String> listModel;
 	private int selectedIndex = -1;
 
 	public AssetManagementPanel() {
@@ -81,21 +79,18 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 		add(textAreaPanel, BorderLayout.CENTER);
 		add(inputPanel, BorderLayout.SOUTH);
 
-		calculate.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (selectedIndex != 0) {
-					try {
-						product = Bank.productList.get(selectedIndex);
-						int c = Integer.parseInt(cashInput.getText());
-						int m = Integer.parseInt(monthInput.getText());
-						String interest = Integer.toString(product.calcInterest(m));
-						String amount = Integer.toString(product.calcEstimatedAmount(m));
-						answer.setText("");
-						answer.append("이자: " + interest + "예상 금액: " + amount);
-					} catch (NumberFormatException e1) {
-						System.out.println("정수를 입력하십시오");
-					}
+		calculate.addActionListener(e -> {
+			if (selectedIndex != 0) {
+				try {
+					product = Bank.productList.get(selectedIndex);
+					int c = Integer.parseInt(cashInput.getText());
+					int m = Integer.parseInt(monthInput.getText());
+					String interest = Integer.toString(product.calcInterest(m));
+					String amount = Integer.toString(product.calcEstimatedAmount(m));
+					answer.setText("");
+					answer.append("이자: " + interest + "예상 금액: " + amount);
+				} catch (NumberFormatException e1) {
+					System.out.println("정수를 입력하십시오");
 				}
 			}
 		});
@@ -103,14 +98,14 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 
 	private void createList() {
 		setList();
-		productList = new JList(listModel);
+		productList = new JList<>(listModel);
 		productList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		ListSelectionModel listSM = productList.getSelectionModel();
 		listSM.addListSelectionListener(this);
 	}
 
 	private void setList() {
-		listModel = new DefaultListModel();
+		listModel = new DefaultListModel<>();
 		for (Savings p : Bank.productList)
 			listModel.addElement(p.name);
 	}

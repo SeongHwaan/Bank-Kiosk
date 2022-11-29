@@ -1,8 +1,6 @@
 package ui;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,10 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import bank.Bank;
-import bank.Savings;
-import com.sun.tools.jconsole.JConsoleContext;
-import ui.BankProduct.ProductList;
 
 public class CreateAccountPanel extends JPanel {
 	JPanel createPane;

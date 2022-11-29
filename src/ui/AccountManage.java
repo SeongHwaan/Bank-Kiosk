@@ -14,7 +14,7 @@ public class AccountManage extends JPanel {
 	static JLabel textArea = new JLabel();
 	static JLabel textArea_1 = new JLabel();
 
-	JButton depwith;
+	JButton depWith;
 	JButton transfer;
 
 	static Savings account;
@@ -41,7 +41,7 @@ public class AccountManage extends JPanel {
 		lblNewLabel_1.setFont(new Font("", Font.BOLD, 15));
 		lblNewLabel_1.setHorizontalAlignment(JLabel.CENTER);
 
-		depwith = new JButton("입출금");
+		depWith = new JButton("입출금");
 
 		transfer = new JButton("송금");
 
@@ -49,7 +49,7 @@ public class AccountManage extends JPanel {
 		infoPanel.add(textArea);
 		infoPanel.add(lblNewLabel_1);
 		infoPanel.add(textArea_1);
-		infoPanel.add(depwith);
+		infoPanel.add(depWith);
 		infoPanel.add(transfer);
 
 		gbc[0].gridx = 0;
@@ -82,7 +82,7 @@ public class AccountManage extends JPanel {
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(bottom, gbc[2]);
 
-		depwith.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "입출금"));
+		depWith.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "입출금"));
 		transfer.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "송금"));
 	}
 

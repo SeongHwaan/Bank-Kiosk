@@ -62,7 +62,7 @@ public class GraphPanel extends JFrame {
 	}
 
 	// 결과물(그래프)이 나타날 패널
-	class ResultPanel extends JPanel {
+	static class ResultPanel extends JPanel {
 		int kor, eng, math;
 
 		public void paint(Graphics g) {
@@ -96,7 +96,7 @@ public class GraphPanel extends JFrame {
 	}
 
 	// 버튼을 눌렀을 때 동작할 리스너
-	class DrawingActionListener implements ActionListener {
+	static class DrawingActionListener implements ActionListener {
 		JTextField e1, e2, e3;
 		ResultPanel resultPanel;
 
