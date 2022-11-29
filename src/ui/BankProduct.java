@@ -31,7 +31,7 @@ public class BankProduct extends JPanel {
 	Image resizedCalcImage = originCalcImage.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
 	ImageIcon calcIcon = new ImageIcon(resizedCalcImage);
 	JLabel calcImage = new JLabel(calcIcon);
-
+	static int productIndex = 0;
 
 	static ProductList p;
 
@@ -93,7 +93,10 @@ public class BankProduct extends JPanel {
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[2]);
 
-		btnNewButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
+		btnNewButton.addActionListener(e -> {
+			WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설");
+		});
+
 		btnNewButton_1.addActionListener(e -> {
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=5c8x2YqppTo"));
@@ -126,16 +129,17 @@ public class BankProduct extends JPanel {
 
 	public static void update() {
 		try {
-			product = Bank.productList.get(ProductList.productIndex);
+			product = Bank.productList.get(productIndex);
 			textArea.setText(String.valueOf(product.rate));
 			textArea_1.setText(product.name);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	static class ProductList extends JPanel {
-		static int productIndex;
+
 		DefaultListModel model = new DefaultListModel();
 		JList accountList = new JList(model);
 
@@ -190,7 +194,8 @@ public class BankProduct extends JPanel {
 			}
 
 			@Override
-			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
 				renderer.setSelected(isSelected);
 				renderer.setData((ProductList.AccountData) value);
 				return renderer;
@@ -250,7 +255,7 @@ public class BankProduct extends JPanel {
 
 		static class AccountData {
 			private Color iconColor;
-			private String name;
+			private final String name;
 
 			public AccountData(String name) {
 				this.name = name;

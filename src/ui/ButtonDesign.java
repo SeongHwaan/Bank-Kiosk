@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.Desktop.Action;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,7 +20,7 @@ public class ButtonDesign extends JButton {
 		super(text);
 		decorate();
 	}
-	
+
 	public ButtonDesign(Icon icon) {
 		super(icon);
 		decorate();
@@ -36,36 +35,37 @@ public class ButtonDesign extends JButton {
 		setBorderPainted(false);
 		setOpaque(false);
 	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
-	    int width = getWidth();
-	    int height = getHeight();
+		int width = getWidth();
+		int height = getHeight();
 
-	    Graphics2D graphics = (Graphics2D) g;
+		Graphics2D graphics = (Graphics2D) g;
 
-	    graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-	    if (getModel().isArmed()) {
-	        graphics.setColor(getBackground().darker());
-	    } else if (getModel().isRollover()) {
-	        graphics.setColor(getBackground().brighter());
-	    } else {
-	        graphics.setColor(getBackground());
-	    }
+		if (getModel().isArmed()) {
+			graphics.setColor(getBackground().darker());
+		} else if (getModel().isRollover()) {
+			graphics.setColor(getBackground().brighter());
+		} else {
+			graphics.setColor(getBackground());
+		}
 
-	    graphics.fillRoundRect(0, 0, width, height, 10, 10);
+		graphics.fillRoundRect(0, 0, width, height, 10, 10);
 
-	    FontMetrics fontMetrics = graphics.getFontMetrics();
-	    Rectangle stringBounds = fontMetrics.getStringBounds(this.getText(), graphics).getBounds();
+		FontMetrics fontMetrics = graphics.getFontMetrics();
+		Rectangle stringBounds = fontMetrics.getStringBounds(this.getText(), graphics).getBounds();
 
-	    int textX = (width - stringBounds.width) / 2;
-	    int textY = (height - stringBounds.height) / 2 + fontMetrics.getAscent();
+		int textX = (width - stringBounds.width) / 2;
+		int textY = (height - stringBounds.height) / 2 + fontMetrics.getAscent();
 
-	    graphics.setColor(getForeground());
-	    graphics.setFont(getFont());
-	    graphics.drawString(getText(), textX, textY);
-	    graphics.dispose();
+		graphics.setColor(getForeground());
+		graphics.setFont(getFont());
+		graphics.drawString(getText(), textX, textY);
+		graphics.dispose();
 
-	    super.paintComponent(g);
+		super.paintComponent(g);
 	}
 }

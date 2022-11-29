@@ -32,20 +32,19 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 
 	JLabel amount;
 	JLabel month;
-	
+
 	JButton create;
 	JButton calculate;
 
 	JPanel textAreaPanel;
 	JPanel inputPanel;
-	
+
 	String info;
 
 	Savings product;
 
 	DefaultListModel listModel;
 	private int selectedIndex = -1;
-
 
 	public AssetManagementPanel() {
 		setLayout(new BorderLayout());
@@ -62,7 +61,7 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 
 		amount = new JLabel("원금");
 		month = new JLabel("기간");
-		
+
 		create = new JButton("계좌개설");
 		calculate = new JButton("계산");
 
@@ -74,10 +73,10 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 
 		inputPanel.add(amount);
 		inputPanel.add(cashInput);
-//		inputPanel.add(month);
-//		inputPanel.add(monthInput);
-//		inputPanel.add(create);
-//		inputPanel.add(calculate);
+		// inputPanel.add(month);
+		// inputPanel.add(monthInput);
+		// inputPanel.add(create);
+		// inputPanel.add(calculate);
 
 		add(textAreaPanel, BorderLayout.CENTER);
 		add(inputPanel, BorderLayout.SOUTH);
@@ -87,17 +86,17 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 			public void actionPerformed(ActionEvent e) {
 				if (selectedIndex != 0) {
 					try {
-					product = Bank.productList.get(selectedIndex);
-					int c = Integer.parseInt(cashInput.getText());
-					int m = Integer.parseInt(monthInput.getText());
-					String interest = Integer.toString(product.calcInterest(m));
-					String amount = Integer.toString(product.calcEstimatedAmount(m));
-					answer.setText("");
-					answer.append("이자: " + interest + "예상 금액: " + amount); 
-				}catch(NumberFormatException e1){
-					System.out.println("정수를 입력하십시오");
-				}
+						product = Bank.productList.get(selectedIndex);
+						int c = Integer.parseInt(cashInput.getText());
+						int m = Integer.parseInt(monthInput.getText());
+						String interest = Integer.toString(product.calcInterest(m));
+						String amount = Integer.toString(product.calcEstimatedAmount(m));
+						answer.setText("");
+						answer.append("이자: " + interest + "예상 금액: " + amount);
+					} catch (NumberFormatException e1) {
+						System.out.println("정수를 입력하십시오");
 					}
+				}
 			}
 		});
 	}
@@ -129,9 +128,9 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 		}
 	}
 
-	//계좌개설
+	// 계좌개설
 	void createAccount() {
-		
+
 	}
 
 }

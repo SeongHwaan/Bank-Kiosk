@@ -16,8 +16,7 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 	Savings account;
 	JPanel gblPanel = new JPanel();
 	GridBagConstraints[] gbc = new GridBagConstraints[9];
-	
-	
+
 	public DepositWithdrawalPanel() {
 		setLayout(new GridBagLayout());
 		gblPanel.setLayout(new GridBagLayout());
@@ -41,19 +40,19 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 
 		gbc[0].gridx = 0;
 		gbc[0].gridy = 0;
-		gbc[0].weightx =2;
+		gbc[0].weightx = 2;
 		gbc[0].fill = GridBagConstraints.BOTH;
 		gblPanel.add(cashInput, gbc[0]);
 
 		gbc[1].gridx = 1;
 		gbc[1].gridy = 0;
-		gbc[1].weightx =1;
+		gbc[1].weightx = 1;
 		gbc[1].fill = GridBagConstraints.BOTH;
 		gblPanel.add(deposit, gbc[1]);
 
 		gbc[2].gridx = 2;
 		gbc[2].gridy = 0;
-		gbc[2].weightx =1;
+		gbc[2].weightx = 1;
 		gbc[2].fill = GridBagConstraints.BOTH;
 		gblPanel.add(withdrawal, gbc[2]);
 

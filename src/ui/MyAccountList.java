@@ -59,7 +59,7 @@ public class MyAccountList extends JPanel {
 			model.addElement(new AccountData(s.number));
 		}
 	}
-	
+
 	void update() {
 		setList();
 		accountList.setCellRenderer(new CustomListRenderer(accountList));

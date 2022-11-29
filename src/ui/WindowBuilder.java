@@ -20,7 +20,7 @@ public class WindowBuilder {
 	DepositWithdrawalPanel d = new DepositWithdrawalPanel();
 	SetupPanel setupPanel = new SetupPanel();
 	CreateAccountPanel creation = new CreateAccountPanel();
-	
+
 	private void createAndShowMain() {
 		mainFrame = new JFrame("KGU BANK");
 		mainFrame.getContentPane().setLayout(new BorderLayout());
@@ -37,7 +37,7 @@ public class WindowBuilder {
 
 		Dimension frameSize = mainFrame.getSize(); // 프레임 사이즈
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // 모니터 사이즈
-		mainFrame.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2); // 화면 중앙
+		mainFrame.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2); // 화면
 	}
 
 	private void setBankingPane() {

@@ -1,6 +1,5 @@
 package ui;
 
-
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -16,7 +15,7 @@ public class AccountTable extends JPanel implements ListSelectionListener {
 	DefaultTableModel tableModel;
 	static int selectedIndex = 0;
 	Savings account;
-    String[] columnNames;
+	String[] columnNames;
 
 	public AccountTable() {
 		setModel();
@@ -34,7 +33,7 @@ public class AccountTable extends JPanel implements ListSelectionListener {
 			selectedIndex = lsm.getMinSelectionIndex();
 		}
 	}
-	
+
 	void setModel() {
 		columnNames = new String[] { "계좌유형", "계좌번호", "금액" };
 		tableModel = new DefaultTableModel(columnNames, 0) {
@@ -45,7 +44,7 @@ public class AccountTable extends JPanel implements ListSelectionListener {
 		for (Savings s : Bank.loginAccountList)
 			tableModel.addRow(s.getTexts());
 	}
-	
+
 	public void update() {
 		tableModel.setRowCount(0);
 		for (Savings s : Bank.loginAccountList)

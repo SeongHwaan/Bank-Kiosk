@@ -30,8 +30,8 @@ public class AccountManage extends JPanel {
 		}
 
 		JLabel title = new JLabel("통장");
-		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(new Font("", Font.BOLD, 28));
+		title.setHorizontalAlignment(JLabel.CENTER);
 
 		JLabel lblNewLabel = new JLabel("계좌번호");
 		lblNewLabel.setFont(new Font("", Font.BOLD, 15));
@@ -93,7 +93,6 @@ public class AccountManage extends JPanel {
 			textArea_1.setText(String.valueOf(account.cash));
 			historyTable.update();
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 	}

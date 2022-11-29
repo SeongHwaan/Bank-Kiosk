@@ -21,10 +21,12 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import bank.Bank;
+import bank.Savings;
+import com.sun.tools.jconsole.JConsoleContext;
 import ui.BankProduct.ProductList;
 
 public class CreateAccountPanel extends JPanel {
-
 	JPanel createPane;
 	JPanel productInfo;
 	JPanel terms;
@@ -56,11 +58,10 @@ public class CreateAccountPanel extends JPanel {
 
 	//상품설명
 	void setupProduct() {
-
 		nameField = new JTextField();
-
-		JLabel info = new JLabel("계좌 정보: ?");
+		BankProduct.update();
 		JButton button = new JButton("다음단계");
+		JTextArea info = new JTextArea();
 
 		productInfo.add(nameField, BorderLayout.NORTH);
 		productInfo.add(info, BorderLayout.CENTER);
@@ -243,7 +244,7 @@ public class CreateAccountPanel extends JPanel {
 
 				@Override
 				public void run() {
-					WindowBuilder.bank.createAccount(nameField.getText(), ProductList.productIndex);
+					WindowBuilder.bank.createAccount(nameField.getText(), BankProduct.productIndex);
 					// 1. 메인화면 or 2. 계좌 개설이 완료되었다는 패널
 					WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면");
 					dispose();
