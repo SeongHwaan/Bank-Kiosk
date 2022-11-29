@@ -25,18 +25,20 @@ public class WindowBuilder {
 		mainFrame = new JFrame("경기뱅크");
 		mainFrame.getContentPane().setLayout(new BorderLayout());
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		setBankingPane();
-
 		mainFrame.getContentPane().add(topBar, BorderLayout.NORTH);
 		mainFrame.getContentPane().add(bankingPane, BorderLayout.CENTER);
 		mainFrame.getContentPane().add(bottomBar, BorderLayout.SOUTH);
-
 		mainFrame.setLocationRelativeTo(bankingPane);
-
 		mainFrame.setSize(480, 720); // 2:3 비율
 		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
+
+		Dimension frameSize = mainFrame.getSize(); // 프레임 사이즈
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // 모니터 사이즈
+		mainFrame.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2); // 화면 중앙
+
+
 	}
 
 	private void setBankingPane() {

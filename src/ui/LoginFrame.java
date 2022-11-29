@@ -4,8 +4,7 @@ package ui;
 import bank.Bank;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 
 public class LoginFrame extends JFrame{
     static JTextField userText;
@@ -21,51 +20,58 @@ public class LoginFrame extends JFrame{
         JFrame LoginFrame = new JFrame("로그인");
         JPanel LoginPanel = new JPanel(null);
 
-        LoginFrame.setSize(270, 155);
+        LoginFrame.setSize(480, 720);
         LoginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Dimension frameSize = this.getSize(); // 프레임 사이즈
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // 모니터 사이즈
+        this.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2); // 화면 중앙
+
+
+
         LoginFrame.add(LoginPanel);
-        JLabel userLabel = new JLabel("User");
-        userLabel.setBounds(10, 20, 80, 25);
+        JLabel userLabel = new JLabel("아이디");
+        userLabel.setBounds(140, 400, 80, 40);
+        userLabel.setFont(new Font("", Font.PLAIN, 16));
         LoginPanel.add(userLabel);
 
         userText = new JTextField();
-        userText.setBounds(100, 20, 165, 25);
+        userText.setBounds(200, 400, 150, 40);
         LoginPanel.add(userText);
 
-        JLabel passwordlabel = new JLabel("Password");
-        passwordlabel.setBounds(10, 50, 80, 25);
-        LoginPanel.add(passwordlabel);
+        JLabel passwordLabel = new JLabel("비밀번호");
+        passwordLabel.setBounds(140, 440, 80, 40);
+        passwordLabel.setFont(new Font("", Font.PLAIN, 16));
+        LoginPanel.add(passwordLabel);
 
         passwordText = new JPasswordField();
-        passwordText.setBounds(100, 50, 165, 25);
+        passwordText.setBounds(200, 440, 150, 40);
         LoginPanel.add(passwordText);
 
         JButton button = new JButton("로그인");
-        button.setBounds(5, 80, 260, 40);
+        button.setBounds(135, 480, 215, 52);
+        button.setFont(new Font("", Font.BOLD, 16));
 
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String id = userText.getText();
-                String pw = String.valueOf(passwordText.getPassword());
-                if (!WindowBuilder.bank.login(id, pw)) {
-                    if (Bank.loginUser == null) {
-                        JOptionPane.showMessageDialog(null,
-                                "사용자를 찾을 수 없습니다.",
-                                "시스템", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    if (!Bank.loginUser.password.contentEquals(pw)) {
-                        Bank.loginUser = null;
-                        JOptionPane.showMessageDialog(null,
-                                "비밀번호가 잘못되었습니다.",
-                                "시스템", JOptionPane.ERROR_MESSAGE);
-                    }
+        button.addActionListener(e -> {
+            String id = userText.getText();
+            String pw = String.valueOf(passwordText.getPassword());
+            if (!WindowBuilder.bank.login(id, pw)) {
+                if (Bank.loginUser == null) {
+                    JOptionPane.showMessageDialog(null,
+                            "사용자를 찾을 수 없습니다.",
+                            "시스템", JOptionPane.ERROR_MESSAGE);
+                    return;
                 }
-                else {
-                	LoginFrame.setVisible(false);
-                    WindowBuilder.startGUI();  
+                if (!Bank.loginUser.password.contentEquals(pw)) {
+                    Bank.loginUser = null;
+                    JOptionPane.showMessageDialog(null,
+                            "비밀번호가 잘못되었습니다.",
+                            "시스템", JOptionPane.ERROR_MESSAGE);
                 }
+            }
+            else {
+                LoginFrame.setVisible(false);
+                WindowBuilder.startGUI();
             }
         });
 
