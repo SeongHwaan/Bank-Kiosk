@@ -79,7 +79,7 @@ public class BankProduct extends JPanel {
 		gbc[2].gridx = 0;
 		gbc[2].gridy = 2;
 		gbc[2].weightx = 1;
-		gbc[2].weighty = 2;
+		gbc[2].weighty = 3;
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[2]);
 
@@ -97,7 +97,7 @@ public class BankProduct extends JPanel {
 		gbc[4].gridx = 0;
 		gbc[4].gridy = 4;
 		gbc[4].weightx = 1;
-		gbc[4].weighty = 2;
+		gbc[4].weighty = 3;
 		gbc[4].fill = GridBagConstraints.BOTH;
 		add(calcPanel, gbc[4]);
 
@@ -180,7 +180,7 @@ public class BankProduct extends JPanel {
 			}
 
 			public static class CustomLabel extends JLabel {
-				private static final Color selectionColor = new Color(182, 128, 22);
+				private static final Color selectionColor = new Color(0, 100, 255);
 
 				private boolean selected;
 				private ProductList.AccountData data;
