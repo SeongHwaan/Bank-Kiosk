@@ -20,8 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import ui.BankProduct.ProductList;
 
 public class CreateAccountPanel extends JPanel {
 
@@ -29,27 +32,42 @@ public class CreateAccountPanel extends JPanel {
 	JPanel productInfo;
 	JPanel terms;
 	JPanel id;
-	CardLayout card;
+	JTextField nameField;
+	CardLayout createCard;
 
 	public CreateAccountPanel() {
-		setLayout(new CardLayout());
+		setLayout(new BorderLayout());
+		
+		createPane = new JPanel();
+		createPane.setLayout(new CardLayout());
 
-		card = (CardLayout) this.getLayout();
+		createCard = (CardLayout) createPane.getLayout();
 
-		productInfo = new JPanel();
-		terms = new JPanel();
+		productInfo = new JPanel(new BorderLayout());
+		terms = new JPanel(new BorderLayout());
 		id = new JPanel();
 
 		setupProduct();
 		setupTerms();
 		setupId();
 
-		// add(productInfo);
-		// add(terms);
-		add(id);
+		createPane.add(productInfo);
+		createPane.add(terms, "약관");
+		createPane.add(id, "신분증");
+		
+		add(createPane, BorderLayout.CENTER);
 	}
 
 	void setupProduct() {
+		
+		nameField = new JTextField();
+		
+		JButton button = new JButton("다음단계");
+		productInfo.add(nameField, BorderLayout.NORTH);
+		productInfo.add(button, BorderLayout.SOUTH);
+		
+		button.addActionListener(e -> createCard.show(createPane, "약관"));
+		
 
 	}
 
@@ -57,7 +75,6 @@ public class CreateAccountPanel extends JPanel {
 		JPanel group = new JPanel(new FlowLayout());
 
 		ButtonGroup buttonGroup = new ButtonGroup();
-		terms.setLayout(new BorderLayout());
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -68,7 +85,7 @@ public class CreateAccountPanel extends JPanel {
 		textArea_1.setEditable(false);
 		textArea_1.setWrapStyleWord(true);
 		textArea_1.setLineWrap(true);
-		textArea_1.setText("약관:\n1항~~~");
+		textArea_1.setText("약관:\n1항~~~dsfsdfsfdsadfsfa");
 
 		scrollPane_1.setViewportView(textArea_1);
 
@@ -87,9 +104,13 @@ public class CreateAccountPanel extends JPanel {
 		JButton btnNewButton = new JButton("다음단계");
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rdBtnOk.isSelected()) {
 					System.out.println("모두 동의하셨습니다. 다음단계로 진행");
+					createCard.show(createPane, "신분증");
+					
 				} else {
 					System.out.println("동의하지 않으셨습니다. 동의 후 진행해주세요");
 					JOptionPane.showMessageDialog(null, "동의하지 않으셨습니다. 동의 후 진행해주세요");
@@ -149,10 +170,6 @@ public class CreateAccountPanel extends JPanel {
 
 	}
 
-	private void run() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public static void main(String[] args) {
 		CreateAccountPanel a = new CreateAccountPanel();
@@ -201,6 +218,7 @@ public class CreateAccountPanel extends JPanel {
 				
 				@Override
 				public void run() {
+					WindowBuilder.bank.createAccount(nameField.getText(), ProductList.productIndex);
 					dispose();
 				}
 			};

@@ -62,6 +62,11 @@ public class MyAccountList extends JPanel {
 			model.addElement(new AccountData(s.number));
 		}
 	}
+	
+	void update() {
+		setList();
+		accountList.setCellRenderer(new CustomListRenderer(accountList));
+	}
 
 	static class CustomListRenderer extends DefaultListCellRenderer {
 		private final CustomLabel renderer;

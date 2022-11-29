@@ -15,7 +15,10 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 	JTextField cashInput = new JTextField("", 20);
 	JButton deposit = new JButton("입금");
 	JButton withdrawal = new JButton("출금");
+	Savings account;
 
+	
+	
 	public DepositWithdrawalPanel() {
 		setLayout(new BorderLayout(20, 20));
 
@@ -36,8 +39,8 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("입금")) {
 			try {
-				Savings selectedAccount = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
-				WindowBuilder.bank.deposit(selectedAccount, cashInput.getText());
+				account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+				WindowBuilder.bank.deposit(account, cashInput.getText());
 				cashInput.setText("");
 				AccountManage.update();
 			} catch (Exception e1) {
@@ -46,8 +49,8 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 		}
 		if (e.getActionCommand().equals("출금")) {
 			try {
-				Savings selectedAccount = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
-				WindowBuilder.bank.withdraw(selectedAccount, cashInput.getText());
+				account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+				WindowBuilder.bank.withdraw(account, cashInput.getText());
 				cashInput.setText("");
 				AccountManage.update();
 			} catch (Exception e2) {

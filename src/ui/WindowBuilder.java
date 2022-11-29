@@ -19,7 +19,8 @@ public class WindowBuilder {
 	AccountTransferPanel t = new AccountTransferPanel();
 	DepositWithdrawalPanel d = new DepositWithdrawalPanel();
 	SetupPanel setupPanel = new SetupPanel();
-
+	CreateAccountPanel creation = new CreateAccountPanel();
+	
 	private void createAndShowMain() {
 		mainFrame = new JFrame("경기뱅크");
 		mainFrame.getContentPane().setLayout(new BorderLayout());
@@ -48,6 +49,7 @@ public class WindowBuilder {
 		bankingPane.add(d, "입출금");
 		bankingPane.add(t, "송금");
 		bankingPane.add(setupPanel, "설정");
+		bankingPane.add(creation, "계좌개설");
 	}
 
 	public static void main(String[] args) {

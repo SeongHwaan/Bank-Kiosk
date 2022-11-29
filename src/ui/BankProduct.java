@@ -5,6 +5,8 @@ import bank.Bank;
 import bank.Savings;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
@@ -22,7 +24,7 @@ public class BankProduct extends JPanel {
 
 	JLabel lblNewLabel_3 = new JLabel("계산기그림");
 	JButton btnNewButton = new JButton("계산해보기");
-	JButton btnNewButton_2 = new JButton("단리 / 복리란?");
+	JButton btnNewButton_2 = new JButton("계좌개설");
 
 	static ProductList p;
 
@@ -72,6 +74,9 @@ public class BankProduct extends JPanel {
 		btnNewButton.setBounds(193, 450, 121, 60);
 
 		add(btnNewButton);
+		
+		
+		btnNewButton_2.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
 
 	}
 
@@ -90,7 +95,7 @@ public class BankProduct extends JPanel {
 		}
 	}
 
-	class ProductList extends JPanel {
+	static class ProductList extends JPanel {
 		static int productIndex;
 		static int selectedIndex = 0;
 		DefaultListModel model = new DefaultListModel();
