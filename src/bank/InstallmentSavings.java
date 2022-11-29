@@ -46,9 +46,9 @@ public class InstallmentSavings extends Savings {
     @Override
     public int calcInterest(int month) { // 이자계산
         if (calcType == 1) // 단리
-            return (int) (cash * ((float) rate * month / 100));
+            return (int) (cash * ((float) rate * month / 1200));
         else // 복리
-            return (int) (cash * (Math.pow((100 + (float) rate) / 100, month) - 1));
+            return (int) (cash * (Math.pow((100 + (float) rate) / 1200, month) - 1));
     }
 
     @Override

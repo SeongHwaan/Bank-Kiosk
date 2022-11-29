@@ -10,18 +10,23 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class BankProduct extends JPanel {
 	static JPanel infoPanel = new JPanel();
 	static JPanel calcPanel = new JPanel();
+	static JPanel calcButtonPanel = new JPanel();
 	JLabel lblNewLabel = new JLabel("연 이자");
 	JLabel lblNewLabel_1 = new JLabel("유형");
 	JLabel lblNewLabel_2 = new JLabel("가입 기간");
 	static JLabel textArea = new JLabel();
 	static JLabel textArea_1 = new JLabel();
 	static JLabel textArea_2 = new JLabel();
-	JButton btnNewButton = new JButton("계산해보기");
-	JButton btnNewButton_1 = new JButton("계좌개설");
+	JButton btnNewButton = new JButton("계좌개설");
+	JButton btnNewButton_1 = new JButton("단리/복리 이해하기");
+	JButton btnNewButton_2 = new JButton("계산해보기");
 	Image originCalcImage = new ImageIcon("src/images/calculator.png").getImage();
 	Image resizedCalcImage = originCalcImage.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
 	ImageIcon calcIcon = new ImageIcon(resizedCalcImage);
@@ -36,6 +41,7 @@ public class BankProduct extends JPanel {
 		setLayout(new GridBagLayout());
 		infoPanel.setLayout(new GridLayout(0, 2));
 		calcPanel.setLayout(new GridLayout(0, 2));
+		calcButtonPanel.setLayout(new GridLayout(2, 0));
 		GridBagConstraints[] gbc = new GridBagConstraints[5];
 
 		for (int i = 0; i < 5; i++) {
@@ -87,17 +93,26 @@ public class BankProduct extends JPanel {
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[2]);
 
-		btnNewButton_1.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
+		btnNewButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
+		btnNewButton_1.addActionListener(e -> {
+			try {
+				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=5c8x2YqppTo"));
+			} catch (IOException | URISyntaxException ex) {
+				ex.printStackTrace();
+			}
+		});
 
 		gbc[3].gridx = 0;
 		gbc[3].gridy = 3;
 		gbc[3].weightx = 1;
 		gbc[3].weighty = 1;
 		gbc[3].fill = GridBagConstraints.BOTH;
-		add(btnNewButton_1, gbc[3]);
+		add(btnNewButton, gbc[3]);
 
 		calcPanel.add(calcImage);
-		calcPanel.add(btnNewButton);
+		calcButtonPanel.add(btnNewButton_1);
+		calcButtonPanel.add(btnNewButton_2);
+		calcPanel.add(calcButtonPanel);
 
 		gbc[4].gridx = 0;
 		gbc[4].gridy = 4;
