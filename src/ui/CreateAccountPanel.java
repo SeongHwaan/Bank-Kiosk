@@ -95,11 +95,11 @@ public class CreateAccountPanel extends JPanel {
 		JRadioButton rdBtnOk = new JRadioButton("동의");
 		rdBtnOk.setBackground(Color.WHITE);
 		buttonGroup.add(rdBtnOk);
-		rdBtnOk.setSelected(true);
 
 		JRadioButton rdBtnCancel = new JRadioButton("반대");
 		rdBtnCancel.setBackground(Color.WHITE);
 		buttonGroup.add(rdBtnCancel);
+		rdBtnCancel.setSelected(true);
 
 		group.add(rdBtnCancel);
 		group.add(rdBtnOk);

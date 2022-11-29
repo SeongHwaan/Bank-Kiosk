@@ -17,12 +17,15 @@ public class BankProduct extends JPanel {
 	JLabel lblNewLabel = new JLabel("연 이자");
 	JLabel lblNewLabel_1 = new JLabel("유형");
 	JLabel lblNewLabel_2 = new JLabel("가입 기간");
-	JLabel lblNewLabel_3 = new JLabel("계산기그림");
 	static JLabel textArea = new JLabel();
 	static JLabel textArea_1 = new JLabel();
 	static JLabel textArea_2 = new JLabel();
 	JButton btnNewButton = new JButton("계산해보기");
 	JButton btnNewButton_1 = new JButton("계좌개설");
+	Image originCalcImage = new ImageIcon("src/images/calculator.png").getImage();
+	Image resizedCalcImage = originCalcImage.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
+	ImageIcon calcIcon = new ImageIcon(resizedCalcImage);
+	JLabel calcImage = new JLabel(calcIcon);
 
 
 	static ProductList p;
@@ -93,8 +96,7 @@ public class BankProduct extends JPanel {
 		gbc[3].fill = GridBagConstraints.BOTH;
 		add(btnNewButton_1, gbc[3]);
 
-		lblNewLabel_3.setHorizontalAlignment(JLabel.CENTER);
-		calcPanel.add(lblNewLabel_3);
+		calcPanel.add(calcImage);
 		calcPanel.add(btnNewButton);
 
 		gbc[4].gridx = 0;
