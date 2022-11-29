@@ -37,8 +37,6 @@ public class MyAccountList extends JPanel {
 		accountList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		accountList.setBackground(new Color(255, 255, 255));
 
-		JScrollPane sp = new JScrollPane(accountList);
-
 		gbc[0].gridx = 0;
 		gbc[0].gridy = 0;
 		gbc[0].weightx = 1;
@@ -51,16 +49,21 @@ public class MyAccountList extends JPanel {
 		gbc[1].weightx = 1;
 		gbc[1].weighty = 2;
 		gbc[1].fill = GridBagConstraints.BOTH;
-		add(sp, gbc[1]);
+		add(accountList, gbc[1]);
 
-		// setBackground(new Color(32, 32, 44));
 		setBorder(null);
 	}
 
 	void setList() {
+		model.clear();
 		for (Savings s : myAccount) {
 			model.addElement(new AccountData(s.number));
 		}
+	}
+	
+	void update() {
+		setList();
+		accountList.setCellRenderer(new CustomListRenderer(accountList));
 	}
 
 	static class CustomListRenderer extends DefaultListCellRenderer {

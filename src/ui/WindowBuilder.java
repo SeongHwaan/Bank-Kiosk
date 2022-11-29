@@ -18,24 +18,26 @@ public class WindowBuilder {
 	BankProduct product = new BankProduct();
 	AccountTransferPanel t = new AccountTransferPanel();
 	DepositWithdrawalPanel d = new DepositWithdrawalPanel();
-	SetupPanel setupPanel = new SetupPanel();
-
+	CreditPanel creditPanel = new CreditPanel();
+	CreateAccountPanel creation = new CreateAccountPanel();
+	
 	private void createAndShowMain() {
-		mainFrame = new JFrame("경기뱅크");
+		mainFrame = new JFrame("KGU BANK");
 		mainFrame.getContentPane().setLayout(new BorderLayout());
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		setBankingPane();
-
 		mainFrame.getContentPane().add(topBar, BorderLayout.NORTH);
 		mainFrame.getContentPane().add(bankingPane, BorderLayout.CENTER);
 		mainFrame.getContentPane().add(bottomBar, BorderLayout.SOUTH);
-
 		mainFrame.setLocationRelativeTo(bankingPane);
 
 		mainFrame.setSize(480, 720); // 2:3 비율
 		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
+
+		Dimension frameSize = mainFrame.getSize(); // 프레임 사이즈
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // 모니터 사이즈
+		mainFrame.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2); // 화면 중앙
 	}
 
 	private void setBankingPane() {
@@ -47,7 +49,8 @@ public class WindowBuilder {
 		bankingPane.add(product, "은행상품");
 		bankingPane.add(d, "입출금");
 		bankingPane.add(t, "송금");
-		bankingPane.add(setupPanel, "설정");
+		bankingPane.add(creditPanel, "프로그램 정보");
+		bankingPane.add(creation, "계좌개설");
 	}
 
 	public static void main(String[] args) {
@@ -57,11 +60,7 @@ public class WindowBuilder {
 	}
 
 	public static void startLogin() {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				LoginFrame.main();
-			}
-		});
+		javax.swing.SwingUtilities.invokeLater(LoginFrame::main);
 	}
 
 	public static void startGUI() {

@@ -16,8 +16,6 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 
 	JTextField accountInput;
 	JTextField cashInput;
-
-	JButton checkAccount;
 	JButton transfer;
 
 	JLabel name;

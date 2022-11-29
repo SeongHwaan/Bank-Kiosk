@@ -10,19 +10,28 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class BankProduct extends JPanel {
 	static JPanel infoPanel = new JPanel();
 	static JPanel calcPanel = new JPanel();
+	static JPanel calcButtonPanel = new JPanel();
 	JLabel lblNewLabel = new JLabel("연 이자");
 	JLabel lblNewLabel_1 = new JLabel("유형");
 	JLabel lblNewLabel_2 = new JLabel("가입 기간");
-	JLabel lblNewLabel_3 = new JLabel("계산기그림");
 	static JLabel textArea = new JLabel();
 	static JLabel textArea_1 = new JLabel();
 	static JLabel textArea_2 = new JLabel();
-	JButton btnNewButton = new JButton("계산해보기");
-	JButton btnNewButton_1 = new JButton("단리 / 복리란?");
+	JButton btnNewButton = new JButton("계좌개설");
+	JButton btnNewButton_1 = new JButton("단리/복리 이해하기");
+	JButton btnNewButton_2 = new JButton("계산해보기");
+	Image originCalcImage = new ImageIcon("src/images/calculator.png").getImage();
+	Image resizedCalcImage = originCalcImage.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
+	ImageIcon calcIcon = new ImageIcon(resizedCalcImage);
+	JLabel calcImage = new JLabel(calcIcon);
+
 
 	static ProductList p;
 
@@ -32,6 +41,7 @@ public class BankProduct extends JPanel {
 		setLayout(new GridBagLayout());
 		infoPanel.setLayout(new GridLayout(0, 2));
 		calcPanel.setLayout(new GridLayout(0, 2));
+		calcButtonPanel.setLayout(new GridLayout(2, 0));
 		GridBagConstraints[] gbc = new GridBagConstraints[5];
 
 		for (int i = 0; i < 5; i++) {
@@ -79,25 +89,35 @@ public class BankProduct extends JPanel {
 		gbc[2].gridx = 0;
 		gbc[2].gridy = 2;
 		gbc[2].weightx = 1;
-		gbc[2].weighty = 3;
+		gbc[2].weighty = 2;
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[2]);
+
+		btnNewButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
+		btnNewButton_1.addActionListener(e -> {
+			try {
+				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=5c8x2YqppTo"));
+			} catch (IOException | URISyntaxException ex) {
+				ex.printStackTrace();
+			}
+		});
 
 		gbc[3].gridx = 0;
 		gbc[3].gridy = 3;
 		gbc[3].weightx = 1;
 		gbc[3].weighty = 1;
 		gbc[3].fill = GridBagConstraints.BOTH;
-		add(btnNewButton_1, gbc[3]);
+		add(btnNewButton, gbc[3]);
 
-		lblNewLabel_3.setHorizontalAlignment(JLabel.CENTER);
-		calcPanel.add(lblNewLabel_3);
-		calcPanel.add(btnNewButton);
+		calcPanel.add(calcImage);
+		calcButtonPanel.add(btnNewButton_1);
+		calcButtonPanel.add(btnNewButton_2);
+		calcPanel.add(calcButtonPanel);
 
 		gbc[4].gridx = 0;
 		gbc[4].gridy = 4;
 		gbc[4].weightx = 1;
-		gbc[4].weighty = 3;
+		gbc[4].weighty = 4;
 		gbc[4].fill = GridBagConstraints.BOTH;
 		add(calcPanel, gbc[4]);
 
@@ -114,9 +134,8 @@ public class BankProduct extends JPanel {
 		}
 	}
 
-	class ProductList extends JPanel {
+	static class ProductList extends JPanel {
 		static int productIndex;
-		static int selectedIndex = 0;
 		DefaultListModel model = new DefaultListModel();
 		JList accountList = new JList(model);
 
@@ -130,14 +149,12 @@ public class BankProduct extends JPanel {
 			accountList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 			accountList.setBackground(new Color(255, 255, 255));
 
-			JScrollPane sp = new JScrollPane(accountList);
-
 			gbc[0].gridx = 0;
 			gbc[0].gridy = 0;
 			gbc[0].weightx = 1;
 			gbc[0].weighty = 1;
 			gbc[0].fill = GridBagConstraints.BOTH;
-			add(sp, gbc[0]);
+			add(accountList, gbc[0]);
 
 			setBorder(null);
 		}
@@ -160,7 +177,7 @@ public class BankProduct extends JPanel {
 					@Override
 					public void mouseReleased(MouseEvent e) {
 						if (SwingUtilities.isLeftMouseButton(e)) {
-							selectedIndex = list.getSelectedIndex();
+							productIndex = list.getSelectedIndex();
 							BankProduct.update();
 							int index = list.locationToIndex(e.getPoint());
 

@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
+//추후 사용할지 결정, 현재 코드 복붙한 상태
 public class GraphPanel extends JFrame {
 	
 	public GraphPanel() {
@@ -40,7 +42,7 @@ public class GraphPanel extends JFrame {
 		JTextField e2 = new JTextField(3);
 		JTextField e3 = new JTextField(3);
 		
-		JButton button = new JButton("성적나와라뿅");
+		JButton button = new JButton("성적");
 		
 		p.add(new JLabel("국어"));
 		p.add(e1);

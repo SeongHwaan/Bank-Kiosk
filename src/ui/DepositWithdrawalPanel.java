@@ -10,34 +10,65 @@ import bank.Bank;
 import bank.Savings;
 
 public class DepositWithdrawalPanel extends JPanel implements ActionListener {
-	JPanel bottomPane = new JPanel(new BorderLayout());
-	JPanel buttonPanel = new JPanel(new FlowLayout());
 	JTextField cashInput = new JTextField("", 20);
 	JButton deposit = new JButton("입금");
 	JButton withdrawal = new JButton("출금");
-
+	Savings account;
+	JPanel gblPanel = new JPanel();
+	GridBagConstraints[] gbc = new GridBagConstraints[9];
+	
+	
 	public DepositWithdrawalPanel() {
-		setLayout(new BorderLayout(20, 20));
+		setLayout(new GridBagLayout());
+		gblPanel.setLayout(new GridBagLayout());
 
-		buttonPanel.add(deposit);
-		buttonPanel.add(withdrawal);
+		for (int i = 0; i < 9; i++) {
+			gbc[i] = new GridBagConstraints();
+		}
+
+		JLabel title = new JLabel("얼마나 보낼까요?");
+		title.setHorizontalAlignment(JLabel.CENTER);
+		title.setFont(new Font("", Font.BOLD, 28));
+
+		gbc[3].gridx = 0;
+		gbc[3].gridy = 0;
+		gbc[3].fill = GridBagConstraints.BOTH;
+		gbc[3].ipady = 50;
+		add(title, gbc[3]);
 
 		deposit.addActionListener(this);
 		withdrawal.addActionListener(this);
 
-		bottomPane.add(cashInput, BorderLayout.WEST);
-		bottomPane.add(buttonPanel, BorderLayout.EAST);
+		gbc[0].gridx = 0;
+		gbc[0].gridy = 0;
+		gbc[0].weightx =2;
+		gbc[0].fill = GridBagConstraints.BOTH;
+		gblPanel.add(cashInput, gbc[0]);
 
-		add(bottomPane, BorderLayout.SOUTH);
+		gbc[1].gridx = 1;
+		gbc[1].gridy = 0;
+		gbc[1].weightx =1;
+		gbc[1].fill = GridBagConstraints.BOTH;
+		gblPanel.add(deposit, gbc[1]);
 
+		gbc[2].gridx = 2;
+		gbc[2].gridy = 0;
+		gbc[2].weightx =1;
+		gbc[2].fill = GridBagConstraints.BOTH;
+		gblPanel.add(withdrawal, gbc[2]);
+
+		gbc[4].gridx = 0;
+		gbc[4].gridy = 1;
+		gbc[4].weighty = 2;
+		add(gblPanel, gbc[4]);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("입금")) {
 			try {
-				Savings selectedAccount = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
-				WindowBuilder.bank.deposit(selectedAccount, cashInput.getText());
+				account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+				WindowBuilder.bank.deposit(account, cashInput.getText());
 				cashInput.setText("");
 				AccountManage.update();
 			} catch (Exception e1) {
@@ -46,8 +77,8 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 		}
 		if (e.getActionCommand().equals("출금")) {
 			try {
-				Savings selectedAccount = Bank.accountMgr.list.get(MyAccountList.selectedIndex);
-				WindowBuilder.bank.withdraw(selectedAccount, cashInput.getText());
+				account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+				WindowBuilder.bank.withdraw(account, cashInput.getText());
 				cashInput.setText("");
 				AccountManage.update();
 			} catch (Exception e2) {
