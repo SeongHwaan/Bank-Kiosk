@@ -10,82 +10,106 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RoundRectangle2D;
-import java.util.ArrayList;
 
 public class BankProduct extends JPanel {
-
+	static JPanel infoPanel = new JPanel();
+	static JPanel calcPanel = new JPanel();
+	JLabel lblNewLabel = new JLabel("연 이자");
 	JLabel lblNewLabel_1 = new JLabel("유형");
 	JLabel lblNewLabel_2 = new JLabel("가입 기간");
-	static JTextArea textArea = new JTextArea();
-	static JTextArea textArea_1 = new JTextArea();
-	static JTextArea textArea_2 = new JTextArea();
-
 	JLabel lblNewLabel_3 = new JLabel("계산기그림");
+	static JLabel textArea = new JLabel();
+	static JLabel textArea_1 = new JLabel();
+	static JLabel textArea_2 = new JLabel();
 	JButton btnNewButton = new JButton("계산해보기");
-	JButton btnNewButton_2 = new JButton("단리 / 복리란?");
+	JButton btnNewButton_1 = new JButton("단리 / 복리란?");
 
 	static ProductList p;
 
 	static Savings product;
 
 	public BankProduct() {
-		btnNewButton_2.setBounds(114, 305, 200, 50);
-		textArea_2.setBounds(114, 237, 200, 21);
-		textArea_2.setColumns(10);
-		textArea_2.setEditable(false);
-		textArea_1.setBounds(114, 206, 200, 21);
-		textArea_1.setColumns(10);
-		textArea_1.setEditable(false);
-		textArea.setBounds(114, 173, 200, 21);
-		textArea.setColumns(10);
-		textArea.setEditable(false);
+		setLayout(new GridBagLayout());
+		infoPanel.setLayout(new GridLayout(0, 2));
+		calcPanel.setLayout(new GridLayout(0, 2));
+		GridBagConstraints[] gbc = new GridBagConstraints[5];
 
-		setLayout(null);
+		for (int i = 0; i < 5; i++) {
+			gbc[i] = new GridBagConstraints();
+		}
+
+		JLabel title = new JLabel("상품");
+		title.setHorizontalAlignment(JLabel.CENTER);
+		title.setFont(new Font("", Font.BOLD, 28));
+
+		gbc[0].gridx = 0;
+		gbc[0].gridy = 0;
+		gbc[0].weightx = 1;
+		gbc[0].fill = GridBagConstraints.BOTH;
+		gbc[0].ipady = 50;
+		add(title, gbc[0]);
 
 		p = new ProductList();
-		p.setBounds(0, 0, 402, 160);
 		p.setBorder(null);
 
-		add(p);
+		gbc[1].gridx = 0;
+		gbc[1].gridy = 1;
+		gbc[1].weightx = 1;
+		gbc[1].weighty = 1;
+		gbc[1].fill = GridBagConstraints.BOTH;
+		add(p, gbc[1]);
 
-		JLabel lblNewLabel = new JLabel("연 이자");
-		lblNewLabel.setBounds(25, 175, 57, 21);
-		add(lblNewLabel);
-		lblNewLabel_1.setBounds(25, 206, 57, 21);
+		lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
+		textArea.setHorizontalAlignment(JLabel.CENTER);
+		lblNewLabel_1.setHorizontalAlignment(JLabel.CENTER);
+		textArea_1.setHorizontalAlignment(JLabel.CENTER);
+		lblNewLabel_2.setHorizontalAlignment(JLabel.CENTER);
+		textArea_2.setHorizontalAlignment(JLabel.CENTER);
 
-		add(lblNewLabel_1);
-		lblNewLabel_2.setBounds(25, 237, 57, 21);
+		infoPanel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("", Font.BOLD, 15));
+		infoPanel.add(textArea);
+		infoPanel.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("", Font.BOLD, 15));
+		infoPanel.add(textArea_1);
+		infoPanel.add(lblNewLabel_2);
+		lblNewLabel_2.setFont(new Font("", Font.BOLD, 15));
+		infoPanel.add(textArea_2);
 
-		add(lblNewLabel_2);
+		gbc[2].gridx = 0;
+		gbc[2].gridy = 2;
+		gbc[2].weightx = 1;
+		gbc[2].weighty = 2;
+		gbc[2].fill = GridBagConstraints.BOTH;
+		add(infoPanel, gbc[2]);
 
-		add(textArea);
+		gbc[3].gridx = 0;
+		gbc[3].gridy = 3;
+		gbc[3].weightx = 1;
+		gbc[3].weighty = 1;
+		gbc[3].fill = GridBagConstraints.BOTH;
+		add(btnNewButton_1, gbc[3]);
 
-		add(textArea_1);
+		lblNewLabel_3.setHorizontalAlignment(JLabel.CENTER);
+		calcPanel.add(lblNewLabel_3);
+		calcPanel.add(btnNewButton);
 
-		add(textArea_2);
+		gbc[4].gridx = 0;
+		gbc[4].gridy = 4;
+		gbc[4].weightx = 1;
+		gbc[4].weighty = 2;
+		gbc[4].fill = GridBagConstraints.BOTH;
+		add(calcPanel, gbc[4]);
 
-		add(btnNewButton_2);
-
-		lblNewLabel_3.setBounds(42, 428, 116, 109);
-
-		add(lblNewLabel_3);
-		btnNewButton.setBounds(193, 450, 121, 60);
-
-		add(btnNewButton);
-
+		update();
 	}
 
 	public static void update() {
-
 		try {
 			product = Bank.productList.get(ProductList.productIndex);
-			textArea.setText("");
-			textArea.append(product.name);
-			textArea_1.setText("");
-			textArea_1.append("" + product.rate);
-
+			textArea.setText(String.valueOf(product.rate));
+			textArea_1.setText(product.name);
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 	}
@@ -98,16 +122,8 @@ public class BankProduct extends JPanel {
 
 		public ProductList() {
 			setLayout(new GridBagLayout());
-			GridBagConstraints[] gbc = new GridBagConstraints[2];
-
-			for (int i = 0; i < 2; i++) {
-				/* GridBagConstraints 초기화 */
-				gbc[i] = new GridBagConstraints();
-			}
-
-			JLabel title = new JLabel("상품");
-			title.setHorizontalAlignment(JLabel.CENTER);
-			title.setFont(new Font("", Font.BOLD, 28));
+			GridBagConstraints[] gbc = new GridBagConstraints[1];
+			gbc[0] = new GridBagConstraints();
 
 			setList();
 			accountList.setCellRenderer(new ProductList.CustomListRenderer(accountList));
@@ -119,18 +135,10 @@ public class BankProduct extends JPanel {
 			gbc[0].gridx = 0;
 			gbc[0].gridy = 0;
 			gbc[0].weightx = 1;
+			gbc[0].weighty = 1;
 			gbc[0].fill = GridBagConstraints.BOTH;
-			gbc[0].ipady = 50;
-			add(title, gbc[0]);
+			add(sp, gbc[0]);
 
-			gbc[1].gridx = 0;
-			gbc[1].gridy = 1;
-			gbc[1].weightx = 1;
-			gbc[1].weighty = 2;
-			gbc[1].fill = GridBagConstraints.BOTH;
-			add(sp, gbc[1]);
-
-			// setBackground(new Color(32, 32, 44));
 			setBorder(null);
 		}
 
@@ -153,6 +161,7 @@ public class BankProduct extends JPanel {
 					public void mouseReleased(MouseEvent e) {
 						if (SwingUtilities.isLeftMouseButton(e)) {
 							selectedIndex = list.getSelectedIndex();
+							BankProduct.update();
 							int index = list.locationToIndex(e.getPoint());
 
 							if (index != -1 && list.isSelectedIndex(index)) {

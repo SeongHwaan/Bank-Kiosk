@@ -42,10 +42,8 @@ public class AccountManage extends JPanel {
 		lblNewLabel_1.setHorizontalAlignment(JLabel.CENTER);
 
 		depwith = new JButton("입출금");
-		depwith.setBounds(39, 156, 139, 45);
 
 		transfer = new JButton("송금");
-		transfer.setBounds(207, 156, 139, 45);
 
 		infoPanel.add(lblNewLabel);
 		infoPanel.add(textArea);
@@ -76,7 +74,6 @@ public class AccountManage extends JPanel {
 
 		historyTable = new HistoryTable();
 		JScrollPane bottom = new JScrollPane(historyTable.table);
-		bottom.setBounds(0, 274, 385, 295);
 
 		gbc[2].gridx = 0;
 		gbc[2].gridy = 2;
