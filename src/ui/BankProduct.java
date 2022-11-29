@@ -5,8 +5,6 @@ import bank.Bank;
 import bank.Savings;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Area;
@@ -24,7 +22,6 @@ public class BankProduct extends JPanel {
 	static JLabel textArea_1 = new JLabel();
 	static JLabel textArea_2 = new JLabel();
 	JButton btnNewButton = new JButton("계산해보기");
-
 	JButton btnNewButton_1 = new JButton("계좌개설");
 
 
@@ -52,12 +49,6 @@ public class BankProduct extends JPanel {
 		gbc[0].fill = GridBagConstraints.BOTH;
 		gbc[0].ipady = 50;
 		add(title, gbc[0]);
-
-
-		add(btnNewButton);
-		
-		
-		btnNewButton_1.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
 
 		p = new ProductList();
 		p.setBorder(null);
@@ -89,9 +80,11 @@ public class BankProduct extends JPanel {
 		gbc[2].gridx = 0;
 		gbc[2].gridy = 2;
 		gbc[2].weightx = 1;
-		gbc[2].weighty = 3;
+		gbc[2].weighty = 2;
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[2]);
+
+		btnNewButton_1.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
 
 		gbc[3].gridx = 0;
 		gbc[3].gridy = 3;
@@ -107,7 +100,7 @@ public class BankProduct extends JPanel {
 		gbc[4].gridx = 0;
 		gbc[4].gridy = 4;
 		gbc[4].weightx = 1;
-		gbc[4].weighty = 3;
+		gbc[4].weighty = 4;
 		gbc[4].fill = GridBagConstraints.BOTH;
 		add(calcPanel, gbc[4]);
 
@@ -140,14 +133,12 @@ public class BankProduct extends JPanel {
 			accountList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 			accountList.setBackground(new Color(255, 255, 255));
 
-			JScrollPane sp = new JScrollPane(accountList);
-
 			gbc[0].gridx = 0;
 			gbc[0].gridy = 0;
 			gbc[0].weightx = 1;
 			gbc[0].weighty = 1;
 			gbc[0].fill = GridBagConstraints.BOTH;
-			add(sp, gbc[0]);
+			add(accountList, gbc[0]);
 
 			setBorder(null);
 		}
