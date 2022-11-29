@@ -128,7 +128,6 @@ public class Bank {
 		productList.add(one);
 		productList.add(two);
 		productList.add(three);
-
 	}
 
 	public static void main(String[] args) {

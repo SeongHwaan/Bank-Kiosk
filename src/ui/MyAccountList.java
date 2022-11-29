@@ -55,6 +55,7 @@ public class MyAccountList extends JPanel {
 	}
 
 	void setList() {
+		model.clear();
 		for (Savings s : myAccount) {
 			model.addElement(new AccountData(s.number));
 		}

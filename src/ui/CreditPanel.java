@@ -3,9 +3,9 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class SetupPanel extends JPanel {
+public class CreditPanel extends JPanel {
 
-    SetupPanel() {
+    CreditPanel() {
         setLayout(new GridBagLayout());
         GridBagConstraints[] gbc = new GridBagConstraints[2];
 
@@ -13,7 +13,7 @@ public class SetupPanel extends JPanel {
             gbc[i] = new GridBagConstraints();
         }
 
-        JLabel title = new JLabel("설정");
+        JLabel title = new JLabel("프로그램 정보");
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setFont(new Font("", Font.BOLD, 28));
 
