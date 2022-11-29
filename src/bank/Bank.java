@@ -1,5 +1,6 @@
 package bank;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,7 +46,7 @@ public class Bank {
 
 		int cash = Math.abs(Integer.parseInt(kwd)); // 현금 입금은 음수가 될 수 없으므로 보정
 		useAccount.cash += cash;
-		useAccount.createHistory(1, "*Today", "-", cash); // 거래내역 생성
+		useAccount.createHistory(1, getToday(), "-", cash); // 거래내역 생성
 	}
 
 	// 현금 출금
@@ -56,7 +57,7 @@ public class Bank {
 			if (cash > useAccount.cash)
 				throw new Exception();
 			useAccount.cash -= cash;
-			useAccount.createHistory(2, "*Today", "-", cash); // 거래내역 생성
+			useAccount.createHistory(2, getToday(), "-", cash); // 거래내역 생성
 		} catch (Exception e) {
 			System.out.println("no money 계좌 잔고가 부족합니다. " + (useAccount.cash - cash) + "원 부족.");
 		}
@@ -67,7 +68,7 @@ public class Bank {
 		int cash = Integer.parseInt(kwd);
 		withdraw(myAccount, kwd); // 본인 계좌에서 인출 후
 		transAccount.cash += cash; // 상대 계좌로 전달
-		transAccount.createHistory(1, "*Today", loginUser.name, cash); // 상대 거래내역 생성
+		transAccount.createHistory(1, getToday(), loginUser.name, cash); // 상대 거래내역 생성
 	}
 
 	// 키오스크 이용자
@@ -106,6 +107,11 @@ public class Bank {
 			if (account.matches(number))
 				return account;
 		return null;
+	}
+
+	private String getToday(){
+		LocalDate today = LocalDate.now();
+		return today.toString();
 	}
 
 	// 데이터 마운트
