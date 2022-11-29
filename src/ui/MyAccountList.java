@@ -103,7 +103,7 @@ public class MyAccountList extends JPanel {
 		}
 
 		public static class CustomLabel extends JLabel {
-			private static final Color selectionColor = new Color(182, 128, 22);
+			private static final Color selectionColor = new Color(0, 100, 255);
 
 			private boolean selected;
 			private AccountData data;
