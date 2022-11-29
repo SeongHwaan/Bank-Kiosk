@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
+//추후 사용할지 결정, 현재 코드 복붙한 상태
 public class GraphPanel extends JFrame {
 	
 	public GraphPanel() {

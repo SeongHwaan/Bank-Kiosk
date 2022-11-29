@@ -37,10 +37,9 @@ public class CreateAccountPanel extends JPanel {
 
 	public CreateAccountPanel() {
 		setLayout(new BorderLayout());
-		
+
 		createPane = new JPanel();
 		createPane.setLayout(new CardLayout());
-
 		createCard = (CardLayout) createPane.getLayout();
 
 		productInfo = new JPanel(new BorderLayout());
@@ -54,23 +53,27 @@ public class CreateAccountPanel extends JPanel {
 		createPane.add(productInfo);
 		createPane.add(terms, "약관");
 		createPane.add(id, "신분증");
-		
+
 		add(createPane, BorderLayout.CENTER);
 	}
 
+	//상품설명
 	void setupProduct() {
-		
+
 		nameField = new JTextField();
-		
+
+		JLabel info = new JLabel("계좌 정보:~~");
 		JButton button = new JButton("다음단계");
+
 		productInfo.add(nameField, BorderLayout.NORTH);
+		productInfo.add(info, BorderLayout.CENTER);
 		productInfo.add(button, BorderLayout.SOUTH);
-		
+
 		button.addActionListener(e -> createCard.show(createPane, "약관"));
-		
 
 	}
-
+	
+	//약관
 	void setupTerms() {
 		JPanel group = new JPanel(new FlowLayout());
 
@@ -102,15 +105,14 @@ public class CreateAccountPanel extends JPanel {
 		group.add(rdBtnOk);
 
 		JButton btnNewButton = new JButton("다음단계");
-		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rdBtnOk.isSelected()) {
 					System.out.println("모두 동의하셨습니다. 다음단계로 진행");
 					createCard.show(createPane, "신분증");
-					
+
 				} else {
 					System.out.println("동의하지 않으셨습니다. 동의 후 진행해주세요");
 					JOptionPane.showMessageDialog(null, "동의하지 않으셨습니다. 동의 후 진행해주세요");
@@ -125,6 +127,7 @@ public class CreateAccountPanel extends JPanel {
 
 	}
 
+	//신분증 확인
 	void setupId() {
 		id.setLayout(new BorderLayout());
 
@@ -170,7 +173,7 @@ public class CreateAccountPanel extends JPanel {
 
 	}
 
-
+	//테스트
 	public static void main(String[] args) {
 		CreateAccountPanel a = new CreateAccountPanel();
 
@@ -186,7 +189,8 @@ public class CreateAccountPanel extends JPanel {
 		f.add(a);
 
 	}
-
+	
+	//계좌개설
 	class Creation extends JFrame {
 
 		JPanel a;
@@ -212,22 +216,19 @@ public class CreateAccountPanel extends JPanel {
 
 		void startCreation() {
 			System.out.println("메인쓰레드 START");
-			
+
 			Timer t = new Timer();
 			TimerTask task = new TimerTask() {
-				
+
 				@Override
 				public void run() {
 					WindowBuilder.bank.createAccount(nameField.getText(), ProductList.productIndex);
+					// 1. 메인화면 or 2. 계좌 개설이 완료되었다는 패널
+					WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면");
 					dispose();
 				}
 			};
-			
 			t.schedule(task, 5000);
-			
 		}
-
-
 	}
-
 }

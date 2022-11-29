@@ -24,11 +24,9 @@ public class BankProduct extends JPanel {
 	static JLabel textArea_1 = new JLabel();
 	static JLabel textArea_2 = new JLabel();
 	JButton btnNewButton = new JButton("계산해보기");
-<<<<<<< HEAD
-	JButton btnNewButton_2 = new JButton("계좌개설");
-=======
-	JButton btnNewButton_1 = new JButton("단리 / 복리란?");
->>>>>>> GUI
+
+	JButton btnNewButton_1 = new JButton("계좌개설");
+
 
 	static ProductList p;
 
@@ -55,15 +53,14 @@ public class BankProduct extends JPanel {
 		gbc[0].ipady = 50;
 		add(title, gbc[0]);
 
-<<<<<<< HEAD
+
 		add(btnNewButton);
 		
 		
-		btnNewButton_2.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
-=======
+		btnNewButton_1.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
+
 		p = new ProductList();
 		p.setBorder(null);
->>>>>>> GUI
 
 		gbc[1].gridx = 0;
 		gbc[1].gridy = 1;
