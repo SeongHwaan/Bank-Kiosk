@@ -30,6 +30,7 @@ public class WindowBuilder {
 		mainFrame.getContentPane().add(bankingPane, BorderLayout.CENTER);
 		mainFrame.getContentPane().add(bottomBar, BorderLayout.SOUTH);
 		mainFrame.setLocationRelativeTo(bankingPane);
+
 		mainFrame.setSize(480, 720); // 2:3 비율
 		mainFrame.setResizable(false);
 		mainFrame.setVisible(true);
@@ -61,11 +62,7 @@ public class WindowBuilder {
 	}
 
 	public static void startLogin() {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				LoginFrame.main();
-			}
-		});
+		javax.swing.SwingUtilities.invokeLater(LoginFrame::main);
 	}
 
 	public static void startGUI() {
