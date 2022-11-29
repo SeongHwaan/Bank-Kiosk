@@ -10,29 +10,40 @@ import bank.Bank;
 import bank.Savings;
 
 public class DepositWithdrawalPanel extends JPanel implements ActionListener {
-	JPanel bottomPane = new JPanel(new BorderLayout());
-	JPanel buttonPanel = new JPanel(new FlowLayout());
 	JTextField cashInput = new JTextField("", 20);
 	JButton deposit = new JButton("입금");
 	JButton withdrawal = new JButton("출금");
 	Savings account;
-
+	GridBagConstraints[] gbc = new GridBagConstraints[9];
 	
 	
 	public DepositWithdrawalPanel() {
-		setLayout(new BorderLayout(20, 20));
+		setLayout(new GridBagLayout());
 
-		buttonPanel.add(deposit);
-		buttonPanel.add(withdrawal);
+		for (int i = 0; i < 9; i++) {
+			gbc[i] = new GridBagConstraints();
+		}
 
 		deposit.addActionListener(this);
 		withdrawal.addActionListener(this);
 
-		bottomPane.add(cashInput, BorderLayout.WEST);
-		bottomPane.add(buttonPanel, BorderLayout.EAST);
+		gbc[0].gridx = 0;
+		gbc[0].gridy = 0;
+		gbc[0].weightx =2;
+		gbc[0].fill = GridBagConstraints.BOTH;
+		add(cashInput, gbc[0]);
 
-		add(bottomPane, BorderLayout.SOUTH);
+		gbc[1].gridx = 1;
+		gbc[1].gridy = 0;
+		gbc[1].weightx =1;
+		gbc[1].fill = GridBagConstraints.BOTH;
+		add(deposit, gbc[1]);
 
+		gbc[2].gridx = 2;
+		gbc[2].gridy = 0;
+		gbc[2].weightx =1;
+		gbc[2].fill = GridBagConstraints.BOTH;
+		add(withdrawal, gbc[2]);
 	}
 
 	@Override
