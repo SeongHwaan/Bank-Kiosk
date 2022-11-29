@@ -11,8 +11,8 @@ public class AccountManage extends JPanel {
 	static HistoryTable historyTable;
 	JButton check;
 
-	static JTextArea textArea = new JTextArea();
-	static JTextArea textArea_1 = new JTextArea();
+	static JLabel textArea = new JLabel();
+	static JLabel textArea_1 = new JLabel();
 
 	JButton depwith;
 	JButton transfer;
@@ -30,17 +30,16 @@ public class AccountManage extends JPanel {
 		}
 
 		JLabel title = new JLabel("통장");
+		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(new Font("", Font.BOLD, 28));
 
 		JLabel lblNewLabel = new JLabel("계좌번호");
-		lblNewLabel.setBounds(39, 59, 127, 26);
-
-		textArea.setEditable(false);
+		lblNewLabel.setFont(new Font("", Font.BOLD, 15));
+		lblNewLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		JLabel lblNewLabel_1 = new JLabel("금액");
-		lblNewLabel_1.setBounds(39, 95, 127, 39);
-
-		textArea_1.setEditable(false);
+		lblNewLabel_1.setFont(new Font("", Font.BOLD, 15));
+		lblNewLabel_1.setHorizontalAlignment(JLabel.CENTER);
 
 		depwith = new JButton("입출금");
 		depwith.setBounds(39, 156, 139, 45);
@@ -59,6 +58,7 @@ public class AccountManage extends JPanel {
 		gbc[0].gridy = 0;
 		gbc[0].weightx = 1;
 		gbc[0].fill = GridBagConstraints.BOTH;
+		gbc[0].ipady = 50;
 		add(title, gbc[0]);
 
 		gbc[1].gridx = 0;
@@ -70,7 +70,9 @@ public class AccountManage extends JPanel {
 
 		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 		textArea.setText(account.number);
+		textArea.setHorizontalAlignment(JLabel.CENTER);
 		textArea_1.setText("" + account.cash);
+		textArea_1.setHorizontalAlignment(JLabel.CENTER);
 
 		historyTable = new HistoryTable();
 		JScrollPane bottom = new JScrollPane(historyTable.table);
@@ -90,10 +92,8 @@ public class AccountManage extends JPanel {
 	public static void update() {
 		try {
 			account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
-			textArea.setText("");
-			textArea.append(account.number);
-			textArea_1.setText("");
-			textArea_1.append("" + account.cash);
+			textArea.setText(account.number);
+			textArea_1.setText(String.valueOf(account.cash));
 			historyTable.update();
 		} catch (Exception e) {
 

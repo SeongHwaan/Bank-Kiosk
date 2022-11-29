@@ -29,6 +29,7 @@ public class MyAccountList extends JPanel {
 		}
 
 		JLabel title = new JLabel("자산");
+		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(new Font("", Font.BOLD, 28));
 
 		setList();
@@ -42,6 +43,7 @@ public class MyAccountList extends JPanel {
 		gbc[0].gridy = 0;
 		gbc[0].weightx = 1;
 		gbc[0].fill = GridBagConstraints.BOTH;
+		gbc[0].ipady = 50;
 		add(title, gbc[0]);
 
 		gbc[1].gridx = 0;

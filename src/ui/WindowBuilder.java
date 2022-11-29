@@ -14,8 +14,6 @@ public class WindowBuilder {
 	BottomBarPanel bottomBar = new BottomBarPanel();
 	MyAccountList myAccount = new MyAccountList();
 
-	AccountTable accountTable = new AccountTable();
-
 	AccountManage check = new AccountManage();
 	BankProduct product = new BankProduct();
 	AccountTransferPanel t = new AccountTransferPanel();
