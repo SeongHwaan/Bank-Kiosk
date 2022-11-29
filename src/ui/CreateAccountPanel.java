@@ -124,7 +124,7 @@ public class CreateAccountPanel extends JPanel {
 		rdBtnOk.setBackground(Color.WHITE);
 		buttonGroup.add(rdBtnOk);
 
-		JRadioButton rdBtnCancel = new JRadioButton("반대");
+		JRadioButton rdBtnCancel = new JRadioButton("미동의");
 		rdBtnCancel.setBackground(Color.WHITE);
 		buttonGroup.add(rdBtnCancel);
 		rdBtnCancel.setSelected(true);
