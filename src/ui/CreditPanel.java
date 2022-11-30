@@ -108,7 +108,7 @@ public class CreditPanel extends JPanel {
         add(textArea_8, gbc[9]);
 
         JLabel textArea_9 = new JLabel();
-        textArea_9.setText("Copyright 2022. KGU OOP TEAM C. All rights reserved.");
+        textArea_9.setText("Copyright © 2022. KGU OOP TEAM C. All rights reserved.");
         textArea_9.setHorizontalAlignment(JLabel.CENTER);
 
         gbc[10].gridx = 0;

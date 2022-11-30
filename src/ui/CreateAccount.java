@@ -1,32 +1,21 @@
 package ui;
 
+import bank.Bank;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 public class CreateAccount {
-	JPanel createPane;
 	JPanel productInfo;
 	JPanel terms;
 	JPanel id;
 	static JLabel image;
 	JTextField nameField;
+	static JTextArea info = new JTextArea();
 
 	public CreateAccount() {
 		
@@ -46,9 +35,8 @@ public class CreateAccount {
 	//상품설명
 	void setupProduct() {
 		nameField = new JTextField();
-		BankProduct.update();
 		ButtonDesign button = new ButtonDesign("다음");
-		JTextArea info = new JTextArea();
+
 
 		productInfo.add(nameField, BorderLayout.NORTH);
 		productInfo.add(info, BorderLayout.CENTER);
@@ -180,7 +168,6 @@ public class CreateAccount {
 		gbc[3].weighty = 1;
 		gbc[3].fill = GridBagConstraints.BOTH;
 		terms.add(btnNewButton, gbc[3]);
-
 	}
 
 	//신분증 확인
@@ -240,7 +227,7 @@ public class CreateAccount {
 		// f.pack();
 		f.setVisible(true);
 	}
-	
+
 	//계좌개설
 	class Creation extends JFrame {
 		JPanel a;

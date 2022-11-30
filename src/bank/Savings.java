@@ -34,6 +34,10 @@ public class Savings implements Manageable {
 		return info;
 	}
 
+	public String getNumber() {
+		return number;
+	}
+
 	public String[] getTexts() {
 		return new String[] { "" + number, "" + cash };
 	}
