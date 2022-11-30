@@ -19,7 +19,7 @@ public class CreateAccount {
 
 	public CreateAccount() {
 		
-		productInfo = new JPanel(new BorderLayout());
+		productInfo = new JPanel(null);
 		terms = new JPanel(new BorderLayout());
 		id = new JPanel();
 
@@ -35,12 +35,26 @@ public class CreateAccount {
 	//상품설명
 	void setupProduct() {
 		nameField = new JTextField();
+
+		JLabel title = new JLabel("상품 약관");
+		title.setFont(new Font("", Font.BOLD, 28));
+		title.setHorizontalAlignment(JLabel.CENTER);
+
+		JLabel sub = new JLabel("계좌이름 (별칭)");
+
 		ButtonDesign button = new ButtonDesign("다음");
 
+		title.setBounds(0,26, 480, 30);
+		info.setBounds(0,80,480 ,400);
+		sub.setBounds(0,490, 480, 20);
+		nameField.setBounds(0,510,480,40);
+		button.setBounds(0,570,480,40);
 
-		productInfo.add(nameField, BorderLayout.NORTH);
-		productInfo.add(info, BorderLayout.CENTER);
-		productInfo.add(button, BorderLayout.SOUTH);
+		productInfo.add(title);
+		productInfo.add(nameField);
+		productInfo.add(info);
+		productInfo.add(sub);
+		productInfo.add(button);
 
 		button.addActionListener(e -> {
 			if (nameField.getText().isBlank()) {
@@ -137,7 +151,7 @@ public class CreateAccount {
 		});
 		btnNewButton.setBounds(365, 628, 178, 23);
 
-		JLabel title = new JLabel("약관");
+		JLabel title = new JLabel("거래 약관");
 		title.setFont(new Font("", Font.BOLD, 28));
 		title.setHorizontalAlignment(JLabel.CENTER);
 
