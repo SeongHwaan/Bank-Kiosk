@@ -195,6 +195,7 @@ public class CreateAccount {
 		id.setLayout(new GridBagLayout());
 
 		image = new JLabel();
+
 		ButtonDesign uploadButton = new ButtonDesign("사진 업로드");
 		ButtonDesign nextButton = new ButtonDesign("다음");
 		JFileChooser chooser = new JFileChooser();
@@ -249,10 +250,8 @@ public class CreateAccount {
 				return;
 			}
 			check.set(true);
-
 			String filePath = chooser.getSelectedFile().getPath();
-			image.setIcon(new ImageIcon(filePath));
-
+			setImage(filePath);
 		});
 
 		nextButton.addActionListener(e -> {
@@ -265,6 +264,12 @@ public class CreateAccount {
 				JOptionPane.showMessageDialog(null, "신분증을 업로드해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			}
 		});
+	}
+
+	public static void setImage(String path) {
+		Image originProfileImage = new ImageIcon(path).getImage();
+		Image resizedProfileImage = originProfileImage.getScaledInstance(480, 360, Image.SCALE_SMOOTH);
+		image.setIcon(new ImageIcon(resizedProfileImage));
 	}
 
 	//테스트
