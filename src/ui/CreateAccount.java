@@ -36,7 +36,7 @@ public class CreateAccount {
 	void setupProduct() {
 		nameField = new JTextField();
 
-		JLabel title = new JLabel("상품 약관");
+		JLabel title = new JLabel("상품 정보");
 		title.setFont(new Font("", Font.BOLD, 28));
 		title.setHorizontalAlignment(JLabel.CENTER);
 
@@ -186,16 +186,58 @@ public class CreateAccount {
 
 	//신분증 확인
 	void setupId() {
+		GridBagConstraints[] gbc = new GridBagConstraints[4];
+		for (int i = 0; i < 4; i++) {
+			gbc[i] = new GridBagConstraints();
+		}
+
 		AtomicBoolean check = new AtomicBoolean(false);
-		id.setLayout(new BorderLayout());
+		id.setLayout(new GridBagLayout());
 
 		image = new JLabel();
-		ButtonDesign idButton = new ButtonDesign("신분증 불러오기");
+		ButtonDesign uploadButton = new ButtonDesign("사진 업로드");
 		ButtonDesign nextButton = new ButtonDesign("다음");
-
 		JFileChooser chooser = new JFileChooser();
 
-		idButton.addActionListener(e -> {
+		JLabel title = new JLabel("신분증 제출");
+		title.setFont(new Font("", Font.BOLD, 28));
+		title.setHorizontalAlignment(JLabel.CENTER);
+
+		title.setBounds(0,26, 480, 30);
+		uploadButton.setBounds(0,80,480,40);
+		image.setBounds(0,120,480 ,360);
+		nextButton.setBounds(0,570,480,40);
+
+		gbc[0].gridx = 0;
+		gbc[0].gridy = 0;
+		gbc[0].weightx = 1;
+		gbc[0].weighty = 1;
+		gbc[0].fill = GridBagConstraints.BOTH;
+		gbc[0].ipady = 50;
+		id.add(title, gbc[0]);
+
+		gbc[1].gridx = 0;
+		gbc[1].gridy = 1;
+		gbc[1].weightx = 1;
+		gbc[1].weighty = 1;
+		gbc[1].fill = GridBagConstraints.BOTH;
+		id.add(uploadButton, gbc[1]);
+
+		gbc[2].gridx = 0;
+		gbc[2].gridy = 2;
+		gbc[2].weightx = 1;
+		gbc[2].weighty = 2;
+		gbc[2].fill = GridBagConstraints.BOTH;
+		id.add(image, gbc[2]);
+
+		gbc[3].gridx = 0;
+		gbc[3].gridy = 3;
+		gbc[3].weightx = 1;
+		gbc[3].weighty = 1;
+		gbc[3].fill = GridBagConstraints.BOTH;
+		id.add(nextButton, gbc[3]);
+
+		uploadButton.addActionListener(e -> {
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG / PNG", "jpg", "png");
 			chooser.setFileFilter(filter);
 
@@ -223,11 +265,6 @@ public class CreateAccount {
 				JOptionPane.showMessageDialog(null, "신분증을 업로드해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			}
 		});
-
-		id.add(idButton, BorderLayout.NORTH);
-		id.add(image, BorderLayout.CENTER);
-		id.add(nextButton, BorderLayout.SOUTH);
-
 	}
 
 	//테스트
