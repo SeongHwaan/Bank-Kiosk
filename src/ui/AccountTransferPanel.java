@@ -187,6 +187,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 			accountInput.setText("");
 			cashInput.setText("");
 			AccountManage.update();
+			JOptionPane.showMessageDialog(null, "송금이 완료되었습니다.", "완료", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }

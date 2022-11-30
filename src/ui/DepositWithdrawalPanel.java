@@ -64,12 +64,24 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("입금") || e.getActionCommand().equals("출금")) {
+		if (e.getActionCommand().equals("입금")) {
 			try {
 				account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 				WindowBuilder.bank.deposit(account, cashInput.getText());
 				cashInput.setText("");
 				AccountManage.update();
+				JOptionPane.showMessageDialog(null, "입금이 완료되었습니다.", "완료", JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "금액을 입력하세요.", "경고", JOptionPane.WARNING_MESSAGE);
+			}
+		}
+		if (e.getActionCommand().equals("출금")) {
+			try {
+				account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+				WindowBuilder.bank.withdraw(account, cashInput.getText());
+				cashInput.setText("");
+				AccountManage.update();
+				JOptionPane.showMessageDialog(null, "출금이 완료되었습니다.", "완료", JOptionPane.INFORMATION_MESSAGE);
 			} catch (Exception e1) {
 				JOptionPane.showMessageDialog(null, "금액을 입력하세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			}
