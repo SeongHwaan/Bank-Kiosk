@@ -71,5 +71,5 @@ public class WindowBuilder {
 			main.createAndShowMain();
 			MyPagePanel.update();
 		});
-	}	
+	}
 }

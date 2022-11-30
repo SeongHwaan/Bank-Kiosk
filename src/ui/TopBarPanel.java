@@ -6,8 +6,6 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 
 public class TopBarPanel extends JPanel {
-	// JLabel name;
-	// JButton bankIcon;
 	ButtonDesign logout;
 	ButtonDesign mainButton;
 
@@ -25,8 +23,6 @@ public class TopBarPanel extends JPanel {
 		rightPane.add(userName);
 		rightPane.add(logout);
 
-		// setBackground(new Color(32, 32, 44));
-
 		mainButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면"));
 		logout.addActionListener(e -> {
 			WindowBuilder.mainFrame.dispose();
@@ -34,18 +30,5 @@ public class TopBarPanel extends JPanel {
 			Bank.loginUser = null;
 			Bank.loginAccountList.clear();
 		});
-		// Image img = bankLogo.getImage();
-		// Image changeImg = img.getScaledInstance(50,50, Image.SCALE_SMOOTH);
-		// ImageIcon changeIcon = new ImageIcon(changeImg);
-		//
-		//
-		//
-		// bankIcon = new JButton( changeIcon );
-		// bankIcon.setBorderPainted(false);
-		// bankIcon.setOpaque(false);
-		// bankIcon.setVerticalTextPosition(bankIcon.BOTTOM);
-		// name = new JLabel("홍길동님");
-		//
-
 	}
 }

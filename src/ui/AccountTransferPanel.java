@@ -85,7 +85,6 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		gbc[4].fill = GridBagConstraints.BOTH;
 		gblPanel.add(transfer, gbc[4]);
 
-
 		gbc[6].gridx = 0;
 		gbc[6].gridy = 4;
 		gbc[6].weighty = 2;
