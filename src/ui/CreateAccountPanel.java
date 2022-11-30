@@ -65,7 +65,7 @@ public class CreateAccountPanel extends JPanel {
 
 		button.addActionListener(e -> {
 			if (nameField.getText().isBlank()) {
-				JOptionPane.showMessageDialog(null, "계좌 별칭을 지어주세요.");
+				JOptionPane.showMessageDialog(null, "계좌 별칭을 지어주세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			} else {
 				createCard.show(createPane, "약관");
 			}
@@ -152,7 +152,7 @@ public class CreateAccountPanel extends JPanel {
 
 			} else {
 				System.out.println("동의하지 않으셨습니다. 동의 후 진행해주세요");
-				JOptionPane.showMessageDialog(null, "동의하지 않으셨습니다. 동의 후 진행해주세요");
+				JOptionPane.showMessageDialog(null, "동의하지 않으셨습니다. 동의 후 진행해주세요", "경고", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		btnNewButton.setBounds(365, 628, 178, 23);
