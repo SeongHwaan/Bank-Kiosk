@@ -90,6 +90,7 @@ public class AccountManage extends JPanel {
 
 	public static void update() {
 		try {
+			MyAccountList.selectedIndex = 0;
 			account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 			title.setText(account.name);
 			textArea.setText(account.number);
