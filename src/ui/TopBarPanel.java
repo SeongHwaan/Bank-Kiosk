@@ -30,10 +30,10 @@ public class TopBarPanel extends JPanel {
 
 		mainButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면"));
 		logout.addActionListener(e -> {
+			WindowBuilder.mainFrame.dispose();
 			javax.swing.SwingUtilities.invokeLater(LoginFrame::main);
 			Bank.loginUser = null;
 			Bank.loginAccountList.clear();
-			WindowBuilder.mainFrame.setVisible(false);
 		});
 		// Image img = bankLogo.getImage();
 		// Image changeImg = img.getScaledInstance(50,50, Image.SCALE_SMOOTH);

@@ -68,5 +68,5 @@ public class WindowBuilder {
 			WindowBuilder main = new WindowBuilder();
 			main.createAndShowMain();
 		});
-	}
+	}	
 }

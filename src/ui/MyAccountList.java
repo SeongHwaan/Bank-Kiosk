@@ -15,6 +15,7 @@ import bank.Savings;
 public class MyAccountList extends JPanel {
 	static ArrayList<Savings> myAccount = Bank.loginAccountList;
 	static int selectedIndex = 0;
+
 	// static Savings account;
 	static DefaultListModel<AccountData> model = new DefaultListModel<>();
 	static JList<AccountData> accountList = new JList<>(model);
@@ -33,7 +34,6 @@ public class MyAccountList extends JPanel {
 		title.setFont(new Font("", Font.BOLD, 28));
 
 		setList();
-		accountList.setCellRenderer(new CustomListRenderer(accountList));
 		accountList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		accountList.setBackground(new Color(255, 255, 255));
 
@@ -53,12 +53,20 @@ public class MyAccountList extends JPanel {
 
 		setBorder(null);
 	}
+	
+	
+	static class ListModel extends DefaultListModel {
+	    public void update(int index)
+	    {
+	        fireContentsChanged(this, index, index);
+	    }
+	}
 
 	static void setList() {
 		model.clear();
 		myAccount = Bank.loginAccountList;
 		for (Savings s : myAccount) {
-			model.addElement(new AccountData(s.number));
+			model.addElement(new AccountData(s.number));	
 		}
 	}
 

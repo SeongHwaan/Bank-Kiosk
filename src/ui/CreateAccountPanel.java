@@ -20,6 +20,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import bank.Bank;
+import ui.BankProduct.ProductList;
 
 
 public class CreateAccountPanel extends JPanel {

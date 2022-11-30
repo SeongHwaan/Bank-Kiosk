@@ -140,9 +140,10 @@ public class BankProduct extends JPanel {
 	}
 
 	static class ProductList extends JPanel {
-
+		
 		DefaultListModel<AccountData> model = new DefaultListModel<>();
 		JList<AccountData> accountList = new JList<>(model);
+		static int productIndex = 0;
 
 		public ProductList() {
 			setLayout(new GridBagLayout());
@@ -184,6 +185,9 @@ public class BankProduct extends JPanel {
 						if (SwingUtilities.isLeftMouseButton(e)) {
 							productIndex = list.getSelectedIndex();
 							BankProduct.update();
+							
+							System.out.printf("%d",productIndex);
+							
 							int index = list.locationToIndex(e.getPoint());
 
 							if (index != -1 && list.isSelectedIndex(index)) {
