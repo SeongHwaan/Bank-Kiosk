@@ -51,7 +51,7 @@ public class LoginFrame extends JFrame {
         LoginPanel.add(passwordText);
 
         ButtonDesign button = new ButtonDesign("로그인");
-        button.setBounds(296, 404, 100, 73);
+        button.setBounds(296, 403, 100, 74);
         button.setFont(new Font("", Font.BOLD, 16));
 
         button.addActionListener(e -> {
