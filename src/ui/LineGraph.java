@@ -22,7 +22,8 @@ public class LineGraph extends JPanel {
     private int heigth = 400;
     private int padding = 25;
     private int labelPadding = 25;
-    private Color lineColor = new Color(44, 102, 230, 180);
+    private Color compoundColor = new Color(44, 102, 230, 180);
+    private Color simpleColor = new Color(241, 24, 76, 180);
     private Color pointColor = new Color(100, 100, 100, 180);
     private Color gridColor = new Color(200, 200, 200, 200);
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
@@ -104,7 +105,7 @@ public class LineGraph extends JPanel {
 
        
         Stroke oldStroke = g2.getStroke();
-        g2.setColor(lineColor);
+        g2.setColor(compoundColor);
         g2.setStroke(GRAPH_STROKE);
         for (int i = 0; i < compoundPoints.size() - 1; i++) {
             int x1 = compoundPoints.get(i).x;
@@ -113,6 +114,7 @@ public class LineGraph extends JPanel {
             int y2 = compoundPoints.get(i + 1).y;
             g2.drawLine(x1, y1, x2, y2);
         }
+        g2.setColor(simpleColor);
         for (int i = 0; i < simplePoints.size() - 1; i++) {
             int x1 = simplePoints.get(i).x;
             int y1 = simplePoints.get(i).y;
@@ -129,6 +131,12 @@ public class LineGraph extends JPanel {
             int ovalW = pointWidth;
             int ovalH = pointWidth;
             g2.fillOval(x, y, ovalW, ovalH);
+            
+            int x2 = simplePoints.get(i).x - pointWidth / 2;
+            int y2 = simplePoints.get(i).y - pointWidth / 2;
+            int ovalW2 = pointWidth;
+            int ovalH2 = pointWidth;
+            g2.fillOval(x2, y2, ovalW2, ovalH2);
         }
     }
 
@@ -148,31 +156,31 @@ public class LineGraph extends JPanel {
         return maxScore;
     }
 
-    private static void createAndShowGraph() {
-        List<Double> compound = new ArrayList<>();
-        List<Double> simple = new ArrayList<>();
-
-        int cash = 100;
-        double rate = 3;
-        for (int month = 0; month < 50; month++) {
-        	compound.add((double) (cash * (Math.pow((100 + (float) 3) / 100, month) - 1)));
-        	simple.add((double) (cash * ((float) rate * month / 120)));
-        }
-        LineGraph mainPanel = new LineGraph(compound, simple);
-        mainPanel.setPreferredSize(new Dimension(800, 600));
-        JFrame frame = new JFrame("DrawGraph");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(mainPanel);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-      SwingUtilities.invokeLater(new Runnable() {
-         public void run() {
-            createAndShowGraph();
-         }
-      });
-   }
+//    private static void createAndShowGraph() {
+//        List<Double> compound = new ArrayList<>();
+//        List<Double> simple = new ArrayList<>();
+//
+//        int cash = 100;
+//        double rate = 3;
+//        for (int month = 0; month < 50; month++) {
+//        	compound.add((double) (cash * (Math.pow((100 + (float) 3) / 100, month) - 1)));
+//        	simple.add((double) (cash * ((float) rate * month / 120)));
+//        }
+//        LineGraph mainPanel = new LineGraph(compound, simple);
+//        mainPanel.setPreferredSize(new Dimension(800, 600));
+//        JFrame frame = new JFrame("DrawGraph");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.getContentPane().add(mainPanel);
+//        frame.pack();
+//        frame.setLocationRelativeTo(null);
+//        frame.setVisible(true);
+//    }
+//
+//    public static void main(String[] args) {
+//      SwingUtilities.invokeLater(new Runnable() {
+//         public void run() {
+//            createAndShowGraph();
+//         }
+//      });
+//   }
 }

@@ -141,12 +141,12 @@ public class BankProduct extends JPanel {
 	private void createGraphFrame() {
 		List<Double> compound = new ArrayList<>();
         List<Double> simple = new ArrayList<>();
-        
+        double sRate = Bank.productList.get(1).rate;
+        double cRate = Bank.productList.get(2).rate;
         int cash = 100;
-        double rate = 3;
         for (int month = 0; month < 50; month++) {
-        	compound.add((double) (cash * (Math.pow((100 + (float) rate) / 100, month) - 1)));
-        	simple.add((double) (cash * ((float) rate * month / 1200)));
+        	compound.add((double) (cash * (Math.pow((100 + (float) cRate) / 100, month) - 1)));
+        	simple.add((double) (cash * ((float) sRate * month / 1200)));
         }
         
         LineGraph mainPanel = new LineGraph(compound, simple);
