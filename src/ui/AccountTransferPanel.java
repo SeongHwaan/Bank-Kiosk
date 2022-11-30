@@ -37,49 +37,59 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(new Font("", Font.BOLD, 28));
 
-		gbc[3].gridx = 0;
-		gbc[3].gridy = 0;
-		gbc[3].fill = GridBagConstraints.BOTH;
-		gbc[3].ipady = 50;
-		add(title, gbc[3]);
+		gbc[5].gridx = 0;
+		gbc[5].gridy = 0;
+		gbc[5].fill = GridBagConstraints.BOTH;
+		gbc[5].ipady = 50;
+		add(title, gbc[5]);
 
 		transfer = new ButtonDesign("이체");
 		transfer.addActionListener(this);
 
 		name = new JLabel("계좌번호");
-		accountInput = new JTextField("", 10);
+		accountInput = new JTextField("", 15);
 
 		amount = new JLabel("이체금액");
-		cashInput = new JTextField("", 10);
+		cashInput = new JTextField("", 15);
 
 		gbc[0].gridx = 0;
-		gbc[0].gridy = 0;
+		gbc[0].gridy = 1;
+		gbc[0].gridwidth = 2;
 		gbc[0].weightx = 1;
 		gbc[0].fill = GridBagConstraints.BOTH;
 		gblPanel.add(name, gbc[0]);
 
-		gbc[1].gridx = 1;
-		gbc[1].gridy = 0;
+		gbc[1].gridx = 2;
+		gbc[1].gridy = 1;
 		gbc[1].weightx = 1;
 		gbc[1].fill = GridBagConstraints.BOTH;
 		gblPanel.add(accountInput, gbc[1]);
 
 		gbc[2].gridx = 0;
-		gbc[2].gridy = 1;
+		gbc[2].gridy = 2;
+		gbc[2].gridwidth = 2;
 		gbc[2].weightx = 1;
 		gbc[2].fill = GridBagConstraints.BOTH;
 		gblPanel.add(amount, gbc[2]);
 
-		gbc[3].gridx = 1;
-		gbc[3].gridy = 1;
+		gbc[3].gridx = 2;
+		gbc[3].gridy = 2;
 		gbc[3].weightx = 1;
 		gbc[3].fill = GridBagConstraints.BOTH;
 		gblPanel.add(cashInput, gbc[3]);
 
-		gbc[5].gridx = 0;
-		gbc[5].gridy = 1;
-		gbc[5].weighty = 2;
-		add(gblPanel, gbc[4]);
+		gbc[4].gridx = 0;
+		gbc[4].gridy = 3;
+		gbc[4].gridwidth = 3;
+		gbc[4].weightx = 1;
+		gbc[4].fill = GridBagConstraints.BOTH;
+		gblPanel.add(transfer, gbc[4]);
+
+
+		gbc[6].gridx = 0;
+		gbc[6].gridy = 4;
+		gbc[6].weighty = 2;
+		add(gblPanel, gbc[6]);
 
 		/*
 		setLayout(new GridBagLayout());
