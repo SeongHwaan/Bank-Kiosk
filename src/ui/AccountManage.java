@@ -6,7 +6,7 @@ import bank.Bank;
 import bank.Savings;
 
 public class AccountManage extends JPanel {
-	static JPanel infoPanel = new JPanel();
+	static JPanel infoPanel;
 
 	static HistoryTable historyTable;
 	JButton check;
@@ -20,6 +20,7 @@ public class AccountManage extends JPanel {
 	static Savings account;
 
 	public AccountManage() {
+		infoPanel = new JPanel();
 		setLayout(new GridBagLayout());
 		infoPanel.setLayout(new GridLayout(0, 2));
 		GridBagConstraints[] gbc = new GridBagConstraints[3];

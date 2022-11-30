@@ -15,9 +15,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class BankProduct extends JPanel {
-	static JPanel infoPanel = new JPanel();
-	static JPanel calcPanel = new JPanel();
-	static JPanel calcButtonPanel = new JPanel();
+	static JPanel infoPanel;
+	static JPanel calcPanel;
+	static JPanel calcButtonPanel;
 	JLabel lblNewLabel = new JLabel("연 이자");
 	JLabel lblNewLabel_1 = new JLabel("유형");
 	JLabel lblNewLabel_2 = new JLabel("가입 기간");
@@ -38,6 +38,9 @@ public class BankProduct extends JPanel {
 	static Savings product;
 
 	public BankProduct() {
+		infoPanel = new JPanel();
+		calcPanel = new JPanel();
+		calcButtonPanel = new JPanel();
 		setLayout(new GridBagLayout());
 		infoPanel.setLayout(new GridLayout(0, 2));
 		calcPanel.setLayout(new GridLayout(0, 2));
