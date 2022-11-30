@@ -19,6 +19,7 @@ public class WindowBuilder {
 	AccountTransferPanel t = new AccountTransferPanel();
 	DepositWithdrawalPanel d = new DepositWithdrawalPanel();
 	CreditPanel creditPanel = new CreditPanel();
+	MyPagePanel myPagePanel = new MyPagePanel();
 	CreateAccount creation;
 
 	private void createAndShowMain() {
@@ -49,6 +50,7 @@ public class WindowBuilder {
 		bankingPane.add(product, "은행상품");
 		bankingPane.add(d, "입출금");
 		bankingPane.add(t, "송금");
+		bankingPane.add(myPagePanel, "마이페이지");
 		bankingPane.add(creditPanel, "프로그램 정보");
 		creation = new CreateAccount();
 	}

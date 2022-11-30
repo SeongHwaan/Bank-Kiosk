@@ -9,7 +9,7 @@ public class AccountManage extends JPanel {
 	static JPanel infoPanel;
 
 	static HistoryTable historyTable;
-	JButton check;
+	static JLabel title = new JLabel();
 
 	static JLabel textArea = new JLabel();
 	static JLabel textArea_1 = new JLabel();
@@ -30,7 +30,9 @@ public class AccountManage extends JPanel {
 			gbc[i] = new GridBagConstraints();
 		}
 
-		JLabel title = new JLabel("통장");
+		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+
+		title.setText(account.name);
 		title.setFont(new Font("", Font.BOLD, 28));
 		title.setHorizontalAlignment(JLabel.CENTER);
 
@@ -67,7 +69,6 @@ public class AccountManage extends JPanel {
 		gbc[1].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[1]); // 부모 패널에 추가
 
-		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 		textArea.setText(account.number);
 		textArea.setHorizontalAlignment(JLabel.CENTER);
 		textArea_1.setText("" + account.cash);
@@ -90,6 +91,7 @@ public class AccountManage extends JPanel {
 	public static void update() {
 		try {
 			account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+			title.setText(account.name);
 			textArea.setText(account.number);
 			textArea_1.setText(String.valueOf(account.cash));
 			historyTable.update();
