@@ -24,9 +24,9 @@ public class BankProduct extends JPanel {
 	static JLabel textArea = new JLabel();
 	static JLabel textArea_1 = new JLabel();
 	static JLabel textArea_2 = new JLabel();
-	JButton btnNewButton = new JButton("계좌개설");
-	JButton btnNewButton_1 = new JButton("단리/복리 이해하기");
-	JButton btnNewButton_2 = new JButton("계산해보기");
+	ButtonDesign btnNewButton = new ButtonDesign("계좌개설");
+	ButtonDesign btnNewButton_1 = new ButtonDesign("단리/복리 이해하기");
+	ButtonDesign btnNewButton_2 = new ButtonDesign("계산해보기");
 	Image originCalcImage = new ImageIcon("src/images/calculator.png").getImage();
 	Image resizedCalcImage = originCalcImage.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
 	ImageIcon calcIcon = new ImageIcon(resizedCalcImage);

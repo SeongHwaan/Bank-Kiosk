@@ -48,7 +48,7 @@ public class CreateAccount {
 	void setupProduct() {
 		nameField = new JTextField();
 		BankProduct.update();
-		JButton button = new JButton("다음단계");
+		ButtonDesign button = new ButtonDesign("다음단계");
 		JTextArea info = new JTextArea();
 
 		productInfo.add(nameField, BorderLayout.NORTH);
@@ -138,7 +138,7 @@ public class CreateAccount {
 		group.add(rdBtnOk);
 		group.add(rdBtnCancel);
 
-		JButton btnNewButton = new JButton("다음단계");
+		ButtonDesign btnNewButton = new ButtonDesign("다음단계");
 		btnNewButton.addActionListener(e -> {
 			if (rdBtnOk.isSelected()) {
 				System.out.println("모두 동의하셨습니다. 다음단계로 진행");
@@ -192,8 +192,8 @@ public class CreateAccount {
 		id.setLayout(new BorderLayout());
 
 		image = new JLabel();
-		JButton idButton = new JButton("신분증 불러오기");
-		JButton nextButton = new JButton("다음 단계");
+		ButtonDesign idButton = new ButtonDesign("신분증 불러오기");
+		ButtonDesign nextButton = new ButtonDesign("다음 단계");
 
 		JFileChooser chooser = new JFileChooser();
 

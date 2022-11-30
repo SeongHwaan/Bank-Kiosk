@@ -14,8 +14,8 @@ public class AccountManage extends JPanel {
 	static JLabel textArea = new JLabel();
 	static JLabel textArea_1 = new JLabel();
 
-	JButton depWith;
-	JButton transfer;
+	ButtonDesign depWith;
+	ButtonDesign transfer;
 
 	static Savings account;
 
@@ -44,9 +44,9 @@ public class AccountManage extends JPanel {
 		lblNewLabel_1.setFont(new Font("", Font.BOLD, 15));
 		lblNewLabel_1.setHorizontalAlignment(JLabel.CENTER);
 
-		depWith = new JButton("입출금");
+		depWith = new ButtonDesign("입출금");
 
-		transfer = new JButton("송금");
+		transfer = new ButtonDesign("송금");
 
 		infoPanel.add(lblNewLabel);
 		infoPanel.add(textArea);

@@ -8,15 +8,14 @@ import javax.swing.*;
 public class TopBarPanel extends JPanel {
 	// JLabel name;
 	// JButton bankIcon;
-	JButton logout;
-	JButton mainButton = new JButton("Logo");
+	ButtonDesign logout;
+	ButtonDesign mainButton;
 
 	TopBarPanel(String name) {
-
-		mainButton = new JButton("KGU");
+		mainButton = new ButtonDesign("KGU");
 		JPanel rightPane = new JPanel();
 		JLabel userName = new JLabel(name);
-		logout = new JButton("로그아웃");
+		logout = new ButtonDesign("로그아웃");
 
 		setLayout(new BorderLayout(0, 0));
 

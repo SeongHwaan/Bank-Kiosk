@@ -11,8 +11,8 @@ import bank.Savings;
 
 public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 	JTextField cashInput = new JTextField("", 20);
-	JButton deposit = new JButton("입금");
-	JButton withdrawal = new JButton("출금");
+	ButtonDesign deposit = new ButtonDesign("입금");
+	ButtonDesign withdrawal = new ButtonDesign("출금");
 	Savings account;
 	JPanel gblPanel = new JPanel();
 	GridBagConstraints[] gbc = new GridBagConstraints[9];

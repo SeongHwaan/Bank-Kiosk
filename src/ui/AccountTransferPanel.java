@@ -16,7 +16,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 
 	JTextField accountInput;
 	JTextField cashInput;
-	JButton transfer;
+	ButtonDesign transfer;
 
 	JLabel name;
 	JLabel amount;
@@ -42,7 +42,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		amount = new JLabel("이체금액");
 		cashInput = new JTextField("", 10);
 
-		transfer = new JButton("이체");
+		transfer = new ButtonDesign("이체");
 		transfer.addActionListener(this);
 
 		gbc[1].gridx = 0;
