@@ -119,8 +119,13 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 				return;
 			}
 
-			if (Integer.parseInt(cashInput.getText()) == 0) {
+			if (Double.parseDouble(cashInput.getText()) == 0) {
 				JOptionPane.showMessageDialog(null, "0원을 입력하셨습니다.\n다시 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			if (Double.parseDouble(cashInput.getText()) > selectedAccount.cash) {
+				JOptionPane.showMessageDialog(null, "잔고가 부족합니다.", "오류", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
