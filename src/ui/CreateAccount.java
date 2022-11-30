@@ -25,6 +25,7 @@ public class CreateAccount {
 	JPanel productInfo;
 	JPanel terms;
 	JPanel id;
+	static JLabel image;
 	JTextField nameField;
 	CardLayout createCard;
 
@@ -190,7 +191,7 @@ public class CreateAccount {
 		AtomicBoolean check = new AtomicBoolean(false);
 		id.setLayout(new BorderLayout());
 
-		JLabel image = new JLabel();
+		image = new JLabel();
 		JButton idButton = new JButton("신분증 불러오기");
 		JButton nextButton = new JButton("다음 단계");
 
@@ -217,7 +218,6 @@ public class CreateAccount {
 		nextButton.addActionListener(e -> {
 			if (check.get()) {
 				check.set(false);
-				image.setIcon(null);
 				Creation create = new Creation();
 				create.setupCreation();
 				create.startCreation();

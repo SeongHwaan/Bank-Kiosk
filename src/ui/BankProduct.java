@@ -96,8 +96,12 @@ public class BankProduct extends JPanel {
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[2]);
 
-		btnNewButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
-
+		btnNewButton.addActionListener(e -> {
+			
+		WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설");
+		CreateAccount.image.setIcon(null);
+		});
+		
 		btnNewButton_1.addActionListener(e -> {
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=5c8x2YqppTo"));
