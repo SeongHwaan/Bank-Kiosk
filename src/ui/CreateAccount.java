@@ -229,8 +229,6 @@ public class CreateAccount {
 
 	//테스트
 	public static void main(String[] args) {
-		CreateAccountPanel a = new CreateAccountPanel();
-
 		JFrame f = new JFrame();
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -239,9 +237,6 @@ public class CreateAccount {
 
 		// f.pack();
 		f.setVisible(true);
-
-		f.add(a);
-
 	}
 	
 	//계좌개설
