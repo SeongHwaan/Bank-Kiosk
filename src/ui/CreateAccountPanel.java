@@ -131,6 +131,7 @@ public class CreateAccountPanel extends JPanel {
 				*해당 약관은 프로젝트를 위한 더미데이터로 허위로 작성되었습니다.""");
 
 		scrollPane_1.setViewportView(textArea_1);
+		scrollPane_1.setBorder(null);
 
 		JRadioButton rdBtnOk = new JRadioButton("동의");
 		rdBtnOk.setBackground(Color.WHITE);
