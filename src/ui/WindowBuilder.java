@@ -7,7 +7,7 @@ import bank.Bank;
 public class WindowBuilder {
 	public static Bank bank;
 	static JFrame mainFrame;
-	static JPanel bankingPane = new JPanel(new CardLayout());;
+	static JPanel bankingPane;
 	static CardLayout card;
 
 	TopBarPanel topBar = new TopBarPanel(Bank.loginUser.name);
@@ -41,6 +41,7 @@ public class WindowBuilder {
 	}
 
 	private void setBankingPane() {
+		bankingPane = new JPanel(new CardLayout());;
 		card = (CardLayout) WindowBuilder.bankingPane.getLayout(); // 상단바, 하단바에서 핸들링
 
 		bankingPane.add(myAccount, "메인화면");
