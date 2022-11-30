@@ -15,29 +15,32 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 public class BankProduct extends JPanel {
-	static JPanel infoPanel = new JPanel();
-	static JPanel calcPanel = new JPanel();
-	static JPanel calcButtonPanel = new JPanel();
+	static JPanel infoPanel;
+	static JPanel calcPanel;
+	static JPanel calcButtonPanel;
 	JLabel lblNewLabel = new JLabel("연 이자");
 	JLabel lblNewLabel_1 = new JLabel("유형");
 	JLabel lblNewLabel_2 = new JLabel("가입 기간");
 	static JLabel textArea = new JLabel();
 	static JLabel textArea_1 = new JLabel();
 	static JLabel textArea_2 = new JLabel();
-	JButton btnNewButton = new JButton("계좌개설");
-	JButton btnNewButton_1 = new JButton("단리/복리 이해하기");
-	JButton btnNewButton_2 = new JButton("계산해보기");
+	ButtonDesign btnNewButton = new ButtonDesign("계좌개설");
+	ButtonDesign btnNewButton_1 = new ButtonDesign("단리/복리 이해하기");
+	ButtonDesign btnNewButton_2 = new ButtonDesign("계산해보기");
 	Image originCalcImage = new ImageIcon("src/images/calculator.png").getImage();
 	Image resizedCalcImage = originCalcImage.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
 	ImageIcon calcIcon = new ImageIcon(resizedCalcImage);
 	JLabel calcImage = new JLabel(calcIcon);
-
+	static int productIndex = 0;
 
 	static ProductList p;
 
 	static Savings product;
 
 	public BankProduct() {
+		infoPanel = new JPanel();
+		calcPanel = new JPanel();
+		calcButtonPanel = new JPanel();
 		setLayout(new GridBagLayout());
 		infoPanel.setLayout(new GridLayout(0, 2));
 		calcPanel.setLayout(new GridLayout(0, 2));
@@ -93,7 +96,12 @@ public class BankProduct extends JPanel {
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[2]);
 
-		btnNewButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설"));
+		btnNewButton.addActionListener(e -> {
+			
+		WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설");
+		CreateAccount.image.setIcon(null);
+		});
+		
 		btnNewButton_1.addActionListener(e -> {
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=5c8x2YqppTo"));
@@ -125,19 +133,15 @@ public class BankProduct extends JPanel {
 	}
 
 	public static void update() {
-		try {
-			product = Bank.productList.get(ProductList.productIndex);
-			textArea.setText(String.valueOf(product.rate));
-			textArea_1.setText(product.name);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		product = Bank.productList.get(productIndex);
+		textArea.setText(String.valueOf(product.rate));
+		textArea_1.setText(product.name);
 	}
 
 	static class ProductList extends JPanel {
-		static int productIndex;
-		DefaultListModel model = new DefaultListModel();
-		JList accountList = new JList(model);
+
+		DefaultListModel<AccountData> model = new DefaultListModel<>();
+		JList<AccountData> accountList = new JList<>(model);
 
 		public ProductList() {
 			setLayout(new GridBagLayout());
@@ -168,7 +172,7 @@ public class BankProduct extends JPanel {
 		static class CustomListRenderer extends DefaultListCellRenderer {
 			private final ProductList.CustomListRenderer.CustomLabel renderer;
 
-			public CustomListRenderer(final JList list) {
+			public CustomListRenderer(final JList<AccountData> list) {
 				super();
 				renderer = new ProductList.CustomListRenderer.CustomLabel();
 				list.setSelectedIndex(0);
@@ -179,6 +183,7 @@ public class BankProduct extends JPanel {
 						if (SwingUtilities.isLeftMouseButton(e)) {
 							productIndex = list.getSelectedIndex();
 							BankProduct.update();
+							
 							int index = list.locationToIndex(e.getPoint());
 
 							if (index != -1 && list.isSelectedIndex(index)) {
@@ -190,7 +195,8 @@ public class BankProduct extends JPanel {
 			}
 
 			@Override
-			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
 				renderer.setSelected(isSelected);
 				renderer.setData((ProductList.AccountData) value);
 				return renderer;
@@ -250,7 +256,7 @@ public class BankProduct extends JPanel {
 
 		static class AccountData {
 			private Color iconColor;
-			private String name;
+			private final String name;
 
 			public AccountData(String name) {
 				this.name = name;

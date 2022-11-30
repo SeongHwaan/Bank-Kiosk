@@ -6,20 +6,21 @@ import bank.Bank;
 import bank.Savings;
 
 public class AccountManage extends JPanel {
-	static JPanel infoPanel = new JPanel();
+	static JPanel infoPanel;
 
 	static HistoryTable historyTable;
-	JButton check;
+	static JLabel title = new JLabel();
 
 	static JLabel textArea = new JLabel();
 	static JLabel textArea_1 = new JLabel();
 
-	JButton depwith;
-	JButton transfer;
+	ButtonDesign depWith;
+	ButtonDesign transfer;
 
 	static Savings account;
 
 	public AccountManage() {
+		infoPanel = new JPanel();
 		setLayout(new GridBagLayout());
 		infoPanel.setLayout(new GridLayout(0, 2));
 		GridBagConstraints[] gbc = new GridBagConstraints[3];
@@ -29,9 +30,11 @@ public class AccountManage extends JPanel {
 			gbc[i] = new GridBagConstraints();
 		}
 
-		JLabel title = new JLabel("통장");
-		title.setHorizontalAlignment(JLabel.CENTER);
+		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+
+		title.setText(account.name);
 		title.setFont(new Font("", Font.BOLD, 28));
+		title.setHorizontalAlignment(JLabel.CENTER);
 
 		JLabel lblNewLabel = new JLabel("계좌번호");
 		lblNewLabel.setFont(new Font("", Font.BOLD, 15));
@@ -41,15 +44,15 @@ public class AccountManage extends JPanel {
 		lblNewLabel_1.setFont(new Font("", Font.BOLD, 15));
 		lblNewLabel_1.setHorizontalAlignment(JLabel.CENTER);
 
-		depwith = new JButton("입출금");
+		depWith = new ButtonDesign("입출금");
 
-		transfer = new JButton("송금");
+		transfer = new ButtonDesign("송금");
 
 		infoPanel.add(lblNewLabel);
 		infoPanel.add(textArea);
 		infoPanel.add(lblNewLabel_1);
 		infoPanel.add(textArea_1);
-		infoPanel.add(depwith);
+		infoPanel.add(depWith);
 		infoPanel.add(transfer);
 
 		gbc[0].gridx = 0;
@@ -66,7 +69,6 @@ public class AccountManage extends JPanel {
 		gbc[1].fill = GridBagConstraints.BOTH;
 		add(infoPanel, gbc[1]); // 부모 패널에 추가
 
-		account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 		textArea.setText(account.number);
 		textArea.setHorizontalAlignment(JLabel.CENTER);
 		textArea_1.setText("" + account.cash);
@@ -82,18 +84,18 @@ public class AccountManage extends JPanel {
 		gbc[2].fill = GridBagConstraints.BOTH;
 		add(bottom, gbc[2]);
 
-		depwith.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "입출금"));
+		depWith.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "입출금"));
 		transfer.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "송금"));
 	}
 
 	public static void update() {
 		try {
 			account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+			title.setText(account.name);
 			textArea.setText(account.number);
 			textArea_1.setText(String.valueOf(account.cash));
 			historyTable.update();
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 	}

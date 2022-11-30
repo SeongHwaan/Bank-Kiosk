@@ -1,5 +1,7 @@
 package bank;
 
+import ui.MyAccountList;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,23 +24,28 @@ public class Bank {
 		setDatabase();
 	}
 
+	// test
+	public void printAccount() {
+		for (Savings s: loginAccountList)
+			s.print();
+	}
+
 	// 계좌 개설
 	public void createAccount(String name, int type) {
 		Savings newAccount = null;
 		
 		switch (type) {
 		// 예금
-		case 1 -> newAccount = new Savings(name, loginUser.id);
+		case 0 -> newAccount = new Savings(name, loginUser.id);
 		// 단리적금 개설 -> 복리보다 이율이 높아야함
-		case 2 -> newAccount = new InstallmentSavings(name, loginUser.id, 1, 5);
+		case 1 -> newAccount = new InstallmentSavings(name, loginUser.id, 1, 5);
 		// 복리 적금
-		case 3 -> newAccount = new InstallmentSavings(name, loginUser.id, 2, 3);
+		case 2 -> newAccount = new InstallmentSavings(name, loginUser.id, 2, 3);
 		}
 
 		// 로그인 회원, 계좌리스트에 추가
 		accountMgr.list.add(newAccount);
 		loginAccountList.add(newAccount);
-		return;
 	}
 
 	// 현금 입금

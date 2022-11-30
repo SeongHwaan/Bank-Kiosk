@@ -1,22 +1,19 @@
 package ui;
 
-
 import bank.Bank;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class LoginFrame extends JFrame{
+public class LoginFrame extends JFrame {
     static JTextField userText;
     static JPasswordField passwordText;
 
-    
     public static void main() {
-    	new LoginFrame();
+        new LoginFrame();
     }
 
-
-    public LoginFrame(){
+    public LoginFrame() {
         JFrame LoginFrame = new JFrame("로그인");
         JPanel LoginPanel = new JPanel(null);
 
@@ -25,7 +22,7 @@ public class LoginFrame extends JFrame{
 
         Dimension frameSize = this.getSize(); // 프레임 사이즈
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // 모니터 사이즈
-        this.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2); // 화면 중앙
+        this.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2); // 화면 중앙
 
         LoginFrame.add(LoginPanel);
 
@@ -53,8 +50,8 @@ public class LoginFrame extends JFrame{
         passwordText.setBounds(142, 440, 150, 40);
         LoginPanel.add(passwordText);
 
-        JButton button = new JButton("로그인");
-        button.setBounds(296, 400, 100, 81);
+        ButtonDesign button = new ButtonDesign("로그인");
+        button.setBounds(296, 404, 100, 73);
         button.setFont(new Font("", Font.BOLD, 16));
 
         button.addActionListener(e -> {
@@ -73,8 +70,7 @@ public class LoginFrame extends JFrame{
                             "비밀번호가 잘못되었습니다.",
                             "시스템", JOptionPane.ERROR_MESSAGE);
                 }
-            }
-            else {
+            } else {
                 LoginFrame.setVisible(false);
                 WindowBuilder.startGUI();
             }

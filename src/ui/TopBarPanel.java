@@ -8,15 +8,14 @@ import javax.swing.*;
 public class TopBarPanel extends JPanel {
 	// JLabel name;
 	// JButton bankIcon;
-	JButton logout;
-	JButton mainButton = new JButton("Logo");
+	ButtonDesign logout;
+	ButtonDesign mainButton;
 
 	TopBarPanel(String name) {
-
-		mainButton = new JButton("Logo");
+		mainButton = new ButtonDesign("KGU");
 		JPanel rightPane = new JPanel();
 		JLabel userName = new JLabel(name);
-		logout = new JButton("로그아웃");
+		logout = new ButtonDesign("로그아웃");
 
 		setLayout(new BorderLayout(0, 0));
 
@@ -30,10 +29,10 @@ public class TopBarPanel extends JPanel {
 
 		mainButton.addActionListener(e -> WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면"));
 		logout.addActionListener(e -> {
+			WindowBuilder.mainFrame.dispose();
 			javax.swing.SwingUtilities.invokeLater(LoginFrame::main);
 			Bank.loginUser = null;
 			Bank.loginAccountList.clear();
-			WindowBuilder.mainFrame.setVisible(false);
 		});
 		// Image img = bankLogo.getImage();
 		// Image changeImg = img.getScaledInstance(50,50, Image.SCALE_SMOOTH);

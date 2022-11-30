@@ -13,11 +13,12 @@ import bank.Bank;
 import bank.Savings;
 
 public class MyAccountList extends JPanel {
-	ArrayList<Savings> myAccount = Bank.loginAccountList;
+	static ArrayList<Savings> myAccount = Bank.loginAccountList;
 	static int selectedIndex = 0;
+
 	// static Savings account;
-	DefaultListModel model = new DefaultListModel();
-	JList accountList = new JList(model);
+	static DefaultListModel<AccountData> model = new DefaultListModel<>();
+	static JList<AccountData> accountList = new JList<>(model);
 
 	public MyAccountList() {
 		setLayout(new GridBagLayout());
@@ -32,8 +33,7 @@ public class MyAccountList extends JPanel {
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(new Font("", Font.BOLD, 28));
 
-		setList();
-		accountList.setCellRenderer(new CustomListRenderer(accountList));
+		update();
 		accountList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		accountList.setBackground(new Color(255, 255, 255));
 
@@ -53,15 +53,16 @@ public class MyAccountList extends JPanel {
 
 		setBorder(null);
 	}
-
-	void setList() {
+	
+	static void setList() {
 		model.clear();
+		myAccount = Bank.loginAccountList;
 		for (Savings s : myAccount) {
-			model.addElement(new AccountData(s.number));
+			model.addElement(new AccountData(s.number));	
 		}
 	}
-	
-	void update() {
+
+	static void update() {
 		setList();
 		accountList.setCellRenderer(new CustomListRenderer(accountList));
 	}
@@ -69,7 +70,7 @@ public class MyAccountList extends JPanel {
 	static class CustomListRenderer extends DefaultListCellRenderer {
 		private final CustomLabel renderer;
 
-		public CustomListRenderer(final JList list) {
+		public CustomListRenderer(final JList<AccountData> list) {
 			super();
 			renderer = new CustomLabel();
 			list.setSelectedIndex(0);
@@ -156,7 +157,7 @@ public class MyAccountList extends JPanel {
 
 	static class AccountData {
 		private Color iconColor;
-		private String name;
+		private final String name;
 
 		public AccountData(String name) {
 			this.name = name;

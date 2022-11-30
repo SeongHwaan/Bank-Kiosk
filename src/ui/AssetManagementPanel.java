@@ -2,8 +2,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -22,7 +20,7 @@ import bank.Savings;
 
 public class AssetManagementPanel extends JPanel implements ListSelectionListener {
 
-	JList productList;
+	JList<String> productList;
 
 	JTextArea description;
 	JTextArea answer;
@@ -32,20 +30,19 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 
 	JLabel amount;
 	JLabel month;
-	
+
 	JButton create;
 	JButton calculate;
 
 	JPanel textAreaPanel;
 	JPanel inputPanel;
-	
+
 	String info;
 
 	Savings product;
 
-	DefaultListModel listModel;
+	DefaultListModel<String> listModel;
 	private int selectedIndex = -1;
-
 
 	public AssetManagementPanel() {
 		setLayout(new BorderLayout());
@@ -62,7 +59,7 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 
 		amount = new JLabel("원금");
 		month = new JLabel("기간");
-		
+
 		create = new JButton("계좌개설");
 		calculate = new JButton("계산");
 
@@ -74,44 +71,41 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 
 		inputPanel.add(amount);
 		inputPanel.add(cashInput);
-//		inputPanel.add(month);
-//		inputPanel.add(monthInput);
-//		inputPanel.add(create);
-//		inputPanel.add(calculate);
+		// inputPanel.add(month);
+		// inputPanel.add(monthInput);
+		// inputPanel.add(create);
+		// inputPanel.add(calculate);
 
 		add(textAreaPanel, BorderLayout.CENTER);
 		add(inputPanel, BorderLayout.SOUTH);
 
-		calculate.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (selectedIndex != 0) {
-					try {
+		calculate.addActionListener(e -> {
+			if (selectedIndex != 0) {
+				try {
 					product = Bank.productList.get(selectedIndex);
 					int c = Integer.parseInt(cashInput.getText());
 					int m = Integer.parseInt(monthInput.getText());
 					String interest = Integer.toString(product.calcInterest(m));
 					String amount = Integer.toString(product.calcEstimatedAmount(m));
 					answer.setText("");
-					answer.append("이자: " + interest + "예상 금액: " + amount); 
-				}catch(NumberFormatException e1){
+					answer.append("이자: " + interest + "예상 금액: " + amount);
+				} catch (NumberFormatException e1) {
 					System.out.println("정수를 입력하십시오");
 				}
-					}
 			}
 		});
 	}
 
 	private void createList() {
 		setList();
-		productList = new JList(listModel);
+		productList = new JList<>(listModel);
 		productList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		ListSelectionModel listSM = productList.getSelectionModel();
 		listSM.addListSelectionListener(this);
 	}
 
 	private void setList() {
-		listModel = new DefaultListModel();
+		listModel = new DefaultListModel<>();
 		for (Savings p : Bank.productList)
 			listModel.addElement(p.name);
 	}
@@ -129,9 +123,9 @@ public class AssetManagementPanel extends JPanel implements ListSelectionListene
 		}
 	}
 
-	//계좌개설
+	// 계좌개설
 	void createAccount() {
-		
+
 	}
 
 }

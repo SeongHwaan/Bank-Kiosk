@@ -30,7 +30,7 @@ public class InstallmentSavings extends Savings {
     @Override
     public void print() {
         // [계좌] 3799672866, 100000,
-        System.out.format("[%s적금 %d%%] %s, %f원\n", calcType == 1 ? "단리" : "복리", rate, number, cash);
+        System.out.format("[%s적금 %.f%%] %s, %d원\n", calcType == 1 ? "단리" : "복리", rate, number, cash);
         printHistory();
     }
 
