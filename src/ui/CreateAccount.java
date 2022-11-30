@@ -277,6 +277,7 @@ public class CreateAccount {
 				@Override
 				public void run() {
 					WindowBuilder.bank.createAccount(nameField.getText(), BankProduct.productIndex);
+					nameField.setText("");
 					MyAccountList.update();
 					// 1. 메인화면 or 2. 계좌 개설이 완료되었다는 패널
 					WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면");
