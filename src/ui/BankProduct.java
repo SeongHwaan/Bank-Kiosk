@@ -137,14 +137,13 @@ public class BankProduct extends JPanel {
 
 	private void createGraphFrame() {
 		List<Double> compound = new ArrayList<>();
-<<<<<<< Updated upstream
 		List<Double> simple = new ArrayList<>();
 		double sRate = Bank.productList.get(1).rate;
 		double cRate = Bank.productList.get(2).rate;
 		int cash = 100;
 		for (int month = 0; month < 50; month++) {
 			compound.add(cash * (Math.pow((100 + (float) cRate) / 100, month) - 1));
-			simple.add((double) (cash * ((float) sRate * month / 1200)));
+			simple.add((double) (cash * ((float) sRate * month / 120)));
 		}
 
 		LineGraph mainPanel = new LineGraph(compound, simple);
@@ -155,25 +154,6 @@ public class BankProduct extends JPanel {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-=======
-        List<Double> simple = new ArrayList<>();
-        double sRate = Bank.productList.get(1).rate;
-        double cRate = Bank.productList.get(2).rate;
-        int cash = 100;
-        for (int month = 0; month < 50; month++) {
-        	compound.add((double) (cash * (Math.pow((100 + (float) cRate) / 100, month) - 1)));
-        	simple.add((double) (cash * ((float) sRate * month / 120)));
-        }
-        
-        LineGraph mainPanel = new LineGraph(compound, simple);
-        mainPanel.setPreferredSize(new Dimension(800, 600));
-        JFrame frame = new JFrame("DrawGraph");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(mainPanel);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
->>>>>>> Stashed changes
 	}
 
 	public static void update() {
