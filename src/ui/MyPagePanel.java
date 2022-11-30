@@ -92,6 +92,7 @@ public class MyPagePanel extends JPanel {
             for (Savings s : Bank.loginAccountList) {
                 Bank.accountMgr.list.remove(s);
             }
+            MyAccountList.selectedIndex = 0;
             Bank.loginUser = null;
             Bank.loginAccountList.clear();
         });
