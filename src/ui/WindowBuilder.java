@@ -69,6 +69,7 @@ public class WindowBuilder {
 		javax.swing.SwingUtilities.invokeLater(() -> {
 			WindowBuilder main = new WindowBuilder();
 			main.createAndShowMain();
+			MyPagePanel.update();
 		});
 	}	
 }

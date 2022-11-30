@@ -97,9 +97,8 @@ public class BankProduct extends JPanel {
 		add(infoPanel, gbc[2]);
 
 		btnNewButton.addActionListener(e -> {
-			
-		WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설");
-		CreateAccount.image.setIcon(null);
+			WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설");
+			CreateAccount.image.setIcon(null);
 		});
 		
 		btnNewButton_1.addActionListener(e -> {
