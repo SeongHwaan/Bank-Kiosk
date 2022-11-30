@@ -10,9 +10,10 @@ import bank.Savings;
 import bank.User;
 
 public class AccountTransferPanel extends JPanel implements ActionListener {
+
 	GridBagConstraints[] gbc = new GridBagConstraints[9];
 
-	JPanel gblAccount = new JPanel();
+	JPanel gblPanel = new JPanel();
 
 	JTextField accountInput;
 	JTextField cashInput;
@@ -25,6 +26,62 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 	Savings transferAccount;
 
 	public AccountTransferPanel() {
+		setLayout(new GridBagLayout());
+		gblPanel.setLayout(new GridBagLayout());
+
+		for (int i = 0; i < 9; i++) {
+			gbc[i] = new GridBagConstraints();
+		}
+
+		JLabel title = new JLabel("어떤 계좌로 보낼까요?");
+		title.setHorizontalAlignment(JLabel.CENTER);
+		title.setFont(new Font("", Font.BOLD, 28));
+
+		gbc[3].gridx = 0;
+		gbc[3].gridy = 0;
+		gbc[3].fill = GridBagConstraints.BOTH;
+		gbc[3].ipady = 50;
+		add(title, gbc[3]);
+
+		transfer = new ButtonDesign("이체");
+		transfer.addActionListener(this);
+
+		name = new JLabel("계좌번호");
+		accountInput = new JTextField("", 10);
+
+		amount = new JLabel("이체금액");
+		cashInput = new JTextField("", 10);
+
+		gbc[0].gridx = 0;
+		gbc[0].gridy = 0;
+		gbc[0].weightx = 1;
+		gbc[0].fill = GridBagConstraints.BOTH;
+		gblPanel.add(name, gbc[0]);
+
+		gbc[1].gridx = 1;
+		gbc[1].gridy = 0;
+		gbc[1].weightx = 1;
+		gbc[1].fill = GridBagConstraints.BOTH;
+		gblPanel.add(accountInput, gbc[1]);
+
+		gbc[2].gridx = 0;
+		gbc[2].gridy = 1;
+		gbc[2].weightx = 1;
+		gbc[2].fill = GridBagConstraints.BOTH;
+		gblPanel.add(amount, gbc[2]);
+
+		gbc[3].gridx = 1;
+		gbc[3].gridy = 1;
+		gbc[3].weightx = 1;
+		gbc[3].fill = GridBagConstraints.BOTH;
+		gblPanel.add(cashInput, gbc[3]);
+
+		gbc[5].gridx = 0;
+		gbc[5].gridy = 1;
+		gbc[5].weighty = 2;
+		add(gblPanel, gbc[4]);
+
+		/*
 		setLayout(new GridBagLayout());
 		gblAccount.setLayout(new GridBagLayout());
 
@@ -65,12 +122,6 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		gbc[4].fill = GridBagConstraints.BOTH;
 		gblAccount.add(cashInput, gbc[4]);
 
-		// gbc[5].gridx = 0;
-		// gbc[5].gridy = 3;
-		// gbc[5].weightx = 1;
-		// gbc[5].fill = GridBagConstraints.BOTH;
-		// gblAccount.add(checkAccount, gbc[5]);
-
 		gbc[6].gridx = 1;
 		gbc[6].gridy = 3;
 		gbc[6].weightx = 1;
@@ -90,7 +141,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		gbc[7].weighty = 2;
 		gbc[7].fill = GridBagConstraints.BOTH;
 		add(gblAccount, gbc[7]);
-
+		 */
 	}
 
 	@Override

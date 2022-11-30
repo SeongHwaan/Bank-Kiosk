@@ -27,7 +27,6 @@ public class CreateAccount {
 	JPanel id;
 	static JLabel image;
 	JTextField nameField;
-	CardLayout createCard;
 
 	public CreateAccount() {
 		
@@ -60,7 +59,6 @@ public class CreateAccount {
 				JOptionPane.showMessageDialog(null, "계좌 별칭을 지어주세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			} else {
 				WindowBuilder.card.show(WindowBuilder.bankingPane, "약관");
-				nameField.setText("");
 			}
 		});
 
