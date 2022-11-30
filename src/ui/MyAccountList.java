@@ -13,11 +13,11 @@ import bank.Bank;
 import bank.Savings;
 
 public class MyAccountList extends JPanel {
-	ArrayList<Savings> myAccount = Bank.loginAccountList;
+	static ArrayList<Savings> myAccount = Bank.loginAccountList;
 	static int selectedIndex = 0;
 	// static Savings account;
-	DefaultListModel<AccountData> model = new DefaultListModel<>();
-	JList<AccountData> accountList = new JList<>(model);
+	static DefaultListModel<AccountData> model = new DefaultListModel<>();
+	static JList<AccountData> accountList = new JList<>(model);
 
 	public MyAccountList() {
 		setLayout(new GridBagLayout());
@@ -54,15 +54,15 @@ public class MyAccountList extends JPanel {
 		setBorder(null);
 	}
 
-	void setList() {
+	static void setList() {
 		model.clear();
-
+		myAccount = Bank.loginAccountList;
 		for (Savings s : myAccount) {
 			model.addElement(new AccountData(s.number));
 		}
 	}
 
-	void update() {
+	static void update() {
 		setList();
 		accountList.setCellRenderer(new CustomListRenderer(accountList));
 	}
