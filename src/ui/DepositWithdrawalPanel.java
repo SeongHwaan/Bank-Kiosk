@@ -71,7 +71,7 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 				cashInput.setText("");
 				AccountManage.update();
 			} catch (Exception e1) {
-				System.out.print("계좌를 선택 및 금액을 입력하세요");
+				JOptionPane.showMessageDialog(null, "금액을 입력하세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}

@@ -48,7 +48,7 @@ public class CreateAccount {
 	void setupProduct() {
 		nameField = new JTextField();
 		BankProduct.update();
-		ButtonDesign button = new ButtonDesign("다음단계");
+		ButtonDesign button = new ButtonDesign("다음");
 		JTextArea info = new JTextArea();
 
 		productInfo.add(nameField, BorderLayout.NORTH);
@@ -138,7 +138,7 @@ public class CreateAccount {
 		group.add(rdBtnOk);
 		group.add(rdBtnCancel);
 
-		ButtonDesign btnNewButton = new ButtonDesign("다음단계");
+		ButtonDesign btnNewButton = new ButtonDesign("다음");
 		btnNewButton.addActionListener(e -> {
 			if (rdBtnOk.isSelected()) {
 				System.out.println("모두 동의하셨습니다. 다음단계로 진행");
@@ -146,8 +146,7 @@ public class CreateAccount {
 				rdBtnCancel.setSelected(true);
 
 			} else {
-				System.out.println("동의하지 않으셨습니다. 동의 후 진행해주세요");
-				JOptionPane.showMessageDialog(null, "동의하지 않으셨습니다. 동의 후 진행해주세요", "경고", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "동의하지 않으셨습니다. 동의 후 진행해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		btnNewButton.setBounds(365, 628, 178, 23);
@@ -193,7 +192,7 @@ public class CreateAccount {
 
 		image = new JLabel();
 		ButtonDesign idButton = new ButtonDesign("신분증 불러오기");
-		ButtonDesign nextButton = new ButtonDesign("다음 단계");
+		ButtonDesign nextButton = new ButtonDesign("다음");
 
 		JFileChooser chooser = new JFileChooser();
 
@@ -203,7 +202,7 @@ public class CreateAccount {
 
 			int ret = chooser.showOpenDialog(null);
 			if (ret != JFileChooser.APPROVE_OPTION) {
-				JOptionPane.showMessageDialog(null, "파일을 선택 하지 않음", "경고", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "파일을 선택 하지 않음.", "경고", JOptionPane.WARNING_MESSAGE);
 				check.set(false);
 				image.setIcon(null);
 				return;
