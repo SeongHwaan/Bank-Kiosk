@@ -63,19 +63,32 @@ public class CreateAccountPanel extends JPanel {
 		productInfo.add(info, BorderLayout.CENTER);
 		productInfo.add(button, BorderLayout.SOUTH);
 
-		button.addActionListener(e -> createCard.show(createPane, "약관"));
+		button.addActionListener(e -> {
+			if (nameField.getText().isBlank()) {
+				JOptionPane.showMessageDialog(null, "계좌 별칭을 지어주세요.");
+			} else {
+				createCard.show(createPane, "약관");
+			}
+		});
 
 	}
 	
 	//약관
 	void setupTerms() {
+		terms.setLayout(new GridBagLayout());
+		GridBagConstraints[] gbc = new GridBagConstraints[4];
+
+		for (int i = 0; i < 4; i++) {
+			/* GridBagConstraints 초기화 */
+			gbc[i] = new GridBagConstraints();
+		}
+
 		JPanel group = new JPanel(new FlowLayout());
 
 		ButtonGroup buttonGroup = new ButtonGroup();
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 		JTextArea textArea_1 = new JTextArea();
 		textArea_1.setRows(1);
@@ -128,8 +141,8 @@ public class CreateAccountPanel extends JPanel {
 		buttonGroup.add(rdBtnCancel);
 		rdBtnCancel.setSelected(true);
 
-		group.add(rdBtnCancel);
 		group.add(rdBtnOk);
+		group.add(rdBtnCancel);
 
 		JButton btnNewButton = new JButton("다음단계");
 		btnNewButton.addActionListener(e -> {
@@ -144,9 +157,37 @@ public class CreateAccountPanel extends JPanel {
 		});
 		btnNewButton.setBounds(365, 628, 178, 23);
 
-		terms.add(group, BorderLayout.SOUTH);
-		terms.add(btnNewButton, BorderLayout.NORTH);
-		terms.add(scrollPane_1, BorderLayout.CENTER);
+		JLabel title = new JLabel("약관");
+		title.setFont(new Font("", Font.BOLD, 28));
+		title.setHorizontalAlignment(JLabel.CENTER);
+
+		gbc[0].gridx = 0;
+		gbc[0].gridy = 0;
+		gbc[0].weightx = 1;
+		gbc[0].fill = GridBagConstraints.BOTH;
+		gbc[0].ipady = 50;
+		terms.add(title, gbc[0]);
+
+		gbc[1].gridx = 0;
+		gbc[1].gridy = 1;
+		gbc[1].weightx = 1;
+		gbc[1].weighty = 20;
+		gbc[1].fill = GridBagConstraints.BOTH;
+		terms.add(scrollPane_1, gbc[1]);
+
+		gbc[2].gridx = 0;
+		gbc[2].gridy = 2;
+		gbc[2].weightx = 1;
+		gbc[2].weighty = 1;
+		gbc[2].fill = GridBagConstraints.BOTH;
+		terms.add(group, gbc[2]);
+
+		gbc[3].gridx = 0;
+		gbc[3].gridy = 3;
+		gbc[3].weightx = 1;
+		gbc[3].weighty = 1;
+		gbc[3].fill = GridBagConstraints.BOTH;
+		terms.add(btnNewButton, gbc[3]);
 
 	}
 
