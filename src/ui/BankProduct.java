@@ -129,21 +129,15 @@ public class BankProduct extends JPanel {
 	}
 
 	public static void update() {
-		try {
-			product = Bank.productList.get(productIndex);
-			textArea.setText(String.valueOf(product.rate));
-			textArea_1.setText(product.name);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		product = Bank.productList.get(productIndex);
+		textArea.setText(String.valueOf(product.rate));
+		textArea_1.setText(product.name);
 	}
 
 	static class ProductList extends JPanel {
-		
+
 		DefaultListModel<AccountData> model = new DefaultListModel<>();
 		JList<AccountData> accountList = new JList<>(model);
-		static int productIndex = 0;
 
 		public ProductList() {
 			setLayout(new GridBagLayout());
