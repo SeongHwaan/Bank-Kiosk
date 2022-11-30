@@ -186,8 +186,6 @@ public class BankProduct extends JPanel {
 							productIndex = list.getSelectedIndex();
 							BankProduct.update();
 							
-							System.out.printf("%d",productIndex);
-							
 							int index = list.locationToIndex(e.getPoint());
 
 							if (index != -1 && list.isSelectedIndex(index)) {

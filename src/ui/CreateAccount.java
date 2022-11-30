@@ -3,6 +3,8 @@ package ui;
 import bank.Bank;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -23,8 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import bank.Bank;
 import ui.BankProduct.ProductList;
 
-
-public class CreateAccountPanel extends JPanel {
+public class CreateAccount {
 	JPanel createPane;
 	JPanel productInfo;
 	JPanel terms;
@@ -32,13 +33,8 @@ public class CreateAccountPanel extends JPanel {
 	JTextField nameField;
 	CardLayout createCard;
 
-	public CreateAccountPanel() {
-		setLayout(new BorderLayout());
-
-		createPane = new JPanel();
-		createPane.setLayout(new CardLayout());
-		createCard = (CardLayout) createPane.getLayout();
-
+	public CreateAccount() {
+		
 		productInfo = new JPanel(new BorderLayout());
 		terms = new JPanel(new BorderLayout());
 		id = new JPanel();
@@ -47,11 +43,9 @@ public class CreateAccountPanel extends JPanel {
 		setupTerms();
 		setupId();
 
-		createPane.add(productInfo);
-		createPane.add(terms, "약관");
-		createPane.add(id, "신분증");
-
-		add(createPane, BorderLayout.CENTER);
+		WindowBuilder.bankingPane.add(productInfo, "계좌개설");
+		WindowBuilder.bankingPane.add(terms, "약관");
+		WindowBuilder.bankingPane.add(id, "신분증");
 	}
 
 	//상품설명
@@ -69,7 +63,8 @@ public class CreateAccountPanel extends JPanel {
 			if (nameField.getText().isBlank()) {
 				JOptionPane.showMessageDialog(null, "계좌 별칭을 지어주세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			} else {
-				createCard.show(createPane, "약관");
+				WindowBuilder.card.show(WindowBuilder.bankingPane, "약관");
+				nameField.setText("");
 			}
 		});
 
@@ -151,7 +146,8 @@ public class CreateAccountPanel extends JPanel {
 		btnNewButton.addActionListener(e -> {
 			if (rdBtnOk.isSelected()) {
 				System.out.println("모두 동의하셨습니다. 다음단계로 진행");
-				createCard.show(createPane, "신분증");
+				WindowBuilder.card.show(WindowBuilder.bankingPane, "신분증");
+				rdBtnCancel.setSelected(true);
 
 			} else {
 				System.out.println("동의하지 않으셨습니다. 동의 후 진행해주세요");

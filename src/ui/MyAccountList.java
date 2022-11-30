@@ -33,7 +33,7 @@ public class MyAccountList extends JPanel {
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(new Font("", Font.BOLD, 28));
 
-		setList();
+		update();
 		accountList.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		accountList.setBackground(new Color(255, 255, 255));
 
@@ -54,14 +54,6 @@ public class MyAccountList extends JPanel {
 		setBorder(null);
 	}
 	
-	
-	static class ListModel extends DefaultListModel {
-	    public void update(int index)
-	    {
-	        fireContentsChanged(this, index, index);
-	    }
-	}
-
 	static void setList() {
 		model.clear();
 		myAccount = Bank.loginAccountList;
