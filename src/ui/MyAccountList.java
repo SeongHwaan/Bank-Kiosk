@@ -119,6 +119,7 @@ public class MyAccountList extends JPanel {
 
 			private void setData(ui.MyAccountList.AccountData data) {
 				this.data = data;
+				setFont(new Font("Monospaced", Font.PLAIN, 12));
 				setText(data.getName());
 			}
 
@@ -157,15 +158,13 @@ public class MyAccountList extends JPanel {
 
 	static class AccountData {
 		private Color iconColor;
-		private final String name;
-		private final String number;
+		private String name;
+		private String number;
 		private String listName;
 		
 		public AccountData(Color circleColor, String name, String number) {
 			iconColor = circleColor;
-			this.name = name;
-			this.number = number;
-			listName = String.format("%-8s   %s", name, number);
+			listName = String.format("%-10s %s", name, number);
 		}
 
 		private Color getIconColor() {
@@ -173,7 +172,7 @@ public class MyAccountList extends JPanel {
 		}
 
 		private String getName() {
-			return listName;
+			return name + number;
 		}
 
 	}

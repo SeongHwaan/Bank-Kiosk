@@ -9,11 +9,11 @@ public class InstallmentSavings extends Savings {
         this.calcType = calcType;
         this.rate = rate;
         if (calcType == 1) {
-            this.info = "단리예금";
+            this.info = "단리적금";
             this.color = new Color(247,220,102);    
         }
         else {
-            this.info = "복리예금";
+            this.info = "복리적금";
             this.color = new Color(46,149,153);    
         }
     }

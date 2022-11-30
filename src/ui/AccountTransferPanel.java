@@ -159,6 +159,11 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		if (e.getActionCommand().equals("이체")) {
 			Savings selectedAccount = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 
+			if (selectedAccount.info.contains("적금")) {
+				JOptionPane.showMessageDialog(null, "송금이 불가능한 계좌입니다.\n사유: 적금계좌", "오류", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
 			try {
 				transferAccount = WindowBuilder.bank.findAccount(accountInput.getText());
 				transferUser = WindowBuilder.bank.findUser(transferAccount.userId);
@@ -187,6 +192,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 			accountInput.setText("");
 			cashInput.setText("");
 			AccountManage.update();
+			JOptionPane.showMessageDialog(null, "송금이 완료되었습니다.", "완료", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }
