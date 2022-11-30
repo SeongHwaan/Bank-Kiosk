@@ -1,12 +1,9 @@
 package ui;
 
-import bank.Bank;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -22,8 +19,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import bank.Bank;
-import ui.BankProduct.ProductList;
 
 public class CreateAccount {
 	JPanel createPane;
@@ -192,6 +187,7 @@ public class CreateAccount {
 
 	//신분증 확인
 	void setupId() {
+		AtomicBoolean check = new AtomicBoolean(false);
 		id.setLayout(new BorderLayout());
 
 		JLabel image = new JLabel();
@@ -207,8 +203,11 @@ public class CreateAccount {
 			int ret = chooser.showOpenDialog(null);
 			if (ret != JFileChooser.APPROVE_OPTION) {
 				JOptionPane.showMessageDialog(null, "파일을 선택 하지 않음", "경고", JOptionPane.WARNING_MESSAGE);
+				check.set(false);
+				image.setIcon(null);
 				return;
 			}
+			check.set(true);
 
 			String filePath = chooser.getSelectedFile().getPath();
 			image.setIcon(new ImageIcon(filePath));
@@ -216,9 +215,15 @@ public class CreateAccount {
 		});
 
 		nextButton.addActionListener(e -> {
-			Creation create = new Creation();
-			create.setupCreation();
-			create.startCreation();
+			if (check.get()) {
+				check.set(false);
+				image.setIcon(null);
+				Creation create = new Creation();
+				create.setupCreation();
+				create.startCreation();
+			} else {
+				JOptionPane.showMessageDialog(null, "신분증을 업로드해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
+			}
 		});
 
 		id.add(idButton, BorderLayout.NORTH);
@@ -241,7 +246,6 @@ public class CreateAccount {
 	
 	//계좌개설
 	class Creation extends JFrame {
-
 		JPanel a;
 
 		Creation() {
