@@ -129,14 +129,9 @@ public class BankProduct extends JPanel {
 	}
 
 	public static void update() {
-		try {
-			product = Bank.productList.get(productIndex);
-			textArea.setText(String.valueOf(product.rate));
-			textArea_1.setText(product.name);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		product = Bank.productList.get(productIndex);
+		textArea.setText(String.valueOf(product.rate));
+		textArea_1.setText(product.name);
 	}
 
 	static class ProductList extends JPanel {
@@ -184,6 +179,7 @@ public class BankProduct extends JPanel {
 						if (SwingUtilities.isLeftMouseButton(e)) {
 							productIndex = list.getSelectedIndex();
 							BankProduct.update();
+							
 							int index = list.locationToIndex(e.getPoint());
 
 							if (index != -1 && list.isSelectedIndex(index)) {

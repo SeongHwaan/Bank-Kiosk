@@ -3,6 +3,7 @@ package ui;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -19,8 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
-public class CreateAccountPanel extends JPanel {
+public class CreateAccount {
 	JPanel createPane;
 	JPanel productInfo;
 	JPanel terms;
@@ -28,13 +28,8 @@ public class CreateAccountPanel extends JPanel {
 	JTextField nameField;
 	CardLayout createCard;
 
-	public CreateAccountPanel() {
-		setLayout(new BorderLayout());
-
-		createPane = new JPanel();
-		createPane.setLayout(new CardLayout());
-		createCard = (CardLayout) createPane.getLayout();
-
+	public CreateAccount() {
+		
 		productInfo = new JPanel(new BorderLayout());
 		terms = new JPanel(new BorderLayout());
 		id = new JPanel();
@@ -43,11 +38,9 @@ public class CreateAccountPanel extends JPanel {
 		setupTerms();
 		setupId();
 
-		createPane.add(productInfo);
-		createPane.add(terms, "약관");
-		createPane.add(id, "신분증");
-
-		add(createPane, BorderLayout.CENTER);
+		WindowBuilder.bankingPane.add(productInfo, "계좌개설");
+		WindowBuilder.bankingPane.add(terms, "약관");
+		WindowBuilder.bankingPane.add(id, "신분증");
 	}
 
 	//상품설명
@@ -65,7 +58,8 @@ public class CreateAccountPanel extends JPanel {
 			if (nameField.getText().isBlank()) {
 				JOptionPane.showMessageDialog(null, "계좌 별칭을 지어주세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			} else {
-				createCard.show(createPane, "약관");
+				WindowBuilder.card.show(WindowBuilder.bankingPane, "약관");
+				nameField.setText("");
 			}
 		});
 
@@ -147,7 +141,8 @@ public class CreateAccountPanel extends JPanel {
 		btnNewButton.addActionListener(e -> {
 			if (rdBtnOk.isSelected()) {
 				System.out.println("모두 동의하셨습니다. 다음단계로 진행");
-				createCard.show(createPane, "신분증");
+				WindowBuilder.card.show(WindowBuilder.bankingPane, "신분증");
+				rdBtnCancel.setSelected(true);
 
 			} else {
 				System.out.println("동의하지 않으셨습니다. 동의 후 진행해주세요");
@@ -192,6 +187,7 @@ public class CreateAccountPanel extends JPanel {
 
 	//신분증 확인
 	void setupId() {
+		AtomicBoolean check = new AtomicBoolean(false);
 		id.setLayout(new BorderLayout());
 
 		JLabel image = new JLabel();
@@ -207,8 +203,11 @@ public class CreateAccountPanel extends JPanel {
 			int ret = chooser.showOpenDialog(null);
 			if (ret != JFileChooser.APPROVE_OPTION) {
 				JOptionPane.showMessageDialog(null, "파일을 선택 하지 않음", "경고", JOptionPane.WARNING_MESSAGE);
+				check.set(false);
+				image.setIcon(null);
 				return;
 			}
+			check.set(true);
 
 			String filePath = chooser.getSelectedFile().getPath();
 			image.setIcon(new ImageIcon(filePath));
@@ -216,9 +215,15 @@ public class CreateAccountPanel extends JPanel {
 		});
 
 		nextButton.addActionListener(e -> {
-			Creation create = new Creation();
-			create.setupCreation();
-			create.startCreation();
+			if (check.get()) {
+				check.set(false);
+				image.setIcon(null);
+				Creation create = new Creation();
+				create.setupCreation();
+				create.startCreation();
+			} else {
+				JOptionPane.showMessageDialog(null, "신분증을 업로드해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
+			}
 		});
 
 		id.add(idButton, BorderLayout.NORTH);
@@ -229,8 +234,6 @@ public class CreateAccountPanel extends JPanel {
 
 	//테스트
 	public static void main(String[] args) {
-		CreateAccountPanel a = new CreateAccountPanel();
-
 		JFrame f = new JFrame();
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -239,14 +242,10 @@ public class CreateAccountPanel extends JPanel {
 
 		// f.pack();
 		f.setVisible(true);
-
-		f.add(a);
-
 	}
 	
 	//계좌개설
 	class Creation extends JFrame {
-
 		JPanel a;
 
 		Creation() {

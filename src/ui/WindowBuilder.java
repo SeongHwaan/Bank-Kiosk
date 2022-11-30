@@ -19,7 +19,7 @@ public class WindowBuilder {
 	AccountTransferPanel t = new AccountTransferPanel();
 	DepositWithdrawalPanel d = new DepositWithdrawalPanel();
 	CreditPanel creditPanel = new CreditPanel();
-	CreateAccountPanel creation = new CreateAccountPanel();
+	CreateAccount creation;
 
 	private void createAndShowMain() {
 		mainFrame = new JFrame("KGU BANK");
@@ -50,7 +50,7 @@ public class WindowBuilder {
 		bankingPane.add(d, "입출금");
 		bankingPane.add(t, "송금");
 		bankingPane.add(creditPanel, "프로그램 정보");
-		bankingPane.add(creation, "계좌개설");
+		creation = new CreateAccount();
 	}
 
 	public static void main(String[] args) {
@@ -68,5 +68,5 @@ public class WindowBuilder {
 			WindowBuilder main = new WindowBuilder();
 			main.createAndShowMain();
 		});
-	}
+	}	
 }
