@@ -53,12 +53,12 @@ public class MyAccountList extends JPanel {
 
 		setBorder(null);
 	}
-	
+
 	static void setList() {
 		model.clear();
 		myAccount = Bank.loginAccountList;
 		for (Savings s : myAccount) {
-			model.addElement(new AccountData(s.color,s.name, s.number));	
+			model.addElement(new AccountData(s.color, s.name, s.number));
 		}
 	}
 
@@ -81,12 +81,6 @@ public class MyAccountList extends JPanel {
 					if (SwingUtilities.isLeftMouseButton(e)) {
 						selectedIndex = list.getSelectedIndex();
 						AccountManage.update();
-						int index = list.locationToIndex(e.getPoint());
-
-						if (index != -1 && list.isSelectedIndex(index)) {
-							Rectangle rect = list.getCellBounds(index, index);
-						}
-
 						WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌관리");
 					}
 				}
@@ -140,8 +134,6 @@ public class MyAccountList extends JPanel {
 
 				g2d.setPaint(data.getIconColor());
 				g2d.fill(new Ellipse2D.Double(5, 5, 26, 26));
-				// g2d.drawImage ( tipIcon.getImage (), 5 + 13 - tipIcon.getIconWidth () / 2, 5
-				// + 13 - tipIcon.getIconHeight () / 2, null );
 
 				super.paintComponent(g);
 			}
@@ -157,11 +149,11 @@ public class MyAccountList extends JPanel {
 	}
 
 	static class AccountData {
-		private Color iconColor;
+		private final Color iconColor;
 		private String name;
 		private String number;
-		private String listName;
-		
+		private final String listName;
+
 		public AccountData(Color circleColor, String name, String number) {
 			iconColor = circleColor;
 			listName = String.format("%-10s %s", name, number);

@@ -1,37 +1,19 @@
 package ui;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import javax.swing.SwingUtilities;
 
 public class LineGraph extends JPanel {
 
-    private int width = 800;
-    private int heigth = 400;
-    private int padding = 25;
-    private int labelPadding = 25;
-    private Color compoundColor = new Color(44, 102, 230, 180);
-    private Color simpleColor = new Color(241, 24, 76, 180);
-    private Color pointColor = new Color(100, 100, 100, 180);
-    private Color gridColor = new Color(200, 200, 200, 200);
+    private final Color compoundColor = new Color(44, 102, 230, 180);
+    private final Color simpleColor = new Color(241, 24, 76, 180);
+    private final Color pointColor = new Color(100, 100, 100, 180);
+    private final Color gridColor = new Color(200, 200, 200, 200);
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
-    private int pointWidth = 4;
-    private int numberYDivisions = 10;
-    private List<Double> compound;
-    private List<Double> simple;
-    private List<Double> normal;
+    private final List<Double> compound;
+    private final List<Double> simple;
 
     public LineGraph(List<Double> compound, List<Double> simple) {
         this.compound = compound;
@@ -44,66 +26,69 @@ public class LineGraph extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        int padding = 25;
+        int labelPadding = 25;
         double xScale = ((double) getWidth() - 2 * padding - labelPadding) / (compound.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
 
         List<Point> compoundPoints = new ArrayList<>();
         List<Point> simplePoints = new ArrayList<>();
-        List<Point> normalPoints = new ArrayList<>();
         for (int i = 0; i < compound.size(); i++) {
             int x1 = (int) (i * xScale + padding + labelPadding);
             int y1 = (int) ((getMaxScore() - compound.get(i)) * yScale + padding);
             compoundPoints.add(new Point(x1, y1));
-            
-            int x2= (int) (i * xScale + padding + labelPadding);
+
+            int x2 = (int) (i * xScale + padding + labelPadding);
             int y2 = (int) ((getMaxScore() - simple.get(i)) * yScale + padding);
             simplePoints.add(new Point(x2, y2));
         }
 
         // draw white background
         g2.setColor(Color.WHITE);
-        g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding, getHeight() - 2 * padding - labelPadding);
+        g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding,
+                getHeight() - 2 * padding - labelPadding);
         g2.setColor(Color.BLACK);
 
         // create hatch marks and grid lines for y axis.
+        int pointWidth = 4;
+        int numberYDivisions = 10;
         for (int i = 0; i < numberYDivisions + 1; i++) {
             int x0 = padding + labelPadding;
             int x1 = pointWidth + padding + labelPadding;
-            int y0 = getHeight() - ((i * (getHeight() - padding * 2 - labelPadding)) / numberYDivisions + padding + labelPadding);
-            int y1 = y0;
+            int y0 = getHeight()
+                    - ((i * (getHeight() - padding * 2 - labelPadding)) / numberYDivisions + padding + labelPadding);
             if (compound.size() > 0) {
                 g2.setColor(gridColor);
-                g2.drawLine(padding + labelPadding + 1 + pointWidth, y0, getWidth() - padding, y1);
+                g2.drawLine(padding + labelPadding + 1 + pointWidth, y0, getWidth() - padding, y0);
                 g2.setColor(Color.BLACK);
-                String yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
+                String yLabel = ((int) ((getMinScore()
+                        + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
                 FontMetrics metrics = g2.getFontMetrics();
                 int labelWidth = metrics.stringWidth(yLabel);
                 g2.drawString(yLabel, x0 - labelWidth - 5, y0 + (metrics.getHeight() / 2) - 3);
             }
-            g2.drawLine(x0, y0, x1, y1);
+            g2.drawLine(x0, y0, x1, y0);
         }
 
         // and for x axis
         for (int i = 0; i < compound.size(); i++) {
             if (compound.size() > 1) {
                 int x0 = i * (getWidth() - padding * 2 - labelPadding) / (compound.size() - 1) + padding + labelPadding;
-                int x1 = x0;
                 int y0 = getHeight() - padding - labelPadding;
                 int y1 = y0 - pointWidth;
                 if ((i % ((int) ((compound.size() / 20.0)) + 1)) == 0) {
                     g2.setColor(gridColor);
-                    g2.drawLine(x0, getHeight() - padding - labelPadding - 1 - pointWidth, x1, padding);
+                    g2.drawLine(x0, getHeight() - padding - labelPadding - 1 - pointWidth, x0, padding);
                     g2.setColor(Color.BLACK);
                     String xLabel = i + "";
                     FontMetrics metrics = g2.getFontMetrics();
                     int labelWidth = metrics.stringWidth(xLabel);
                     g2.drawString(xLabel, x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
                 }
-                g2.drawLine(x0, y0, x1, y1);
+                g2.drawLine(x0, y0, x0, y1);
             }
         }
 
-       
         Stroke oldStroke = g2.getStroke();
         g2.setColor(compoundColor);
         g2.setStroke(GRAPH_STROKE);
@@ -128,15 +113,11 @@ public class LineGraph extends JPanel {
         for (int i = 0; i < compoundPoints.size(); i++) {
             int x = compoundPoints.get(i).x - pointWidth / 2;
             int y = compoundPoints.get(i).y - pointWidth / 2;
-            int ovalW = pointWidth;
-            int ovalH = pointWidth;
-            g2.fillOval(x, y, ovalW, ovalH);
-            
+            g2.fillOval(x, y, pointWidth, pointWidth);
+
             int x2 = simplePoints.get(i).x - pointWidth / 2;
             int y2 = simplePoints.get(i).y - pointWidth / 2;
-            int ovalW2 = pointWidth;
-            int ovalH2 = pointWidth;
-            g2.fillOval(x2, y2, ovalW2, ovalH2);
+            g2.fillOval(x2, y2, pointWidth, pointWidth);
         }
     }
 
@@ -155,32 +136,4 @@ public class LineGraph extends JPanel {
         }
         return maxScore;
     }
-
-//    private static void createAndShowGraph() {
-//        List<Double> compound = new ArrayList<>();
-//        List<Double> simple = new ArrayList<>();
-//
-//        int cash = 100;
-//        double rate = 3;
-//        for (int month = 0; month < 50; month++) {
-//        	compound.add((double) (cash * (Math.pow((100 + (float) 3) / 100, month) - 1)));
-//        	simple.add((double) (cash * ((float) rate * month / 120)));
-//        }
-//        LineGraph mainPanel = new LineGraph(compound, simple);
-//        mainPanel.setPreferredSize(new Dimension(800, 600));
-//        JFrame frame = new JFrame("DrawGraph");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.getContentPane().add(mainPanel);
-//        frame.pack();
-//        frame.setLocationRelativeTo(null);
-//        frame.setVisible(true);
-//    }
-//
-//    public static void main(String[] args) {
-//      SwingUtilities.invokeLater(new Runnable() {
-//         public void run() {
-//            createAndShowGraph();
-//         }
-//      });
-//   }
 }

@@ -89,7 +89,7 @@ public class MyPagePanel extends JPanel {
             WindowBuilder.mainFrame.dispose();
             javax.swing.SwingUtilities.invokeLater(LoginFrame::main);
             Bank.userMgr.list.remove(Bank.loginUser);
-            for (Savings s: Bank.loginAccountList) {
+            for (Savings s : Bank.loginAccountList) {
                 Bank.accountMgr.list.remove(s);
             }
             Bank.loginUser = null;

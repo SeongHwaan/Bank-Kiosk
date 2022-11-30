@@ -6,29 +6,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-
-import javax.swing.Icon;
 import javax.swing.JButton;
 
 public class ButtonDesign extends JButton {
-
-	public ButtonDesign() {
-		super();
-		decorate();
-	}
-
 	public ButtonDesign(String text) {
 		super(text);
-		decorate();
-	}
-
-	public ButtonDesign(Icon icon) {
-		super(icon);
-		decorate();
-	}
-
-	public ButtonDesign(String text, Icon icon) {
-		super(text, icon);
 		decorate();
 	}
 
@@ -41,7 +23,7 @@ public class ButtonDesign extends JButton {
 	protected void paintComponent(Graphics g) {
 		int width = getWidth();
 		int height = getHeight();
-		Color color = new Color(220,220,220);
+		Color color = new Color(220, 220, 220);
 
 		Graphics2D graphics = (Graphics2D) g;
 

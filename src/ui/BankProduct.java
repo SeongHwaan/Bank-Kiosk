@@ -110,11 +110,8 @@ public class BankProduct extends JPanel {
 				ex.printStackTrace();
 			}
 		});
-		
-		btnNewButton_2.addActionListener(e -> {
-			createGraphFrame();
-			
-		});
+
+		btnNewButton_2.addActionListener(e -> createGraphFrame());
 
 		gbc[3].gridx = 0;
 		gbc[3].gridy = 3;
@@ -140,23 +137,23 @@ public class BankProduct extends JPanel {
 
 	private void createGraphFrame() {
 		List<Double> compound = new ArrayList<>();
-        List<Double> simple = new ArrayList<>();
-        double sRate = Bank.productList.get(1).rate;
-        double cRate = Bank.productList.get(2).rate;
-        int cash = 100;
-        for (int month = 0; month < 50; month++) {
-        	compound.add((double) (cash * (Math.pow((100 + (float) cRate) / 100, month) - 1)));
-        	simple.add((double) (cash * ((float) sRate * month / 1200)));
-        }
-        
-        LineGraph mainPanel = new LineGraph(compound, simple);
-        mainPanel.setPreferredSize(new Dimension(800, 600));
-        JFrame frame = new JFrame("DrawGraph");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.getContentPane().add(mainPanel);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+		List<Double> simple = new ArrayList<>();
+		double sRate = Bank.productList.get(1).rate;
+		double cRate = Bank.productList.get(2).rate;
+		int cash = 100;
+		for (int month = 0; month < 50; month++) {
+			compound.add(cash * (Math.pow((100 + (float) cRate) / 100, month) - 1));
+			simple.add((double) (cash * ((float) sRate * month / 1200)));
+		}
+
+		LineGraph mainPanel = new LineGraph(compound, simple);
+		mainPanel.setPreferredSize(new Dimension(800, 600));
+		JFrame frame = new JFrame("DrawGraph");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.getContentPane().add(mainPanel);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 
 	public static void update() {
@@ -189,7 +186,7 @@ public class BankProduct extends JPanel {
 		JList<AccountData> accountList = new JList<>(model);
 
 		public ProductList() {
-			setLayout(new GridBagLayout());	
+			setLayout(new GridBagLayout());
 			GridBagConstraints[] gbc = new GridBagConstraints[1];
 			gbc[0] = new GridBagConstraints();
 
@@ -217,7 +214,7 @@ public class BankProduct extends JPanel {
 		static class CustomListRenderer extends DefaultListCellRenderer {
 			private final ProductList.CustomListRenderer.CustomLabel renderer;
 
-			public CustomListRenderer(final JList list) {
+			public CustomListRenderer(final JList<AccountData> list) {
 				super();
 				renderer = new ProductList.CustomListRenderer.CustomLabel();
 				list.setSelectedIndex(0);
@@ -228,12 +225,6 @@ public class BankProduct extends JPanel {
 						if (SwingUtilities.isLeftMouseButton(e)) {
 							productIndex = list.getSelectedIndex();
 							BankProduct.update();
-
-							int index = list.locationToIndex(e.getPoint());
-
-							if (index != -1 && list.isSelectedIndex(index)) {
-								Rectangle rect = list.getCellBounds(index, index);
-							}
 						}
 					}
 				});
@@ -282,8 +273,7 @@ public class BankProduct extends JPanel {
 						g2d.setPaint(Color.WHITE);
 						g2d.fill(new Ellipse2D.Double(2, 2, 32, 32));
 					}
-					
-				
+
 					g2d.setPaint(data.getIconColor());
 					g2d.fill(new Ellipse2D.Double(5, 5, 26, 26));
 
@@ -301,7 +291,7 @@ public class BankProduct extends JPanel {
 		}
 
 		static class AccountData {
-			private Color iconColor;
+			private final Color iconColor;
 			private final String name;
 
 			public AccountData(Color circleColor, String name) {
