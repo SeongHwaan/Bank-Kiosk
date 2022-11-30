@@ -27,7 +27,6 @@ public class CreateAccount {
 	JPanel id;
 	static JLabel image;
 	JTextField nameField;
-	CardLayout createCard;
 
 	public CreateAccount() {
 		
@@ -60,7 +59,6 @@ public class CreateAccount {
 				JOptionPane.showMessageDialog(null, "계좌 별칭을 지어주세요.", "경고", JOptionPane.WARNING_MESSAGE);
 			} else {
 				WindowBuilder.card.show(WindowBuilder.bankingPane, "약관");
-				nameField.setText("");
 			}
 		});
 
@@ -279,6 +277,7 @@ public class CreateAccount {
 				@Override
 				public void run() {
 					WindowBuilder.bank.createAccount(nameField.getText(), BankProduct.productIndex);
+					nameField.setText("");
 					MyAccountList.update();
 					// 1. 메인화면 or 2. 계좌 개설이 완료되었다는 패널
 					WindowBuilder.card.show(WindowBuilder.bankingPane, "메인화면");
