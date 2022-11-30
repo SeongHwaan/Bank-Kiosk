@@ -58,7 +58,7 @@ public class MyAccountList extends JPanel {
 		model.clear();
 		myAccount = Bank.loginAccountList;
 		for (Savings s : myAccount) {
-			model.addElement(new AccountData(s.number));	
+			model.addElement(new AccountData(s.color,s.name, s.number));	
 		}
 	}
 
@@ -158,9 +158,14 @@ public class MyAccountList extends JPanel {
 	static class AccountData {
 		private Color iconColor;
 		private final String name;
-
-		public AccountData(String name) {
+		private final String number;
+		private String listName;
+		
+		public AccountData(Color circleColor, String name, String number) {
+			iconColor = circleColor;
 			this.name = name;
+			this.number = number;
+			listName = String.format("%-8s   %s", name, number);
 		}
 
 		private Color getIconColor() {
@@ -168,12 +173,8 @@ public class MyAccountList extends JPanel {
 		}
 
 		private String getName() {
-			return name;
+			return listName;
 		}
 
-		@Override
-		public String toString() {
-			return name;
-		}
 	}
 }

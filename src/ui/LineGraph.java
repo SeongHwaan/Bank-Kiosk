@@ -148,15 +148,15 @@ public class LineGraph extends JPanel {
         return maxScore;
     }
 
-    private static void createAndShowGui() {
+    private static void createAndShowGraph() {
         List<Double> compound = new ArrayList<>();
         List<Double> simple = new ArrayList<>();
 
-        int cash = 1000;
+        int cash = 100;
         double rate = 3;
-        for (int month = 0; month < 20; month++) {
+        for (int month = 0; month < 50; month++) {
         	compound.add((double) (cash * (Math.pow((100 + (float) 3) / 100, month) - 1)));
-        	simple.add((double) (cash * ((float) 10 * month / 1200)));
+        	simple.add((double) (cash * ((float) rate * month / 120)));
         }
         LineGraph mainPanel = new LineGraph(compound, simple);
         mainPanel.setPreferredSize(new Dimension(800, 600));
@@ -171,7 +171,7 @@ public class LineGraph extends JPanel {
     public static void main(String[] args) {
       SwingUtilities.invokeLater(new Runnable() {
          public void run() {
-            createAndShowGui();
+            createAndShowGraph();
          }
       });
    }

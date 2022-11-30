@@ -13,6 +13,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankProduct extends JPanel {
 	static JPanel infoPanel;
@@ -108,6 +110,11 @@ public class BankProduct extends JPanel {
 				ex.printStackTrace();
 			}
 		});
+		
+		btnNewButton_2.addActionListener(e -> {
+			createGraphFrame();
+			
+		});
 
 		gbc[3].gridx = 0;
 		gbc[3].gridy = 3;
@@ -131,6 +138,27 @@ public class BankProduct extends JPanel {
 		update();
 	}
 
+	private void createGraphFrame() {
+		List<Double> compound = new ArrayList<>();
+        List<Double> simple = new ArrayList<>();
+        
+        int cash = 100;
+        double rate = 3;
+        for (int month = 0; month < 50; month++) {
+        	compound.add((double) (cash * (Math.pow((100 + (float) rate) / 100, month) - 1)));
+        	simple.add((double) (cash * ((float) rate * month / 1200)));
+        }
+        
+        LineGraph mainPanel = new LineGraph(compound, simple);
+        mainPanel.setPreferredSize(new Dimension(800, 600));
+        JFrame frame = new JFrame("DrawGraph");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.getContentPane().add(mainPanel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+	}
+
 	public static void update() {
 		product = Bank.productList.get(productIndex);
 		textArea.setText(String.valueOf(product.rate));
@@ -143,7 +171,7 @@ public class BankProduct extends JPanel {
 		JList<AccountData> accountList = new JList<>(model);
 
 		public ProductList() {
-			setLayout(new GridBagLayout());
+			setLayout(new GridBagLayout());	
 			GridBagConstraints[] gbc = new GridBagConstraints[1];
 			gbc[0] = new GridBagConstraints();
 
@@ -164,14 +192,14 @@ public class BankProduct extends JPanel {
 
 		void setList() {
 			for (Savings p : Bank.productList) {
-				model.addElement(new AccountData(p.info));
+				model.addElement(new AccountData(p.color, p.info));
 			}
 		}
 
 		static class CustomListRenderer extends DefaultListCellRenderer {
 			private final ProductList.CustomListRenderer.CustomLabel renderer;
 
-			public CustomListRenderer(final JList<AccountData> list) {
+			public CustomListRenderer(final JList list) {
 				super();
 				renderer = new ProductList.CustomListRenderer.CustomLabel();
 				list.setSelectedIndex(0);
@@ -236,7 +264,8 @@ public class BankProduct extends JPanel {
 						g2d.setPaint(Color.WHITE);
 						g2d.fill(new Ellipse2D.Double(2, 2, 32, 32));
 					}
-
+					
+				
 					g2d.setPaint(data.getIconColor());
 					g2d.fill(new Ellipse2D.Double(5, 5, 26, 26));
 
@@ -257,7 +286,8 @@ public class BankProduct extends JPanel {
 			private Color iconColor;
 			private final String name;
 
-			public AccountData(String name) {
+			public AccountData(Color circleColor, String name) {
+				iconColor = circleColor;
 				this.name = name;
 			}
 
