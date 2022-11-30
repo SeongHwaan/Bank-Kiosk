@@ -41,7 +41,7 @@ public class WindowBuilder {
 	}
 
 	private void setBankingPane() {
-		bankingPane = new JPanel(new CardLayout());;
+		bankingPane = new JPanel(new CardLayout());
 		card = (CardLayout) WindowBuilder.bankingPane.getLayout(); // 상단바, 하단바에서 핸들링
 
 		bankingPane.add(myAccount, "메인화면");
