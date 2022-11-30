@@ -173,7 +173,7 @@ public class BankProduct extends JPanel {
 		static class CustomListRenderer extends DefaultListCellRenderer {
 			private final ProductList.CustomListRenderer.CustomLabel renderer;
 
-			public CustomListRenderer(final JList list) {
+			public CustomListRenderer(final JList<AccountData> list) {
 				super();
 				renderer = new ProductList.CustomListRenderer.CustomLabel();
 				list.setSelectedIndex(0);
