@@ -1,5 +1,6 @@
 package bank;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class Savings implements Manageable {
 	public int cash; // 계좌 금액
 	public double rate;
 	public String info;
+	public Color color;
 
 	public ArrayList<History> historyList = new ArrayList<>();
 
@@ -22,6 +24,7 @@ public class Savings implements Manageable {
 		this.calcType = 0;
 		this.cash = 0;
 		this.info = "일반예금";
+		this.color = new Color(241, 24, 76);
 	}
 
 	@Override
@@ -32,6 +35,10 @@ public class Savings implements Manageable {
 	@Override
 	public String getInfo() {
 		return info;
+	}
+
+	public String getNumber() {
+		return number;
 	}
 
 	public String[] getTexts() {

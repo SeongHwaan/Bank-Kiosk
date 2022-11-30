@@ -13,6 +13,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BankProduct extends JPanel {
 	static JPanel infoPanel;
@@ -97,11 +99,10 @@ public class BankProduct extends JPanel {
 		add(infoPanel, gbc[2]);
 
 		btnNewButton.addActionListener(e -> {
-			
-		WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설");
-		CreateAccount.image.setIcon(null);
+			WindowBuilder.card.show(WindowBuilder.bankingPane, "계좌개설");
+			CreateAccount.setImage("src/images/idCard.png");
 		});
-		
+
 		btnNewButton_1.addActionListener(e -> {
 			try {
 				Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=5c8x2YqppTo"));
@@ -109,6 +110,8 @@ public class BankProduct extends JPanel {
 				ex.printStackTrace();
 			}
 		});
+
+		btnNewButton_2.addActionListener(e -> createGraphFrame());
 
 		gbc[3].gridx = 0;
 		gbc[3].gridy = 3;
@@ -132,10 +135,49 @@ public class BankProduct extends JPanel {
 		update();
 	}
 
+	private void createGraphFrame() {
+		List<Double> compound = new ArrayList<>();
+		List<Double> simple = new ArrayList<>();
+		double sRate = Bank.productList.get(1).rate;
+		double cRate = Bank.productList.get(2).rate;
+		int cash = 100;
+		for (int month = 0; month < 50; month++) {
+			compound.add(cash * (Math.pow((100 + (float) cRate) / 100, month) - 1));
+			simple.add((double) (cash * ((float) sRate * month / 120)));
+		}
+
+		LineGraph mainPanel = new LineGraph(compound, simple);
+		mainPanel.setPreferredSize(new Dimension(800, 600));
+		JFrame frame = new JFrame("DrawGraph");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.getContentPane().add(mainPanel);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
 	public static void update() {
 		product = Bank.productList.get(productIndex);
 		textArea.setText(String.valueOf(product.rate));
 		textArea_1.setText(product.name);
+		CreateAccount.info.setText(
+				"고객님께서 새로 계설하고자 하시는 상품은 '" + product.name + "'입니다. 아래 사항은 새로 발급 될 계좌정\n" + "보입니다. 확인바랍니다.\n\n" +
+						"상품유형 : " + product.name + "\n" +
+						"계좌번호 : " + product.getNumber() + "\n" +
+						"연 이자 : " + product.rate + "\n\n" +
+						"제1조(적용범위) 이 약관은 입출금이 자유로운 예금, 거치식예금 및 적립식예금 거래에 적용한다\n\n" +
+						"제2조 (실명거래)\n" +
+						"① 거래처는 실명으로 거래하여야 한다\n" +
+						"② 은행은 거래처의 실명확인을 위하여 주민등록증․사업자등록증 등 실명확인증표 또는 그밖에\n" +
+						"필요한 서류의 제시나 제출을 요구할 수 있고, 거래처는 이에 따라야 한다\n\n" +
+						"제3조(거래장소) 거래처는 예금계좌를 개설한 영업점(이하 “개설점”이라 한다)에서 모든 예금거래\n" +
+						"를 한다. 다만, 은행이 정하는 바에 따라 다른 영업점이나 다른 금융기관, 또는 현금자동지급기․\n" +
+						"현금자동입출금기․컴퓨터․전화기 등(이하 “전산통신기기”)을 통하여 거래할 수 있다\n\n" +
+						"제4조(거래방법) 거래처는 은행에서 내준 통장(증서․전자통장을 포함한다) 또는 수표․어음용지로\n" +
+						"거래하여야 한다. 그러나 입금할 때와, 자동이체약정․전산통신기기이용약정 등에 따라 거래하는\n" +
+						"경우 및 기등록된 생체정보(이하“바이오정보”), 실명확인증표 등을 통해 본인확인된 경우에는 통장\n" +
+						"없이(이하“무통장”)도 거래할 수 있다.\n\n" +
+						"*해당 약관은 프로젝트를 위한 더미데이터로 허위로 작성되었습니다.");
 	}
 
 	static class ProductList extends JPanel {
@@ -165,7 +207,7 @@ public class BankProduct extends JPanel {
 
 		void setList() {
 			for (Savings p : Bank.productList) {
-				model.addElement(new AccountData(p.info));
+				model.addElement(new AccountData(p.color, p.info));
 			}
 		}
 
@@ -183,12 +225,6 @@ public class BankProduct extends JPanel {
 						if (SwingUtilities.isLeftMouseButton(e)) {
 							productIndex = list.getSelectedIndex();
 							BankProduct.update();
-							
-							int index = list.locationToIndex(e.getPoint());
-
-							if (index != -1 && list.isSelectedIndex(index)) {
-								Rectangle rect = list.getCellBounds(index, index);
-							}
 						}
 					}
 				});
@@ -255,10 +291,11 @@ public class BankProduct extends JPanel {
 		}
 
 		static class AccountData {
-			private Color iconColor;
+			private final Color iconColor;
 			private final String name;
 
-			public AccountData(String name) {
+			public AccountData(Color circleColor, String name) {
+				iconColor = circleColor;
 				this.name = name;
 			}
 

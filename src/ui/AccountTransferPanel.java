@@ -10,9 +10,10 @@ import bank.Savings;
 import bank.User;
 
 public class AccountTransferPanel extends JPanel implements ActionListener {
+
 	GridBagConstraints[] gbc = new GridBagConstraints[9];
 
-	JPanel gblAccount = new JPanel();
+	JPanel gblPanel = new JPanel();
 
 	JTextField accountInput;
 	JTextField cashInput;
@@ -26,7 +27,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 
 	public AccountTransferPanel() {
 		setLayout(new GridBagLayout());
-		gblAccount.setLayout(new GridBagLayout());
+		gblPanel.setLayout(new GridBagLayout());
 
 		for (int i = 0; i < 9; i++) {
 			gbc[i] = new GridBagConstraints();
@@ -36,67 +37,69 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(new Font("", Font.BOLD, 28));
 
-		name = new JLabel("계좌번호");
-		accountInput = new JTextField("", 10);
-
-		amount = new JLabel("이체금액");
-		cashInput = new JTextField("", 10);
+		gbc[5].gridx = 0;
+		gbc[5].gridy = 0;
+		gbc[5].fill = GridBagConstraints.BOTH;
+		gbc[5].ipady = 50;
+		add(title, gbc[5]);
 
 		transfer = new ButtonDesign("이체");
 		transfer.addActionListener(this);
 
-		gbc[1].gridx = 0;
-		gbc[1].gridy = 1;
-		gblAccount.add(name, gbc[1]);
+		name = new JLabel("계좌번호");
+		accountInput = new JTextField("", 15);
 
-		gbc[2].gridx = 1;
-		gbc[2].gridy = 1;
-		gbc[2].weightx = 1;
-		gbc[2].fill = GridBagConstraints.BOTH;
-		gblAccount.add(accountInput, gbc[2]);
-
-		gbc[3].gridx = 0;
-		gbc[3].gridy = 2;
-		gblAccount.add(amount, gbc[3]);
-
-		gbc[4].gridx = 1;
-		gbc[4].gridy = 2;
-		gbc[4].weightx = 1;
-		gbc[4].fill = GridBagConstraints.BOTH;
-		gblAccount.add(cashInput, gbc[4]);
-
-		// gbc[5].gridx = 0;
-		// gbc[5].gridy = 3;
-		// gbc[5].weightx = 1;
-		// gbc[5].fill = GridBagConstraints.BOTH;
-		// gblAccount.add(checkAccount, gbc[5]);
-
-		gbc[6].gridx = 1;
-		gbc[6].gridy = 3;
-		gbc[6].weightx = 1;
-		gbc[6].fill = GridBagConstraints.BOTH;
-		gblAccount.add(transfer, gbc[6]);
+		amount = new JLabel("이체금액");
+		cashInput = new JTextField("", 15);
 
 		gbc[0].gridx = 0;
-		gbc[0].gridy = 0;
+		gbc[0].gridy = 1;
+		gbc[0].gridwidth = 2;
 		gbc[0].weightx = 1;
 		gbc[0].fill = GridBagConstraints.BOTH;
-		gbc[0].ipady = 50;
-		add(title, gbc[0]);
+		gblPanel.add(name, gbc[0]);
 
-		gbc[7].gridx = 0;
-		gbc[7].gridy = 1;
-		gbc[7].weightx = 1;
-		gbc[7].weighty = 2;
-		gbc[7].fill = GridBagConstraints.BOTH;
-		add(gblAccount, gbc[7]);
+		gbc[1].gridx = 2;
+		gbc[1].gridy = 1;
+		gbc[1].weightx = 1;
+		gbc[1].fill = GridBagConstraints.BOTH;
+		gblPanel.add(accountInput, gbc[1]);
 
+		gbc[2].gridx = 0;
+		gbc[2].gridy = 2;
+		gbc[2].gridwidth = 2;
+		gbc[2].weightx = 1;
+		gbc[2].fill = GridBagConstraints.BOTH;
+		gblPanel.add(amount, gbc[2]);
+
+		gbc[3].gridx = 2;
+		gbc[3].gridy = 2;
+		gbc[3].weightx = 1;
+		gbc[3].fill = GridBagConstraints.BOTH;
+		gblPanel.add(cashInput, gbc[3]);
+
+		gbc[4].gridx = 0;
+		gbc[4].gridy = 3;
+		gbc[4].gridwidth = 3;
+		gbc[4].weightx = 1;
+		gbc[4].fill = GridBagConstraints.BOTH;
+		gblPanel.add(transfer, gbc[4]);
+
+		gbc[6].gridx = 0;
+		gbc[6].gridy = 4;
+		gbc[6].weighty = 2;
+		add(gblPanel, gbc[6]);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("이체")) {
 			Savings selectedAccount = Bank.loginAccountList.get(MyAccountList.selectedIndex);
+
+			if (selectedAccount.info.contains("적금")) {
+				JOptionPane.showMessageDialog(null, "송금이 불가능한 계좌입니다.\n사유: 적금계좌", "오류", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 
 			try {
 				transferAccount = WindowBuilder.bank.findAccount(accountInput.getText());
@@ -115,6 +118,16 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 				return;
 			}
 
+			if (Double.parseDouble(cashInput.getText()) == 0) {
+				JOptionPane.showMessageDialog(null, "0원을 입력하셨습니다.\n다시 입력해주세요.", "오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			if (Double.parseDouble(cashInput.getText()) > selectedAccount.cash) {
+				JOptionPane.showMessageDialog(null, "잔고가 부족합니다.", "오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
 			if (cashInput.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(null,
 						"금액을 입력해주세요.",
@@ -126,6 +139,7 @@ public class AccountTransferPanel extends JPanel implements ActionListener {
 			accountInput.setText("");
 			cashInput.setText("");
 			AccountManage.update();
+			JOptionPane.showMessageDialog(null, "송금이 완료되었습니다.", "완료", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }
