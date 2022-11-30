@@ -64,7 +64,7 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("입금")) {
+		if (e.getActionCommand().equals("입금") || e.getActionCommand().equals("출금")) {
 			try {
 				account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
 				WindowBuilder.bank.deposit(account, cashInput.getText());
@@ -74,16 +74,5 @@ public class DepositWithdrawalPanel extends JPanel implements ActionListener {
 				System.out.print("계좌를 선택 및 금액을 입력하세요");
 			}
 		}
-		if (e.getActionCommand().equals("출금")) {
-			try {
-				account = Bank.loginAccountList.get(MyAccountList.selectedIndex);
-				WindowBuilder.bank.withdraw(account, cashInput.getText());
-				cashInput.setText("");
-				AccountManage.update();
-			} catch (Exception e2) {
-				System.out.print("계좌 선택 및 금액을 입력하세요");
-			}
-		}
 	}
-
 }
