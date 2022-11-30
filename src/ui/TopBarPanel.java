@@ -27,6 +27,7 @@ public class TopBarPanel extends JPanel {
 		logout.addActionListener(e -> {
 			WindowBuilder.mainFrame.dispose();
 			javax.swing.SwingUtilities.invokeLater(LoginFrame::main);
+			MyAccountList.selectedIndex = 0;
 			Bank.loginUser = null;
 			Bank.loginAccountList.clear();
 		});
