@@ -1,5 +1,6 @@
 package bank;
 
+import java.awt.Color;
 import java.util.Scanner;
 
 public class InstallmentSavings extends Savings {
@@ -7,10 +8,14 @@ public class InstallmentSavings extends Savings {
         super(name, userId);
         this.calcType = calcType;
         this.rate = rate;
-        if (calcType == 1)
+        if (calcType == 1) {
             this.info = "단리예금";
-        else
+            this.color = new Color(247,220,102);    
+        }
+        else {
             this.info = "복리예금";
+            this.color = new Color(46,149,153);    
+        }
     }
 
     @Override
