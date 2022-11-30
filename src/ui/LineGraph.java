@@ -11,7 +11,6 @@ import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -33,10 +32,9 @@ public class LineGraph extends JPanel {
     private List<Double> simple;
     private List<Double> normal;
 
-    public LineGraph(List<Double> compound, List<Double> simple, List<Double> normal) {
+    public LineGraph(List<Double> compound, List<Double> simple) {
         this.compound = compound;
         this.simple = simple;
-        this.normal = normal;
     }
 
     @Override
@@ -48,19 +46,17 @@ public class LineGraph extends JPanel {
         double xScale = ((double) getWidth() - 2 * padding - labelPadding) / (compound.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
 
-        List<Point> graphPoints = new ArrayList<>();
+        List<Point> compoundPoints = new ArrayList<>();
+        List<Point> simplePoints = new ArrayList<>();
+        List<Point> normalPoints = new ArrayList<>();
         for (int i = 0; i < compound.size(); i++) {
             int x1 = (int) (i * xScale + padding + labelPadding);
             int y1 = (int) ((getMaxScore() - compound.get(i)) * yScale + padding);
-            graphPoints.add(new Point(x1, y1));
+            compoundPoints.add(new Point(x1, y1));
             
             int x2= (int) (i * xScale + padding + labelPadding);
             int y2 = (int) ((getMaxScore() - simple.get(i)) * yScale + padding);
-            graphPoints.add(new Point(x2, y2));
-            
-            int x3 = (int) (i * xScale + padding + labelPadding);
-            int y3 = (int) ((getMaxScore() - normal.get(i)) * yScale + padding);
-            graphPoints.add(new Point(x3, y3));
+            simplePoints.add(new Point(x2, y2));
         }
 
         // draw white background
@@ -110,19 +106,26 @@ public class LineGraph extends JPanel {
         Stroke oldStroke = g2.getStroke();
         g2.setColor(lineColor);
         g2.setStroke(GRAPH_STROKE);
-        for (int i = 0; i < graphPoints.size() - 1; i++) {
-            int x1 = graphPoints.get(i).x;
-            int y1 = graphPoints.get(i).y;
-            int x2 = graphPoints.get(i + 1).x;
-            int y2 = graphPoints.get(i + 1).y;
+        for (int i = 0; i < compoundPoints.size() - 1; i++) {
+            int x1 = compoundPoints.get(i).x;
+            int y1 = compoundPoints.get(i).y;
+            int x2 = compoundPoints.get(i + 1).x;
+            int y2 = compoundPoints.get(i + 1).y;
+            g2.drawLine(x1, y1, x2, y2);
+        }
+        for (int i = 0; i < simplePoints.size() - 1; i++) {
+            int x1 = simplePoints.get(i).x;
+            int y1 = simplePoints.get(i).y;
+            int x2 = simplePoints.get(i + 1).x;
+            int y2 = simplePoints.get(i + 1).y;
             g2.drawLine(x1, y1, x2, y2);
         }
 
         g2.setStroke(oldStroke);
         g2.setColor(pointColor);
-        for (int i = 0; i < graphPoints.size(); i++) {
-            int x = graphPoints.get(i).x - pointWidth / 2;
-            int y = graphPoints.get(i).y - pointWidth / 2;
+        for (int i = 0; i < compoundPoints.size(); i++) {
+            int x = compoundPoints.get(i).x - pointWidth / 2;
+            int y = compoundPoints.get(i).y - pointWidth / 2;
             int ovalW = pointWidth;
             int ovalH = pointWidth;
             g2.fillOval(x, y, ovalW, ovalH);
@@ -148,16 +151,14 @@ public class LineGraph extends JPanel {
     private static void createAndShowGui() {
         List<Double> compound = new ArrayList<>();
         List<Double> simple = new ArrayList<>();
-        List<Double> normal = new ArrayList<>();
 
         int cash = 1000;
         double rate = 3;
-        for (int month = 0; month < 100; month++) {
-        	compound.add((double) (cash * (Math.pow((100 + (float) rate) / 100, month) - 1)));
-        	simple.add((double) (cash * ((float) rate * month / 1200)));
-            normal.add((double) cash);
+        for (int month = 0; month < 20; month++) {
+        	compound.add((double) (cash * (Math.pow((100 + (float) 3) / 100, month) - 1)));
+        	simple.add((double) (cash * ((float) 10 * month / 1200)));
         }
-        LineGraph mainPanel = new LineGraph(compound, simple, normal);
+        LineGraph mainPanel = new LineGraph(compound, simple);
         mainPanel.setPreferredSize(new Dimension(800, 600));
         JFrame frame = new JFrame("DrawGraph");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
