@@ -123,9 +123,9 @@ public class Bank {
 
 	// 데이터 마운트
 	private void setDatabase() {
-		userMgr.readAll("src/input/users.txt", User::new); // 사용자 데이터
-		accountMgr.readAll("src/input/savings.txt", () -> new Savings(null, null)); // 예금 계좌 데이터
-		accountMgr.readAll("src/input/installmentsavings.txt", () -> new InstallmentSavings(null, null, 0, 0)); // 적금 계좌
+		userMgr.readAll("users.txt", User::new); // 사용자 데이터
+		accountMgr.readAll("savings.txt", () -> new Savings(null, null)); // 예금 계좌 데이터
+		accountMgr.readAll("installmentsavings.txt", () -> new InstallmentSavings(null, null, 0, 0)); // 적금 계좌
 																												// 데이터
 
 		one = new Savings("일반예금", null);

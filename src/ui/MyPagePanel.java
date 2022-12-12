@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class MyPagePanel extends JPanel {
     static JPanel infoPanel;
-    Image originProfileImage = new ImageIcon("src/images/user.png").getImage();
+    Image originProfileImage = new ImageIcon("images/user.png").getImage();
     Image resizedProfileImage = originProfileImage.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
     ImageIcon calcIcon = new ImageIcon(resizedProfileImage);
     JLabel profileImage = new JLabel(calcIcon);

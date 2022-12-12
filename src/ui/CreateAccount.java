@@ -292,7 +292,7 @@ public class CreateAccount {
 			JLabel image = new JLabel();
 			// JLabel text = new JLabel("계좌를 생성중...");
 
-			image.setIcon(new ImageIcon("src/images/loading.gif"));
+			image.setIcon(new ImageIcon("images/loading.gif"));
 
 			// a.add(text, BorderLayout.NORTH);
 			a.add(image, BorderLayout.CENTER);

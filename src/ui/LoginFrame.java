@@ -26,7 +26,7 @@ public class LoginFrame extends JFrame {
 
         LoginFrame.add(LoginPanel);
 
-        Image logo = new ImageIcon("src/images/logo.png").getImage();
+        Image logo = new ImageIcon("images/logo.png").getImage();
         ImageIcon logoIcon = new ImageIcon(logo);
         JLabel logoLabel = new JLabel(logoIcon);
         logoLabel.setBounds(2, 180, 480, 144);
