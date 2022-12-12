@@ -14,11 +14,7 @@
 
 ## Installation
 
-- Download : 컴퓨터에 다운로드하여 설치합니다.
-
-```
-준비중
-```
+- [Download](https://github.com/SeongHwaan/Bank-Kiosk/releases/tag/Release) : 컴퓨터에 다운로드하여 설치합니다.
 
 ## Developed By
 
