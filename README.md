@@ -1,11 +1,9 @@
 <div align="center">
     <img width="150" src="screenshot/logo.png" alt="{Logo}">
     <br />
-    <b>KGU BANK</b>
-    <br />
-    <img src="https://img.shields.io/badge/build-v1.0.0-brightgreen"/><br>
+    <img src="https://img.shields.io/badge/build-v1.0.0-brightgreen"/>
     <img src="https://img.shields.io/badge/Java-FF160B?style=flat&logo=java&logoColor=white"/>
-    <p>경기대 객체지향프로그래밍 스윙 팀프로젝트</p>
+    <p>경기대학교 / 객체지향프로그래밍 / 스윙 팀프로젝트</p>
 </div>
 
 ## KGU BANK
@@ -14,7 +12,7 @@
 
 ## Installation
 
-- [Download](https://github.com/SeongHwaan/Bank-Kiosk/releases/tag/Release) : 컴퓨터에 다운로드하여 설치합니다.
+- [Download](https://github.com/SeongHwaan/Bank-Kiosk/releases/tag/Release) : 컴퓨터에 다운로드하여 실행합니다.
 
 ## Developed By
 
