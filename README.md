@@ -3,7 +3,6 @@
     <br />
     <img src="https://img.shields.io/badge/build-v1.0.0-brightgreen"/>
     <img src="https://img.shields.io/badge/Java-FF160B?style=flat&logo=java&logoColor=white"/>
-    <img src="https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white"/>
     
     <p>경기대학교 / 객체지향프로그래밍 / 스윙 팀프로젝트</p>
 </div>
